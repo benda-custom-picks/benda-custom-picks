@@ -1,22 +1,31 @@
-/* BENDAGO V15 ORDER FLOW */
+/* BENDAGO V16 PRODUCT ORDER FLOW */
 const BENDAGO_PRODUCTS = {
   "headlight-fairing": {
     product_code: "headlight-fairing",
     product_name: "Headlight Fairing / Bulle de phare",
     product_short: "Retro headlight fairing Napoleon 125/250",
     fitment: "Benda Napoleon 125/250",
-    price: "PRICE TO CONFIRM",
+    price: "169 € TTC — shipping and fitment confirmed before payment",
     delivery_estimate: "10 to 20 days",
     image: "./fairing-hero.png"
   },
-  "chassis-protection": {
-    product_code: "chassis-protection",
-    product_name: "Chassis Protection / Protection châssis",
-    product_short: "Chassis protection plate Napoleon 125/250",
+  "fat-bob-bumper": {
+    product_code: "fat-bob-bumper",
+    product_name: "Fat Bob bumper Napoleon 125/250",
+    product_short: "Fat Bob bumper Napoleon 125/250",
     fitment: "Benda Napoleon 125/250",
-    price: "PRICE TO CONFIRM",
+    price: "637 € TTC — shipping and fitment confirmed before payment",
     delivery_estimate: "10 to 20 days",
     image: "./pchbob.png"
+  },
+  "chassis-protection": {
+    product_code: "chassis-protection",
+    product_name: "Chassis protection plate / lower deflector",
+    product_short: "Chassis protection plate / lower deflector Napoleon 125/250",
+    fitment: "Benda Napoleon 125/250",
+    price: "454 € TTC — shipping and fitment confirmed before payment",
+    delivery_estimate: "10 to 20 days",
+    image: "./chassis-protection-featured.webp"
   }
 };
 
