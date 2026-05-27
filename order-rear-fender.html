@@ -22,6 +22,20 @@
     .price-line strong { color:#4df7a8; font-size:26px; }
     .check-list div::before { content:"✓ "; color:#43ff96; font-weight:900; }
     @media (max-width: 900px) { .product-layout{grid-template-columns:1fr;} .info-card{position:static;} .thumb-row{grid-template-columns:repeat(2,minmax(0,1fr));} }
+
+    .color-choice { margin:18px 0; padding:16px; border-radius:18px; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12); }
+    .color-choice h3 { margin:0 0 10px; font-size:16px; }
+    .color-options { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .color-option { border:1px solid rgba(255,255,255,.16); background:rgba(0,0,0,.18); color:#fff; border-radius:14px; padding:12px 10px; cursor:pointer; font-weight:900; text-align:left; }
+    .color-option small { display:block; margin-top:4px; color:#9fb0c3; font-weight:700; }
+    .color-option.active { border-color:#4df7a8; box-shadow:0 0 0 2px rgba(77,247,168,.18); background:rgba(77,247,168,.10); }
+    .color-dot { display:inline-block; width:14px; height:14px; border-radius:50%; margin-right:7px; vertical-align:-2px; border:1px solid rgba(255,255,255,.35); }
+    .dot-black { background:#050505; }
+    .dot-green { background:#0d4b34; }
+    .dot-silver { background:#b8b6af; }
+    .selected-color-line { margin:10px 0 0; color:#8ff4ed; font-weight:900; font-size:14px; }
+    @media (max-width: 520px) { .color-options{grid-template-columns:1fr;} }
+
 </style>
 </head>
 <body class="order-body">
@@ -69,12 +83,32 @@
         <div>Secure PayPal payment</div>
         <div>Order started immediately after payment</div>
       </div>
+
+      <div class="color-choice">
+        <h3>Choose your color</h3>
+        <div class="color-options">
+          <button class="color-option active" type="button" data-color="Glossy black">
+            <span class="color-dot dot-black"></span>Black
+            <small>Glossy black finish</small>
+          </button>
+          <button class="color-option" type="button" data-color="Metallic green">
+            <span class="color-dot dot-green"></span>Green
+            <small>Benda-style green finish</small>
+          </button>
+          <button class="color-option" type="button" data-color="Silver">
+            <span class="color-dot dot-silver"></span>Silver
+            <small>Silver metallic finish</small>
+          </button>
+        </div>
+        <div class="selected-color-line">Selected color: <span id="selectedColor">Glossy black</span></div>
+      </div>
+
       <div class="price-line">
         <span>Price</span><br>
         <strong>609 € TTC</strong>
         <p>Shipping estimate: 10–20 days.</p>
       </div>
-      <a class="buy-btn" href="https://paypal.me/Custom125Picks/609EUR" target="_blank" rel="noopener">Buy now with PayPal →</a>
+      <a class="buy-btn" href="https://paypal.me/Custom125Picks/609EUR" target="_blank" rel="noopener">Buy selected color with PayPal →</a>
       <a class="secondary-btn" href="./index.html#pack">Need a full custom pack?</a>
       <div class="trust-list">
         <div>✓ Product page before payment</div>
@@ -91,6 +125,15 @@ document.querySelectorAll('.product-thumb').forEach(function(btn) {
   btn.addEventListener('click', function() {
     var img = document.getElementById('mainProductImage');
     img.src = btn.getAttribute('data-src');
+  });
+});
+
+document.querySelectorAll('.color-option').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.color-option').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var color = btn.getAttribute('data-color');
+    document.getElementById('selectedColor').textContent = color;
   });
 });
 </script>
