@@ -15,6 +15,12 @@
     .info-card { position:sticky; top:96px; }
     .price-line strong { color:#4df7a8; font-size:26px; }
     .check-list div::before { content:"✓ "; color:#43ff96; font-weight:900; }
+
+    .video-preview { margin-top:18px; }
+    .video-preview h3 { margin:0 0 12px; }
+    .video-shell { border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.14); background:#05070b; aspect-ratio:16/9; }
+    .video-shell video { width:100%; height:100%; object-fit:cover; display:block; background:#05070b; }
+    .video-fallback { margin:10px 0 0; font-size:14px; }
     @media (max-width: 900px) { .product-layout { grid-template-columns:1fr; } .info-card { position:static; } .thumb-row { grid-template-columns:repeat(2,minmax(0,1fr)); } }
   </style>
 </head>
@@ -43,6 +49,16 @@
           <button class="product-thumb" data-src="./transparent-clutch-cover-retouched-2.webp" type="button"><img src="./transparent-clutch-cover-retouched-2.webp" alt="Transparent clutch cover visual 2"></button>
           <button class="product-thumb" data-src="./transparent-clutch-cover-retouched-3.webp" type="button"><img src="./transparent-clutch-cover-retouched-3.webp" alt="Transparent clutch cover visual 3"></button>
           <button class="product-thumb" data-src="./transparent-clutch-cover-retouched-4.webp" type="button"><img src="./transparent-clutch-cover-retouched-4.webp" alt="Transparent clutch cover visual 4"></button>
+        </div>
+        <div class="video-preview">
+          <h3>Watch the product video</h3>
+          <div class="video-shell">
+            <video controls playsinline preload="metadata" poster="./transparent-clutch-cover-retouched-1.webp">
+              <source src="./clutch-mechanism-showcase.mp4" type="video/mp4">
+              Your browser cannot play this MP4.
+            </video>
+          </div>
+          <p class="video-fallback"><a href="./clutch-mechanism-showcase.mp4" target="_blank" rel="noopener">Open MP4 directly</a></p>
         </div>
       </div>
     </section>
