@@ -4,17 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gold clutch flywheel – Bendago</title>
-  <meta name="description" content="Gold clutch flywheel for Benda Napoleon 125/250. Product visuals and MP4 preview.">
+  <meta name="description" content="A premium gold internal accent designed to bring contrast, depth and a more technical custom finish inside the clutch setup.">
   <link rel="stylesheet" href="./order-flow.css">
   <style>
     .thumb-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
     .product-thumb { padding:0; border:1px solid rgba(255,255,255,.16); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.04); cursor:pointer; }
     .product-thumb img { width:100%; height:92px; object-fit:cover; display:block; }
-    .video-preview { margin-top:18px; }
-    .video-preview h3 { margin:0 0 12px; }
-    .video-shell { border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.14); background:#05070b; aspect-ratio:16/9; }
-    .video-shell video { width:100%; height:100%; object-fit:cover; display:block; background:#05070b; }
-    .video-fallback { margin:10px 0 0; font-size:14px; }
     .buy-btn { display:flex; justify-content:center; align-items:center; min-height:54px; border-radius:14px; background:linear-gradient(135deg,#49f5a5,#2fd3df); color:#0a1520; font-weight:900; text-decoration:none; margin:18px 0 10px; }
     .product-layout { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:28px; align-items:start; }
     .info-card { position:sticky; top:96px; }
@@ -42,22 +37,12 @@
     <section>
       <h1 class="product-title">Gold clutch flywheel</h1>
       <div class="media-card">
-        <img id="mainProductImage" class="main-product-img" src="./gold-clutch-flywheel-2-closeup.jpg" alt="Gold clutch flywheel">
-
+        <img id="mainProductImage" class="main-product-img" src="./gold-clutch-flywheel-retouched-1.webp" alt="Gold clutch flywheel">
         <div class="thumb-row">
-          <button class="product-thumb" data-src="./gold-clutch-flywheel-2-closeup.jpg" type="button"><img src="./gold-clutch-flywheel-2-closeup.jpg" alt="Gold clutch flywheel close-up"></button>
-          <button class="product-thumb" data-src="./gold-clutch-flywheel-1-part.jpg" type="button"><img src="./gold-clutch-flywheel-1-part.jpg" alt="Gold clutch flywheel product part"></button>
-          <button class="product-thumb" data-src="./gold-clutch-flywheel-3-on-bike.jpg" type="button"><img src="./gold-clutch-flywheel-3-on-bike.jpg" alt="Gold clutch flywheel installed on bike"></button>
-        </div>
-        <div class="video-preview">
-          <h3>Watch the product video</h3>
-          <div class="video-shell">
-            <video controls playsinline preload="metadata" poster="./gold-clutch-flywheel-2-closeup.jpg">
-              <source src="./gold-clutch-flywheel.mp4" type="video/mp4">
-              Your browser cannot play this MP4.
-            </video>
-          </div>
-          <p class="video-fallback"><a href="./gold-clutch-flywheel.mp4" target="_blank" rel="noopener">Open MP4 directly</a></p>
+          <button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-1.webp" type="button"><img src="./gold-clutch-flywheel-retouched-1.webp" alt="Gold clutch flywheel visual 1"></button>
+          <button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-2.webp" type="button"><img src="./gold-clutch-flywheel-retouched-2.webp" alt="Gold clutch flywheel visual 2"></button>
+          <button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-3.webp" type="button"><img src="./gold-clutch-flywheel-retouched-3.webp" alt="Gold clutch flywheel visual 3"></button>
+          <button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-4.webp" type="button"><img src="./gold-clutch-flywheel-retouched-4.webp" alt="Gold clutch flywheel visual 4"></button>
         </div>
       </div>
     </section>
@@ -66,37 +51,15 @@
       <div class="info-mini">Part type</div>
       <h2>Gold clutch flywheel</h2>
       <p>A premium gold internal accent designed to bring contrast, depth and a more technical custom finish inside the clutch setup.</p>
-      <div class="check-list">
-        <div>Product-only and installed views</div><div>MP4 preview included</div><div>Compatibility to verify depending on version / mounting</div>
-      </div>
-      <div class="price-line">
-        <span>Price</span><br>
-        <strong>Price soon</strong>
-        <p>Final price and product details will be confirmed later.</p>
-      </div>
+      <div class="check-list"><div>4 retouched visuals included</div><div>Gold internal accent</div><div>Compatibility to verify depending on version / mounting</div></div>
+      <div class="price-line"><span>Price</span><br><strong>Price soon</strong><p>Final price and product details will be confirmed later.</p></div>
       <a class="buy-btn" href="./index.html#pack">Request this part →</a>
       <a class="secondary-btn" href="./index.html#pack">Need a full custom pack?</a>
-      <div class="trust-list">
-        <div>✓ Product page before final order</div>
-        <div>✓ Visuals shown before confirmation</div>
-        <div>✓ Compatibility to verify depending on version / mounting</div>
-      </div>
+      <div class="trust-list"><div>✓ Product page before final order</div><div>✓ Visuals shown before confirmation</div><div>✓ Compatibility to verify depending on version / mounting</div></div>
     </aside>
   </div>
 </main>
-
-<footer class="order-footer">
-  <div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div>
-</footer>
-
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-  document.querySelectorAll('.product-thumb').forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var img = document.getElementById('mainProductImage');
-      img.src = btn.getAttribute('data-src');
-    });
-  });
-</script>
+<footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
+<script>document.getElementById('year').textContent = new Date().getFullYear();document.querySelectorAll('.product-thumb').forEach(function(btn) {btn.addEventListener('click', function() {document.getElementById('mainProductImage').src = btn.getAttribute('data-src');});});</script>
 </body>
 </html>
