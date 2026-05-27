@@ -79,7 +79,7 @@ const BENDAGO_PRODUCTS = {
     fitment: "Benda Napoleon 125/250",
     price: "283 € TTC — payment request sent after validation",
     delivery_estimate: "10 to 20 days",
-    image: "./rear_fender_06_wall_view.webp"
+    image: "./rear_fender_05_side_profile.png"
   },
   "chrome-engine-cover": {
     product_code: "chrome-engine-cover",
@@ -124,7 +124,7 @@ const BENDAGO_PRODUCTS = {
     fitment: "Benda Napoleon 125/250",
     price: "306 € TTC — payment request sent after validation",
     delivery_estimate: "10 to 20 days",
-    image: "./standby-product-visual.png"
+    image: "./metal-foot-controls-hero.webp"
   },
   "rear-arch-luggage-rack": {
     product_code: "rear-arch-luggage-rack",
