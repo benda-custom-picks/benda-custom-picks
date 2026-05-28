@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Future LED light – Bendago</title>
-  <meta name="description" content="A modern front lighting upgrade that sharpens the face of the bike and adds a more aggressive custom identity.">
+  <meta name="description" content="Future LED light for Benda Napoleon 125/250. Product page template pending final visuals, price and description.">
   <link rel="stylesheet" href="./order-flow.css">
   <style>
-    .thumb-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
+    .thumb-row { display:grid; grid-template-columns:repeat(1,minmax(0,1fr)); gap:12px; margin-top:14px; }
     .product-thumb { padding:0; border:1px solid rgba(255,255,255,.16); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.04); cursor:pointer; }
     .product-thumb img { width:100%; height:92px; object-fit:cover; display:block; }
-    .buy-btn { display:flex; justify-content:center; align-items:center; min-height:54px; border-radius:14px; background:linear-gradient(135deg,#49f5a5,#2fd3df); color:#0a1520; font-weight:900; text-decoration:none; margin:18px 0 10px; }
+    .video-preview { margin-top:18px; }
+    .video-preview h3 { margin:0 0 12px; }
+    .preview-placeholder { border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.14); background:#05070b; }
+    .preview-placeholder img { width:100%; display:block; aspect-ratio:16/9; object-fit:cover; }
+    .buy-btn { display:flex; justify-content:center; align-items:center; min-height:54px; border-radius:14px; background:linear-gradient(135deg,#243142,#111923); color:#d7e1ee; font-weight:900; text-decoration:none; margin:18px 0 10px; border:1px solid rgba(255,255,255,.16); pointer-events:none; }
     .product-layout { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:28px; align-items:start; }
     .info-card { position:sticky; top:96px; }
     .price-line strong { color:#4df7a8; font-size:26px; }
     .check-list div::before { content:"✓ "; color:#43ff96; font-weight:900; }
-    @media (max-width: 900px) { .product-layout { grid-template-columns:1fr; } .info-card { position:static; } .thumb-row { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  </style>
+    @media (max-width: 900px) { .product-layout{grid-template-columns:1fr;} .info-card{position:static;} .thumb-row{grid-template-columns:1fr;} }
+</style>
 </head>
 <body class="order-body">
 <header class="order-header">
@@ -30,36 +34,61 @@
     </div>
   </nav>
 </header>
-
 <main class="order-wrap">
   <a class="back-link" href="./index.html#order-selected-parts">← Back to products</a>
   <div class="product-layout">
     <section>
       <h1 class="product-title">Future LED light</h1>
       <div class="media-card">
-        <img id="mainProductImage" class="main-product-img" src="./future-led-light-retouched-1.webp" alt="Future LED light">
+        <img id="mainProductImage" class="main-product-img" src="./standby-product-visual.png" alt="Future LED light">
         <div class="thumb-row">
-          <button class="product-thumb" data-src="./future-led-light-retouched-1.webp" type="button"><img src="./future-led-light-retouched-1.webp" alt="Future LED light visual 1"></button>
-          <button class="product-thumb" data-src="./future-led-light-retouched-2.webp" type="button"><img src="./future-led-light-retouched-2.webp" alt="Future LED light visual 2"></button>
-          <button class="product-thumb" data-src="./future-led-light-retouched-3.webp" type="button"><img src="./future-led-light-retouched-3.webp" alt="Future LED light visual 3"></button>
-          <button class="product-thumb" data-src="./future-led-light-retouched-4.webp" type="button"><img src="./future-led-light-retouched-4.webp" alt="Future LED light visual 4"></button>
+          <button class="product-thumb" data-src="./standby-product-visual.png" type="button">
+            <img src="./standby-product-visual.png" alt="Future LED light temporary visual">
+          </button>
+        </div>
+        <div class="video-preview">
+          <h3>Product preview</h3>
+          <div class="preview-placeholder">
+            <img src="./standby-product-visual.png" alt="Future LED light preview">
+          </div>
         </div>
       </div>
     </section>
-
     <aside class="info-card">
       <div class="info-mini">Part type</div>
       <h2>Future LED light</h2>
-      <p>A modern front lighting upgrade that sharpens the face of the bike and adds a more aggressive custom identity.</p>
-      <div class="check-list"><div>4 retouched visuals included</div><div>Front-end visual upgrade</div><div>Compatibility to verify depending on version / mounting</div></div>
-      <div class="price-line"><span>Price</span><br><strong>182 € TTC</strong><p>Payment request sent manually after availability, color and mounting details are confirmed.</p></div>
-      <a class="buy-btn js-request-link" href="./request-part.html?part=future-led-light" data-product-name="Future LED light">Request order confirmation →</a>
-      <a class="secondary-btn" href="./index.html#pack">Need a full custom pack?</a>
-      <div class="trust-list"><div>✓ Product page before final order</div><div>✓ Visuals shown before confirmation</div><div>✓ Compatibility to verify depending on version / mounting</div></div>
+      <p>Temporary product page. Full photos, price and description will be adjusted later.</p>
+      <div class="check-list">
+        <div>Temporary product page ready</div>
+        <div>Final photos will be added later</div>
+        <div>Price will be confirmed later</div>
+        <div>No external marketplace link</div>
+      </div>
+      <div class="price-line">
+        <span>Price</span><br>
+        <strong>Price soon</strong>
+        <p>Final price and product details will be adjusted later.</p>
+      </div>
+      <a class="buy-btn" href="#" aria-disabled="true">Price coming soon</a>
+      <a class="secondary-btn" href="./index.html#order-selected-parts">See all products</a>
+      <div class="trust-list">
+        <div>✓ Product structure ready</div>
+        <div>✓ No external marketplace redirect</div>
+        <div>✓ Final detail page to be upgraded</div>
+      </div>
     </aside>
   </div>
 </main>
 <footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();document.querySelectorAll('.product-thumb').forEach(function(btn) {btn.addEventListener('click', function() {document.getElementById('mainProductImage').src = btn.getAttribute('data-src');});});</script>
-</body>
-</html>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+document.querySelectorAll('.product-thumb').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var img = document.getElementById('mainProductImage');
+    img.src = btn.getAttribute('data-src');
+  });
+});
+</script>
+
+<script src="./anti-copy.js" defer></script>
+</body></html>

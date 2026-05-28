@@ -1,40 +1,76 @@
-// BENDAGO anti-copy friction layer.
-// It reduces casual right-click / drag / long-press copying.
-// It cannot prevent screenshots, browser devtools, or server-side scraping.
+// BENDAGO V23.24 — product page anti-copy hardening.
+// Friction only: screenshots/devtools cannot be fully blocked on a public website.
 (function () {
   const protectedSelector = [
     'img',
-    '.featured-thumb',
+    '.media-card',
+    '.main-product-img',
+    '.thumb-row',
+    '.product-thumb',
     '.featured-card',
     '.product-layout',
-    '.media-card',
-    '.build-card'
+    '.info-card',
+    '.preview-placeholder'
   ].join(',');
 
-  document.addEventListener('contextmenu', function (event) {
-    if (event.target.closest(protectedSelector)) {
-      event.preventDefault();
-    }
-  }, { capture: true });
+  function isProtectedTarget(target) {
+    return target && target.closest && target.closest(protectedSelector);
+  }
 
-  document.addEventListener('dragstart', function (event) {
-    if (event.target.closest(protectedSelector)) {
+  function block(event) {
+    if (isProtectedTarget(event.target)) {
       event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+      return false;
     }
-  }, { capture: true });
+  }
+
+  ['contextmenu', 'dragstart', 'selectstart'].forEach(function (type) {
+    document.addEventListener(type, block, true);
+    document.addEventListener(type, block, false);
+  });
 
   document.addEventListener('copy', function (event) {
-    if (window.getSelection && String(window.getSelection()).length > 0) {
-      const anchor = window.getSelection().anchorNode;
-      const element = anchor && (anchor.nodeType === 1 ? anchor : anchor.parentElement);
-      if (element && element.closest && element.closest('.featured-card, .build-card, .product-layout')) {
-        event.preventDefault();
-      }
+    if (isProtectedTarget(event.target)) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
     }
-  }, { capture: true });
+  }, true);
+
+  document.addEventListener('touchstart', function (event) {
+    if (isProtectedTarget(event.target)) {
+      document.body.classList.add('bendago-touch-protected');
+    }
+  }, { capture: true, passive: true });
+
+  document.addEventListener('touchend', function () {
+    document.body.classList.remove('bendago-touch-protected');
+  }, { capture: true, passive: true });
 
   document.querySelectorAll('img').forEach(function (img) {
     img.setAttribute('draggable', 'false');
+    img.setAttribute('oncontextmenu', 'return false;');
     img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
   });
+
+  // Extra: block common shortcuts while the user is over product media.
+  let overProtected = false;
+  document.addEventListener('mouseover', function (event) {
+    overProtected = !!isProtectedTarget(event.target);
+  }, true);
+  document.addEventListener('mouseout', function () {
+    overProtected = false;
+  }, true);
+
+  document.addEventListener('keydown', function (event) {
+    if (!overProtected) return;
+    const key = String(event.key || '').toLowerCase();
+    if ((event.ctrlKey || event.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    }
+  }, true);
 })();
