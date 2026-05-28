@@ -239,3 +239,38 @@ input, textarea, button, a {
   -webkit-user-select: none;
   user-select: none;
 }
+
+/* BENDAGO gallery anti-copy hardening — product pages */
+.media-card,
+.thumb-row,
+.product-thumb,
+.main-product-img,
+.product-thumb img,
+.preview-placeholder img {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.main-product-img,
+.product-thumb img,
+.preview-placeholder img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+.product-thumb {
+  cursor: pointer;
+}
+
+/* Keep request/order actions usable */
+.buy-btn,
+.request-btn,
+.yellow-btn,
+.secondary-btn,
+.order-links a,
+.order-brand,
+.send-moto {
+  pointer-events: auto;
+}
