@@ -1,0 +1,51 @@
+{
+  "source_index": "/mnt/data/index html.txt",
+  "index_target_replaced": "background-image:url('./metal-foot-controls-hero-v2.webp')",
+  "index_new_reference": "background-image:url('./metal-foot-controls-gallery-01.webp')",
+  "files": [
+    "index.html",
+    "metal-foot-controls-gallery-01.webp",
+    "metal-foot-controls-gallery-01.png",
+    "metal-foot-controls-gallery-02.webp",
+    "metal-foot-controls-gallery-02.png",
+    "metal-foot-controls-gallery-03.webp",
+    "metal-foot-controls-gallery-03.png",
+    "order-metal-foot-controls.html",
+    "README_GO_PATCH.txt"
+  ],
+  "images": [
+    {
+      "source": "ChatGPT Image 28 mai 2026, 22_15_11.png",
+      "webp": "metal-foot-controls-gallery-01.webp",
+      "png_backup": "metal-foot-controls-gallery-01.png",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "source": "ChatGPT Image 28 mai 2026, 22_19_21 (1).png",
+      "webp": "metal-foot-controls-gallery-02.webp",
+      "png_backup": "metal-foot-controls-gallery-02.png",
+      "size": [
+        1254,
+        1254
+      ]
+    },
+    {
+      "source": "ChatGPT Image 28 mai 2026, 22_19_21 (2).png",
+      "webp": "metal-foot-controls-gallery-03.webp",
+      "png_backup": "metal-foot-controls-gallery-03.png",
+      "size": [
+        1254,
+        1254
+      ]
+    }
+  ],
+  "checks": {
+    "index_has_new_gallery_hero": true,
+    "product_page_has_3_gallery_images": true,
+    "product_page_preserves_request_flow": true,
+    "gtm_present": true
+  }
+}
