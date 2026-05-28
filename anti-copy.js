@@ -1,75 +1,84 @@
-// BENDAGO V23.25 — front + product anti-copy hardening.
-// Friction only: screenshots/devtools cannot be fully blocked on a public website.
+// BENDAGO anti-copy layer.
 (function () {
-  const blockAllContextMenus = true;
-
-  function block(event) {
+  document.addEventListener('contextmenu', function (event) {
     event.preventDefault();
     event.stopPropagation();
-    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
     return false;
-  }
-
-  // Block right click / long-press context menu everywhere on the site.
-  document.addEventListener('contextmenu', function (event) {
-    if (blockAllContextMenus) return block(event);
   }, true);
-
-  // Block image drag, selection and casual copy.
-  ['dragstart', 'selectstart'].forEach(function (type) {
-    document.addEventListener(type, function (event) {
-      const target = event.target;
-      if (
-        target &&
-        target.closest &&
-        target.closest('img, .hero, .hero-card, .hero-grid, .hero-visual, .featured-card, .featured-media, .featured-thumb, .build-card, .media-card, .product-layout, .main-product-img, .thumb-row, .product-thumb')
-      ) {
-        return block(event);
-      }
-    }, true);
-  });
-
-  document.addEventListener('copy', function (event) {
-    const target = event.target;
-    if (
-      target &&
-      target.closest &&
-      target.closest('.hero, .featured-card, .build-card, .media-card, .product-layout, .info-card')
-    ) {
-      return block(event);
-    }
+  document.addEventListener('dragstart', function (event) {
+    event.preventDefault();
+    event.stopPropagation();
+    return false;
   }, true);
+})();
 
-  // Disable dragging and browser image context behavior.
-  function protectImages() {
-    document.querySelectorAll('img').forEach(function (img) {
-      img.setAttribute('draggable', 'false');
-      img.setAttribute('oncontextmenu', 'return false;');
-      img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
-      img.style.webkitUserDrag = 'none';
-      img.style.userSelect = 'none';
-      img.style.webkitUserSelect = 'none';
-      img.style.webkitTouchCallout = 'none';
+// BENDAGO SumUp direct card payment links.
+// Replaces PayPal/request payment buttons on product pages without touching galleries, MP4, prices, IDs or URLs.
+(function () {
+  var sumupLinks = {
+    "order-black-striped-clutch-cover.html": { name: 'Black Ribbed Clutch Cover', price: '119 € TTC', url: 'https://pay.sumup.com/b2c/Q9VN0MTA' },
+    "order-gold-clutch-flywheel.html": { name: 'Gold Clutch Inner Accent', price: '168 € TTC', url: 'https://pay.sumup.com/b2c/QG91N8HI' },
+    "order-transparent-clutch-cover.html": { name: 'Clear Clutch Window Cover', price: '184 € TTC', url: 'https://pay.sumup.com/b2c/QCIGV1GF' },
+    "order-future-led-light.html": { name: 'Future Front Light Upgrade', price: '182 € TTC', url: 'https://pay.sumup.com/b2c/QKDUHQ6J' },
+    "order-tank-cover-support-volume.html": { name: 'Tank Volume Cover', price: '187 € TTC', url: 'https://pay.sumup.com/b2c/QDQRVQ8D' },
+    "order-closed-metal-hubcap-benda-samurai.html": { name: 'Samurai Wheel Cover', price: '199 € TTC', url: 'https://pay.sumup.com/b2c/Q12U5SQL' },
+    "order-rear-arch-luggage-rack.html": { name: 'Rear Arch Support Rack', price: '191 € TTC', url: 'https://pay.sumup.com/b2c/QSWPEIYS' },
+    "order-metal-foot-controls.html": { name: 'Bronze Foot Control Kit', price: '306 € TTC', url: 'https://pay.sumup.com/b2c/QDY4J3FB' },
+    "order-double-seat-foot-peg-kit.html": { name: 'Comfort Seat & Foot Peg Kit', price: '590 € TTC', url: 'https://pay.sumup.com/b2c/QA9QRRRN' },
+    "order-premium-double-seat.html": { name: 'Premium Comfort Double Seat', price: '641 € TTC', url: 'https://pay.sumup.com/b2c/QCXN26NP' },
+    "order-gps-carplay.html": { name: 'GPS / CarPlay screen for Benda Napoleon 125/250', price: '105 € TTC', url: 'https://pay.sumup.com/b2c/QAJUVD3U' },
+    "order-chrome-engine-cover.html": { name: 'Chrome Air Side Cover', price: '261 € TTC', url: 'https://pay.sumup.com/b2c/QNTNCVJW' },
+    "order-rear-fender.html": { name: 'Rear Clean Fender Kit', price: '283 € TTC', url: 'https://pay.sumup.com/b2c/Q5N50MJX' },
+    "order-left-side-bag-support.html": { name: 'Left Side Travel Bag Kit', price: '221 € TTC', url: 'https://pay.sumup.com/b2c/QJH4CGUO' },
+    "order-left-premium-engine-cover.html": { name: 'Premium Left Engine Cover', price: '479 € TTC', url: 'https://pay.sumup.com/b2c/Q1REVF13' },
+    "order-dual-exhaust.html": { name: 'Dual Exhaust Custom Kit', price: '579 € TTC', url: 'https://pay.sumup.com/b2c/QSBDSEOT' },
+    "order-right-engine-filter-cover.html": { name: 'Right Engine Side Cover', price: '136 € TTC', url: 'https://pay.sumup.com/b2c/QMQRL3QK' },
+    "order-handlebar-riser.html": { name: 'Comfort Handlebar Riser Kit', price: '261 € TTC', url: 'https://pay.sumup.com/b2c/QNI21W2Q' },
+    "order-fat-bob-bumper.html": { name: 'Fat Bob Front Bumper Kit', price: '637 € TTC', url: 'https://pay.sumup.com/b2c/QQGTWXCO' },
+    "order-chassis-protection.html": { name: 'Lower Chassis Protection Plate', price: '454 € TTC', url: 'https://pay.sumup.com/b2c/QOGSM0WX' },
+    "order-headlight-fairing.html": { name: 'Front Fairing Style Kit', price: '169 € TTC', url: 'https://pay.sumup.com/b2c/Q05YR41S' }
+  };
+
+  function applySumUpPaymentLinks() {
+    var page = (window.location.pathname.split('/').pop() || '').trim();
+    var payment = sumupLinks[page];
+    if (!payment) return;
+
+    var buttons = Array.prototype.slice.call(
+      document.querySelectorAll('a.buy-btn, a.js-request-link, a[href*="paypal.me"], a[href*="request-part.html"]')
+    );
+
+    buttons.forEach(function (button) {
+      if (button.classList && button.classList.contains('secondary-btn')) return;
+      if (button.closest && button.closest('.order-links')) return;
+
+      button.href = payment.url;
+      button.target = "_blank";
+      button.rel = "noopener";
+      button.textContent = "Pay securely by card →";
+      button.setAttribute("aria-label", "Pay securely by card for " + payment.name);
+      button.setAttribute("data-payment-provider", "sumup");
+      button.setAttribute("data-product-name", payment.name);
+      button.setAttribute("data-product-price", payment.price);
     });
-  }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', protectImages);
-  } else {
-    protectImages();
-  }
-
-  // Block casual save/print/source shortcuts.
-  document.addEventListener('keydown', function (event) {
-    const key = String(event.key || '').toLowerCase();
-    if ((event.ctrlKey || event.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
-      const active = document.activeElement;
-      const editable = active && (
-        active.tagName === 'INPUT' ||
-        active.tagName === 'TEXTAREA' ||
-        active.isContentEditable
-      );
-      if (!editable) return block(event);
+    var priceNote = document.querySelector('.price-line p');
+    if (priceNote) {
+      priceNote.textContent = "Secure card payment by SumUp. Order starts after payment confirmation and supplier validation.";
     }
-  }, true);
+
+    var trustList = document.querySelector('.trust-list');
+    if (trustList && !trustList.querySelector('[data-sumup-trust]')) {
+      var line = document.createElement('div');
+      line.setAttribute('data-sumup-trust', 'true');
+      line.textContent = "✓ Secure card payment by SumUp";
+      trustList.insertBefore(line, trustList.firstChild);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", applySumUpPaymentLinks);
+  } else {
+    applySumUpPaymentLinks();
+  }
 })();
