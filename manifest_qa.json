@@ -1,51 +1,22 @@
 {
+  "patch": "Comfort Seat & Foot Peg Kit hero update",
   "source_index": "/mnt/data/index html.txt",
-  "index_target_replaced": "background-image:url('./metal-foot-controls-hero-v2.webp')",
-  "index_new_reference": "background-image:url('./metal-foot-controls-gallery-01.webp')",
-  "files": [
-    "index.html",
-    "metal-foot-controls-gallery-01.webp",
-    "metal-foot-controls-gallery-01.png",
-    "metal-foot-controls-gallery-02.webp",
-    "metal-foot-controls-gallery-02.png",
-    "metal-foot-controls-gallery-03.webp",
-    "metal-foot-controls-gallery-03.png",
-    "order-metal-foot-controls.html",
-    "README_GO_PATCH.txt"
-  ],
-  "images": [
-    {
-      "source": "ChatGPT Image 28 mai 2026, 22_15_11.png",
-      "webp": "metal-foot-controls-gallery-01.webp",
-      "png_backup": "metal-foot-controls-gallery-01.png",
-      "size": [
-        1254,
-        1254
-      ]
-    },
-    {
-      "source": "ChatGPT Image 28 mai 2026, 22_19_21 (1).png",
-      "webp": "metal-foot-controls-gallery-02.webp",
-      "png_backup": "metal-foot-controls-gallery-02.png",
-      "size": [
-        1254,
-        1254
-      ]
-    },
-    {
-      "source": "ChatGPT Image 28 mai 2026, 22_19_21 (2).png",
-      "webp": "metal-foot-controls-gallery-03.webp",
-      "png_backup": "metal-foot-controls-gallery-03.png",
-      "size": [
-        1254,
-        1254
-      ]
-    }
-  ],
+  "source_image": "/mnt/data/ghostwriter_images/context/0c99064d-386c-53ea-b4bc-136bb1e01c36.png",
+  "new_hero_file": "comfort-seat-foot-peg-hero-v4.webp",
   "checks": {
-    "index_has_new_gallery_hero": true,
-    "product_page_has_3_gallery_images": true,
-    "product_page_preserves_request_flow": true,
-    "gtm_present": true
-  }
+    "index_contains_new_hero": true,
+    "target_card_background_replaced": true,
+    "gallery_untouched": true
+  },
+  "preserve": [
+    "gallery existing",
+    "product page existing",
+    "price",
+    "request flow",
+    "EmailJS",
+    "SumUp",
+    "GTM",
+    "tracking",
+    "anti-copy"
+  ]
 }
