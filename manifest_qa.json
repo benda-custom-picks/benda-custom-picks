@@ -1,69 +1,24 @@
 {
-  "patch": "Bronze Foot Control Kit corrective gallery update",
-  "images_total": 5,
-  "hero_file": "metal-foot-controls-gallery-01.webp",
-  "images": [
-    {
-      "stem": "metal-foot-controls-gallery-01",
-      "source": "/mnt/data/ChatGPT Image 28 mai 2026, 22_15_11.png",
-      "webp": "metal-foot-controls-gallery-01.webp",
-      "png_backup": "metal-foot-controls-gallery-01.png",
-      "size": [
-        1254,
-        1254
-      ],
-      "alt": "Bronze Foot Control Kit full product view"
-    },
-    {
-      "stem": "metal-foot-controls-gallery-02",
-      "source": "/mnt/data/ChatGPT Image 28 mai 2026, 22_19_21 (1).png",
-      "webp": "metal-foot-controls-gallery-02.webp",
-      "png_backup": "metal-foot-controls-gallery-02.png",
-      "size": [
-        1254,
-        1254
-      ],
-      "alt": "Bronze Foot Control Kit close-up product view"
-    },
-    {
-      "stem": "metal-foot-controls-gallery-03",
-      "source": "/mnt/data/ChatGPT Image 28 mai 2026, 22_19_21 (2).png",
-      "webp": "metal-foot-controls-gallery-03.webp",
-      "png_backup": "metal-foot-controls-gallery-03.png",
-      "size": [
-        1254,
-        1254
-      ],
-      "alt": "Bronze Foot Control Kit dimensions view"
-    },
-    {
-      "stem": "metal-foot-controls-gallery-04",
-      "source": "/mnt/data/ghostwriter_images/context/1276022a-c41d-527d-9b34-d418ec230aa3.png",
-      "webp": "metal-foot-controls-gallery-04.webp",
-      "png_backup": "metal-foot-controls-gallery-04.png",
-      "size": [
-        734,
-        970
-      ],
-      "alt": "Bronze Foot Control Kit detail / detachable design view"
-    },
-    {
-      "stem": "metal-foot-controls-gallery-05",
-      "source": "/mnt/data/ghostwriter_images/context/d2a363ce-7aca-5c90-9c06-43c5cc13fbec.png",
-      "webp": "metal-foot-controls-gallery-05.webp",
-      "png_backup": "metal-foot-controls-gallery-05.png",
-      "size": [
-        734,
-        550
-      ],
-      "alt": "Bronze Foot Control Kit alternative dimensions view"
-    }
-  ],
+  "patch": "Comfort Seat & Foot Peg Kit hero corrective update",
+  "source_index": "/mnt/data/index html.txt",
+  "hero_source_image": "/mnt/data/ghostwriter_images/context/d145a032-e463-51bc-8ee0-1aac6f1c887e.png",
+  "hero_output": "comfort-seat-foot-peg-hero-v5.webp",
   "checks": {
-    "index_contains_hero": true,
-    "product_page_has_5_thumbs": true,
-    "old_and_new_present": true,
-    "request_flow_preserved": true,
-    "gtm_present": true
-  }
+    "index_contains_new_hero": true,
+    "old_hero_block_removed_from_target_card": true,
+    "product_link_preserved": true,
+    "gallery_untouched": true
+  },
+  "preserve": [
+    "existing gallery",
+    "existing product page",
+    "price",
+    "CTA",
+    "request flow",
+    "EmailJS",
+    "SumUp",
+    "GTM",
+    "tracking",
+    "anti-copy"
+  ]
 }
