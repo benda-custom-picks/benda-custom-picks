@@ -49,6 +49,9 @@ const BENDAGO_PRODUCTS = {
     delivery_estimate: '10 to 20 days',
     image: './tank-cover-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QDQRVQ8D'
+  ,
+    color_required: true,
+    color_options: "Black / Green / Grey"
   },
   "closed-metal-hubcap-benda-samurai": {
     product_code: "closed-metal-hubcap-benda-samurai",
@@ -269,6 +272,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const miniImg = document.querySelector('[data-product-image]');
   if (miniImg) miniImg.src = product.image;
 
+  const colorField = document.getElementById('colorOptionField');
+  const colorSelect = document.getElementById('colorOptionSelect');
+  if (colorField && colorSelect) {
+    const label = colorField.querySelector('label');
+    if (product.color_required) {
+      if (label) label.textContent = 'Tank cover colour *';
+      colorSelect.required = true;
+      const first = colorSelect.querySelector('option[value=""]');
+      if (first) first.textContent = 'Choose colour';
+    } else {
+      if (label) label.textContent = 'Colour / option';
+      colorSelect.required = false;
+      const first = colorSelect.querySelector('option[value=""]');
+      if (first) first.textContent = 'To confirm / not applicable';
+    }
+  }
+
   setValue('product_code', product.product_code);
   setValue('product_name', product.product_name);
   setValue('product_short', product.product_short);
@@ -309,6 +329,9 @@ document.addEventListener('DOMContentLoaded', () => {
     data.sumup_url = product.sumup_url;
     data.payment_url = product.sumup_url;
     data.payment_provider = 'SumUp';
+    data.order_status_message = 'Order details confirmed. Please complete secure card payment now.';
+    data.tracking_note = 'Tracking details will be shared as soon as the supplier provides them after shipment.';
+    data.supplier_validation_note = 'The order starts after payment confirmation and supplier validation.';
 
     try {
       submitBtn.disabled = true;
@@ -333,6 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
         price: data.price,
         customer_name: data.customer_name,
         email: data.email,
+        color_option: data.color_option || 'To confirm / not applicable',
         request_id: data.request_id,
         sumup_url: product.sumup_url
       }));
