@@ -47,12 +47,9 @@ const BENDAGO_PRODUCTS = {
   },
   "dual-exhaust": {
     product_code: "dual-exhaust",
-    product_name: "Complete dual exhaust kit Napoleon 125/250",
-    product_short: "Complete dual exhaust kit Napoleon 125/250",
-    fitment: "Benda Napoleon 125/250",
-    price: "579 € TTC — payment request sent after validation",
+    product_name: "Complete dual exhaust kit Napoleon 125/250¯9 € TTC — payment request sent after validation",
     delivery_estimate: "10 to 20 days",
-    image: "./standby-product-visual.png"
+    image: "./complete-dual-exhaust-featured.webp"
   },
   "left-premium-engine-cover": {
     product_code: "left-premium-engine-cover",
@@ -83,12 +80,12 @@ const BENDAGO_PRODUCTS = {
   },
   "chrome-engine-cover": {
     product_code: "chrome-engine-cover",
-    product_name: "Chrome engine cover Napoleon 125/250",
-    product_short: "Chrome engine cover Napoleon 125/250",
+    product_name: "Air filter Cover Chrome left Napoleon 125/250",
+    product_short: "Air filter Cover Chrome left Napoleon 125/250",
     fitment: "Benda Napoleon 125/250",
     price: "261 € TTC — payment request sent after validation",
     delivery_estimate: "10 to 20 days",
-    image: "./standby-product-visual.png"
+    image: "./air_filter_cover_chrome_left_01_detail.png"
   },
   "gps-carplay": {
     product_code: "gps-carplay",
