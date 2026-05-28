@@ -62,12 +62,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="field"><label>Country *</label><input name="country" placeholder="e.g. France" required=""/></div>
 <div class="field"><label>Motorcycle model *</label><input name="motorcycle_model" placeholder="e.g. Benda Napoleon 125" required=""/></div>
 <div class="field"><label>Year / version *</label><input name="year_version" placeholder="e.g. 2024" required=""/></div>
-<div class="field"><label>Quantity *</label><input min="1" name="quantity" required="" type="number" value="1"/></div>
+<div class="field"><label>Quantity *</label><input min="1" name="quantity" required="" type="number" value="1"/></div><div class="field" id="colorOptionField"><label>Colour / option</label><select id="colorOptionSelect" name="color_option"><option value="">To confirm / not applicable</option><option value="Black">Black</option><option value="Green">Green</option><option value="Grey">Grey</option></select></div>
 <div class="field"><label>Delivery city / country *</label><input name="delivery_city_country" placeholder="e.g. Paris, France" required=""/></div>
 <div class="field full"><label>Delivery address</label><textarea name="delivery_address" placeholder="Street, postcode, city, country"></textarea></div>
 <div class="field full"><label>Message / notes</label><textarea name="message" placeholder="Anything we should know about your bike or order?"></textarea></div>
 </div>
-<div class="form-note">After confirmation, please pay securely by card. The order starts after payment confirmation and supplier validation.</div>
+<div class="form-note">After confirmation, please pay securely by card. The order starts after payment confirmation and final supplier validation. Tracking details will be shared as soon as the supplier provides them.</div>
 <button class="yellow-btn" type="submit">Confirm order details</button>
 <div class="status-box" id="formStatus"></div>
 </form>

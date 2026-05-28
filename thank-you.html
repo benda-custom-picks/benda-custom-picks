@@ -34,8 +34,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <main class="order-wrap">
 <section class="thanks-card">
 <h1>Order details confirmed.</h1>
-<p>Your order details have been sent. Please pay securely by card now so the order can start after payment confirmation and supplier validation.</p>
-<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Please pay securely by card →</a>
+<p>Your order details have been sent. Please complete the secure card payment now. Once payment is confirmed, the supplier order starts after final validation. Tracking details will be shared as soon as the supplier provides them.</p>
+<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking: once the supplier ships the item, we will send the tracking number or tracking link when available.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Please pay securely by card →</a>
 <a class="request-btn" href="./index.html#order-selected-parts">Back to Bendago</a>
 </section>
 </main>
@@ -53,7 +53,7 @@ try {
     summary.innerHTML =
       '<strong>Product:</strong> ' + last.product_name +
       '<br><strong>Price:</strong> ' + (last.price || '') +
-      '<br><strong>Email:</strong> ' + (last.email || '') +
+      '<br><strong>Colour / option:</strong> ' + (last.color_option || 'To confirm / not applicable') +'<br><strong>Email:</strong> ' + (last.email || '') +
       '<br><strong>Request ID:</strong> ' + (last.request_id || '');
   }
 
