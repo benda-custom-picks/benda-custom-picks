@@ -274,3 +274,70 @@ input, textarea, button, a {
 .send-moto {
   pointer-events: auto;
 }
+
+/* BENDAGO V23.22 — gallery right-click hardening */
+.media-card {
+  position: relative !important;
+}
+
+/* Transparent shield over the large product image area.
+   It prevents "Save image as" from targeting the main gallery image. */
+.media-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: calc(100% - 112px);
+  z-index: 8;
+  background: transparent;
+  pointer-events: auto;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Keep thumbnails and buttons usable above/around the shield */
+.thumb-row,
+.product-thumb,
+.buy-btn,
+.secondary-btn,
+.order-links,
+.order-brand,
+.send-moto {
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+/* Make right-click / long-press target the button/container, not the image file */
+.main-product-img,
+.product-thumb img,
+.media-card img,
+.preview-placeholder img {
+  pointer-events: none !important;
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+}
+
+/* Reduce text scraping from product pages without blocking form inputs */
+.product-title,
+.info-card h2,
+.info-card p,
+.check-list,
+.price-line,
+.trust-list,
+.product-thumb,
+.media-card {
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+input, textarea, select, button, a {
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+}
