@@ -732,6 +732,74 @@ input, textarea, button, a {
 }
 
 </style>
+
+<style>
+/* BENDAGO V23.25 — front hero anti-copy hardening */
+html, body {
+  -webkit-touch-callout: none;
+}
+
+.hero,
+.hero-grid,
+.hero-card,
+.hero-visual,
+.featured-card,
+.featured-media,
+.featured-thumb,
+.build-card,
+.media-card,
+.product-layout {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+.hero img,
+.hero-visual img,
+.featured-card img,
+.build-card img,
+.media-card img,
+.main-product-img,
+.product-thumb img {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Transparent shield over homepage hero visual if present */
+.hero-visual,
+.hero-card {
+  position: relative;
+}
+
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  z-index: 8;
+  pointer-events: auto;
+}
+
+.hero-visual a,
+.hero-card a,
+.hero button,
+.hero .btn,
+.featured-card a,
+.build-card a {
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+input, textarea, select, button, a {
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+}
+</style>
+
 </head>
 <!-- BENDAGO HOTFIX: 3 premium product cards restored to product pages, not direct PayPal. -->
 <!-- BENDAGO INDEX: unified product-card catalog; 3 premium cards open product detail pages; remaining cards keep PayPal until pages exist. -->

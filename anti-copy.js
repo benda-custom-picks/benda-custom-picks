@@ -1,76 +1,75 @@
-// BENDAGO V23.24 — product page anti-copy hardening.
+// BENDAGO V23.25 — front + product anti-copy hardening.
 // Friction only: screenshots/devtools cannot be fully blocked on a public website.
 (function () {
-  const protectedSelector = [
-    'img',
-    '.media-card',
-    '.main-product-img',
-    '.thumb-row',
-    '.product-thumb',
-    '.featured-card',
-    '.product-layout',
-    '.info-card',
-    '.preview-placeholder'
-  ].join(',');
-
-  function isProtectedTarget(target) {
-    return target && target.closest && target.closest(protectedSelector);
-  }
+  const blockAllContextMenus = true;
 
   function block(event) {
-    if (isProtectedTarget(event.target)) {
-      event.preventDefault();
-      event.stopPropagation();
-      event.stopImmediatePropagation();
-      return false;
-    }
+    event.preventDefault();
+    event.stopPropagation();
+    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+    return false;
   }
 
-  ['contextmenu', 'dragstart', 'selectstart'].forEach(function (type) {
-    document.addEventListener(type, block, true);
-    document.addEventListener(type, block, false);
+  // Block right click / long-press context menu everywhere on the site.
+  document.addEventListener('contextmenu', function (event) {
+    if (blockAllContextMenus) return block(event);
+  }, true);
+
+  // Block image drag, selection and casual copy.
+  ['dragstart', 'selectstart'].forEach(function (type) {
+    document.addEventListener(type, function (event) {
+      const target = event.target;
+      if (
+        target &&
+        target.closest &&
+        target.closest('img, .hero, .hero-card, .hero-grid, .hero-visual, .featured-card, .featured-media, .featured-thumb, .build-card, .media-card, .product-layout, .main-product-img, .thumb-row, .product-thumb')
+      ) {
+        return block(event);
+      }
+    }, true);
   });
 
   document.addEventListener('copy', function (event) {
-    if (isProtectedTarget(event.target)) {
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
+    const target = event.target;
+    if (
+      target &&
+      target.closest &&
+      target.closest('.hero, .featured-card, .build-card, .media-card, .product-layout, .info-card')
+    ) {
+      return block(event);
     }
   }, true);
 
-  document.addEventListener('touchstart', function (event) {
-    if (isProtectedTarget(event.target)) {
-      document.body.classList.add('bendago-touch-protected');
-    }
-  }, { capture: true, passive: true });
+  // Disable dragging and browser image context behavior.
+  function protectImages() {
+    document.querySelectorAll('img').forEach(function (img) {
+      img.setAttribute('draggable', 'false');
+      img.setAttribute('oncontextmenu', 'return false;');
+      img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
+      img.style.webkitUserDrag = 'none';
+      img.style.userSelect = 'none';
+      img.style.webkitUserSelect = 'none';
+      img.style.webkitTouchCallout = 'none';
+    });
+  }
 
-  document.addEventListener('touchend', function () {
-    document.body.classList.remove('bendago-touch-protected');
-  }, { capture: true, passive: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', protectImages);
+  } else {
+    protectImages();
+  }
 
-  document.querySelectorAll('img').forEach(function (img) {
-    img.setAttribute('draggable', 'false');
-    img.setAttribute('oncontextmenu', 'return false;');
-    img.setAttribute('loading', img.getAttribute('loading') || 'lazy');
-  });
-
-  // Extra: block common shortcuts while the user is over product media.
-  let overProtected = false;
-  document.addEventListener('mouseover', function (event) {
-    overProtected = !!isProtectedTarget(event.target);
-  }, true);
-  document.addEventListener('mouseout', function () {
-    overProtected = false;
-  }, true);
-
+  // Block casual save/print/source shortcuts.
   document.addEventListener('keydown', function (event) {
-    if (!overProtected) return;
     const key = String(event.key || '').toLowerCase();
     if ((event.ctrlKey || event.metaKey) && ['s', 'p', 'u', 'c'].includes(key)) {
-      event.preventDefault();
-      event.stopPropagation();
-      return false;
+      const active = document.activeElement;
+      const editable = active && (
+        active.tagName === 'INPUT' ||
+        active.tagName === 'TEXTAREA' ||
+        active.isContentEditable
+      );
+      if (!editable) return block(event);
     }
   }, true);
 })();
