@@ -1,24 +1,35 @@
 {
-  "patch": "Comfort Seat & Foot Peg Kit hero corrective update",
-  "source_index": "/mnt/data/index html.txt",
-  "hero_source_image": "/mnt/data/ghostwriter_images/context/d145a032-e463-51bc-8ee0-1aac6f1c887e.png",
-  "hero_output": "comfort-seat-foot-peg-hero-v5.webp",
-  "checks": {
-    "index_contains_new_hero": true,
-    "old_hero_block_removed_from_target_card": true,
-    "product_link_preserved": true,
-    "gallery_untouched": true
+  "patch": "remove wrong clutch gallery photos",
+  "files": [
+    "anti-copy.js",
+    "README_GO_PATCH.txt"
+  ],
+  "scope": [
+    "order-black-striped-clutch-cover.html",
+    "order-gold-clutch-flywheel.html"
+  ],
+  "removes": {
+    "black_clutch_page": [
+      "gold-clutch",
+      "gold flywheel",
+      "flywheel",
+      "gold-inner"
+    ],
+    "gold_clutch_page": [
+      "black-striped-clutch",
+      "black ribbed clutch",
+      "ribbed-clutch",
+      "striped-clutch"
+    ]
   },
   "preserve": [
-    "existing gallery",
-    "existing product page",
-    "price",
+    "prices",
     "CTA",
     "request flow",
-    "EmailJS",
     "SumUp",
+    "EmailJS",
     "GTM",
-    "tracking",
-    "anti-copy"
-  ]
+    "tracking"
+  ],
+  "qa": "testzip PASS"
 }
