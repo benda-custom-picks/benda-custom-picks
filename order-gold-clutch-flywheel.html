@@ -1,81 +1,105 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Gold clutch flywheel – Bendago</title>
-<meta content="A premium gold internal accent designed to bring contrast, depth and a more technical custom finish inside the clutch setup." name="description"/>
-<link href="./order-flow.css" rel="stylesheet"/>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MQHMSX8X');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gold clutch flywheel – Benda Custom Picks</title>
+<meta name="description" content="A premium gold internal accent designed to bring contrast, depth and a more technical custom finish inside the clutch setup.">
+<link href="./order-flow.css" rel="stylesheet">
 <style>
-    .thumb-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
-    .product-thumb { padding:0; border:1px solid rgba(255,255,255,.16); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.04); cursor:pointer; }
-    .product-thumb img { width:100%; height:92px; object-fit:cover; display:block; }
-    .buy-btn { display:flex; justify-content:center; align-items:center; min-height:54px; border-radius:14px; background:linear-gradient(135deg,#49f5a5,#2fd3df); color:#0a1520; font-weight:900; text-decoration:none; margin:18px 0 10px; }
-    .product-layout { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:28px; align-items:start; }
-    .info-card { position:sticky; top:96px; }
-    .price-line strong { color:#4df7a8; font-size:26px; }
-    .check-list div::before { content:"✓ "; color:#43ff96; font-weight:900; }
-
-    .video-preview { margin-top:18px; }
-    .video-preview h3 { margin:0 0 12px; }
-    .video-shell { border-radius:18px; overflow:hidden; border:1px solid rgba(255,255,255,.14); background:#05070b; aspect-ratio:16/9; }
-    .video-shell video { width:100%; height:100%; object-fit:cover; display:block; background:#05070b; }
-    .video-fallback { margin:10px 0 0; font-size:14px; }
-    @media (max-width: 900px) { .product-layout { grid-template-columns:1fr; } .info-card { position:static; } .thumb-row { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  </style>
+:root{--bg:#080d13;--panel:#151b22;--line:rgba(255,255,255,.13);--text:#f2f6fb;--muted:#c7d0da;--accent:#38efb2;--cyan:#29c9d5}
+*{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}
+body{margin:0;background:linear-gradient(120deg,#152332 0,#080d13 40%,#05070a 100%);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+a{color:inherit}.wrap{width:min(1120px,92vw);margin:auto}
+header{border-bottom:1px solid var(--line);background:rgba(5,8,12,.86);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+nav{height:58px;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;text-decoration:none}
+.back{display:inline-block;margin:28px 0 16px;text-decoration:none;font-weight:900;color:#e9f0f7}
+h1{font-size:clamp(38px,6vw,66px);line-height:.95;margin:0 0 28px;letter-spacing:-.045em}
+.grid{display:grid;grid-template-columns:1.45fr .8fr;gap:34px;align-items:start}
+.media-card,.info-card{background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 26px 80px rgba(0,0,0,.35)}
+.main-product-img{width:100%;aspect-ratio:1.28/1;object-fit:cover;display:block;background:#0a0f16}
+.gallery{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:14px;background:rgba(0,0,0,.18);border-top:1px solid var(--line)}
+.product-thumb{border:1px solid rgba(255,255,255,.18);border-radius:14px;overflow:hidden;padding:0;background:#0a0f16;cursor:pointer}
+.product-thumb img{display:block;width:100%;aspect-ratio:1.55/1;object-fit:cover}
+.product-thumb.active{outline:2px solid #fff;border-color:#fff}
+.info-card{padding:28px}.label{color:var(--muted);font-size:14px;margin-bottom:18px}
+h2{font-size:31px;line-height:1.06;margin:0 0 18px}.desc{font-size:17px;line-height:1.45;color:#edf3fa;margin-bottom:22px}
+.checks{display:grid;gap:13px;margin:20px 0 24px}.check{color:#dce7f1;font-size:16px}.check:before{content:"✓";color:#64ffb1;font-weight:900;margin-right:10px}
+.divider{height:1px;background:var(--line);margin:22px 0}.price-label{color:var(--muted);font-size:14px}.price{font-size:30px;font-weight:950;color:#64ffb1;margin:6px 0 18px}
+.btn{display:flex;align-items:center;justify-content:center;text-decoration:none;border-radius:17px;padding:16px 18px;background:linear-gradient(135deg,var(--accent),var(--cyan));color:#071014;font-weight:950;margin:18px 0 12px}
+.secondary{background:transparent;border:1px solid var(--line);color:var(--text)}.note{font-size:14px;line-height:1.5;color:#dbe4ed;margin:9px 0}
+.video-title{font-weight:950;font-size:20px;margin:18px 0 0}
+@media(max-width:900px){.grid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(3,1fr)}.info-card{padding:22px}}
+</style>
 </head>
-<body class="order-body">
-<header class="order-header">
-<nav class="order-wrap order-nav">
-<a class="order-brand" href="./index.html"><span class="order-logo">B</span><span>Benda Custom Picks</span></a>
-<div class="order-links">
-<a href="./index.html#shop-builds">Builds</a>
-<a href="./index.html#order-selected-parts">Parts</a>
-<a href="./index.html#pack">Custom Pack</a>
-<a class="send-moto" href="./index.html#pack">Send my Moto</a>
+<body data-product="Gold clutch flywheel">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQHMSX8X" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<header><nav class="wrap"><a class="brand" href="./index.html">Benda Custom Picks</a><a class="back" href="./index.html#order-selected-parts">Parts</a></nav></header>
+<main class="wrap">
+<a class="back" href="./index.html#order-selected-parts">← Back to products</a>
+<h1>Gold clutch flywheel</h1>
+<div class="grid">
+<section class="media-card">
+<img id="mainProductImage" class="main-product-img" src="./gold-clutch-flywheel-retouched-2.webp" alt="Gold clutch flywheel">
+<div class="gallery">
+<button class="product-thumb" type="button" data-img="./gold-clutch-flywheel-retouched-1.webp" data-alt="Gold clutch inner accent close-up installed view"><img src="./gold-clutch-flywheel-retouched-1.webp" alt="Gold clutch inner accent close-up installed view" loading="lazy"></button><button class="product-thumb active" type="button" data-img="./gold-clutch-flywheel-retouched-2.webp" data-alt="Gold clutch inner accent full motorcycle view"><img src="./gold-clutch-flywheel-retouched-2.webp" alt="Gold clutch inner accent full motorcycle view" loading="lazy"></button><button class="product-thumb" type="button" data-img="./gold-clutch-flywheel-retouched-3.webp" data-alt="Gold clutch inner accent side close-up"><img src="./gold-clutch-flywheel-retouched-3.webp" alt="Gold clutch inner accent side close-up" loading="lazy"></button><button class="product-thumb" type="button" data-img="./gold-clutch-flywheel-retouched-4.webp" data-alt="Gold clutch inner accent mounted detail"><img src="./gold-clutch-flywheel-retouched-4.webp" alt="Gold clutch inner accent mounted detail" loading="lazy"></button><button class="product-thumb" type="button" data-img="./gold-clutch-inner-accent-gallery-05.webp" data-alt="Gold clutch inner accent standalone studio product photo"><img src="./gold-clutch-inner-accent-gallery-05.webp" alt="Gold clutch inner accent standalone studio product photo" loading="lazy"></button>
 </div>
-</nav>
-</header>
-<main class="order-wrap">
-<a class="back-link" href="./index.html#order-selected-parts">← Back to products</a>
-<div class="product-layout">
-<section>
-<h1 class="product-title">Gold clutch flywheel</h1>
-<div class="media-card">
-<img alt="Gold clutch flywheel" class="main-product-img" id="mainProductImage" src="./gold-clutch-flywheel-retouched-1.webp"/>
-<div class="thumb-row">
-<button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-1.webp" type="button"><img alt="Gold clutch flywheel visual 1" src="./gold-clutch-flywheel-retouched-1.webp"/></button>
-<button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-2.webp" type="button"><img alt="Gold clutch flywheel visual 2" src="./gold-clutch-flywheel-retouched-2.webp"/></button>
-<button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-3.webp" type="button"><img alt="Gold clutch flywheel visual 3" src="./gold-clutch-flywheel-retouched-3.webp"/></button>
-<button class="product-thumb" data-src="./gold-clutch-flywheel-retouched-4.webp" type="button"><img alt="Gold clutch flywheel visual 4" src="./gold-clutch-flywheel-retouched-4.webp"/></button>
-</div>
-<div class="video-preview">
-<h3>Watch the product video</h3>
-<div class="video-shell">
-<video controls="" playsinline="" poster="./gold-clutch-flywheel-retouched-1.webp" preload="metadata">
-<source src="./gold-clutch-flywheel.mp4" type="video/mp4"/>
-              Your browser cannot play this MP4.
-            </video>
-</div>
-<p class="video-fallback"><a href="./gold-clutch-flywheel.mp4" rel="noopener" target="_blank">Open MP4 directly</a></p>
-</div>
-</div>
+<div class="video-title">Watch the product video</div>
 </section>
 <aside class="info-card">
-<div class="info-mini">Part type</div>
-<h2>Gold clutch flywheel</h2>
-<p>A premium gold internal accent designed to bring contrast, depth and a more technical custom finish inside the clutch setup.</p>
-<div class="check-list"><div>4 retouched visuals included</div><div>Gold internal accent</div><div>Compatibility to verify depending on version / mounting</div></div>
-<div class="price-line"><span>Price</span><br/><strong>168 € TTC</strong><p>Confirm your order details first. You will pay securely by card after confirmation.</p></div>
-<a aria-label="Confirm order details for Gold Clutch Inner Accent" class="buy-btn js-request-link" data-product-name="Gold Clutch Inner Accent" data-product-price="168 € TTC" href="./request-part.html?part=gold-clutch-flywheel" target="_self">Order this part →</a>
-<a class="secondary-btn" href="./index.html#pack">Need a full custom pack?</a>
-<div class="trust-list"><div>✓ Product page before final order</div><div>✓ Visuals shown before confirmation</div><div>✓ Compatibility to verify depending on version / mounting</div></div>
+<div class="label">Part type</div>
+<h2>Gold Clutch Inner Accent</h2>
+<p class="desc">A premium gold internal accent designed to bring contrast, depth and a more technical custom finish inside the clutch setup.</p>
+<div class="checks"><div class="check">5 visuals included</div>
+<div class="check">Gold technical accent finish</div>
+<div class="check">Compatibility to verify depending on version / mounting</div></div>
+<div class="divider"></div>
+<div class="price-label">Price</div>
+<div class="price">168 € TTC</div>
+<p class="note">Confirm your order details first. You will pay securely by card after confirmation.</p>
+<a class="btn order-btn" data-order-product="Gold Clutch Inner Accent" data-order-price="168" href="./request-part.html?product=Gold%20Clutch%20Inner%20Accent&price=168">Order this part →</a>
+<a class="btn secondary" href="./index.html#pack">Need a full custom pack?</a>
+<p class="note">✓ Product page before final order</p>
+<p class="note">✓ Visuals shown before confirmation</p>
+<p class="note">✓ Compatibility to verify depending on version / mounting</p>
 </aside>
 </div>
 </main>
-<footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
-<script>document.getElementById('year').textContent = new Date().getFullYear();document.querySelectorAll('.product-thumb').forEach(function(btn) {btn.addEventListener('click', function() {document.getElementById('mainProductImage').src = btn.getAttribute('data-src');});});</script>
-<script defer="" src="./anti-copy.js"></script>
+
+<script>
+(function(){
+  const main = document.getElementById('mainProductImage');
+  const gallery = document.querySelector('.gallery');
+  if (!main || !gallery) return;
+
+  gallery.addEventListener('click', function(event){
+    const btn = event.target.closest('.product-thumb');
+    if (!btn || !gallery.contains(btn)) return;
+    event.preventDefault();
+
+    const src = btn.getAttribute('data-img') || (btn.querySelector('img') ? btn.querySelector('img').getAttribute('src') : '');
+    const alt = btn.getAttribute('data-alt') || (btn.querySelector('img') ? btn.querySelector('img').getAttribute('alt') : 'Product image');
+    if (!src) return;
+
+    main.src = src;
+    main.alt = alt;
+
+    gallery.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'product_gallery_click',
+      product_name: document.body.getAttribute('data-product') || document.title,
+      image_src: src
+    });
+  });
+})();
+</script>
+<script src="./order-flow.js"></script>
+<script defer src="./anti-copy.js"></script>
+
 </body>
 </html>
