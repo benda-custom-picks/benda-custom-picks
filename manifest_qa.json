@@ -1,60 +1,68 @@
 {
-  "patch": "Comfort Handlebar Riser Kit full gallery + hero update",
-  "source_index": "/mnt/data/index html.txt",
-  "hero_photo": "photo 2",
-  "hero_file": "handlebar-riser-gallery-02.webp",
-  "product_page": "order-handlebar-riser.html",
+  "patch": "Bronze Foot Control Kit corrective gallery update",
+  "images_total": 5,
+  "hero_file": "metal-foot-controls-gallery-01.webp",
   "images": [
     {
-      "source": "/mnt/data/ghostwriter_images/context/13b636e3-0cb7-5a84-aab3-dfeb9edaf67a.png",
-      "webp": "handlebar-riser-gallery-01.webp",
-      "png_backup": "handlebar-riser-gallery-01.png",
+      "stem": "metal-foot-controls-gallery-01",
+      "source": "/mnt/data/ChatGPT Image 28 mai 2026, 22_15_11.png",
+      "webp": "metal-foot-controls-gallery-01.webp",
+      "png_backup": "metal-foot-controls-gallery-01.png",
       "size": [
         1254,
         1254
-      ]
+      ],
+      "alt": "Bronze Foot Control Kit full product view"
     },
     {
-      "source": "/mnt/data/ghostwriter_images/context/8800a6ad-f390-5fd1-89a0-144e73370b65.png",
-      "webp": "handlebar-riser-gallery-02.webp",
-      "png_backup": "handlebar-riser-gallery-02.png",
-      "size": [
-        1872,
-        840
-      ]
-    },
-    {
-      "source": "/mnt/data/ghostwriter_images/context/e8a9f32f-712e-567e-81b9-90939d9cb5af.png",
-      "webp": "handlebar-riser-gallery-03.webp",
-      "png_backup": "handlebar-riser-gallery-03.png",
+      "stem": "metal-foot-controls-gallery-02",
+      "source": "/mnt/data/ChatGPT Image 28 mai 2026, 22_19_21 (1).png",
+      "webp": "metal-foot-controls-gallery-02.webp",
+      "png_backup": "metal-foot-controls-gallery-02.png",
       "size": [
         1254,
         1254
-      ]
+      ],
+      "alt": "Bronze Foot Control Kit close-up product view"
     },
     {
-      "source": "/mnt/data/ghostwriter_images/context/d52acc99-47ab-5798-8594-4c1699341a35.png",
-      "webp": "handlebar-riser-gallery-04.webp",
-      "png_backup": "handlebar-riser-gallery-04.png",
+      "stem": "metal-foot-controls-gallery-03",
+      "source": "/mnt/data/ChatGPT Image 28 mai 2026, 22_19_21 (2).png",
+      "webp": "metal-foot-controls-gallery-03.webp",
+      "png_backup": "metal-foot-controls-gallery-03.png",
       "size": [
         1254,
         1254
-      ]
+      ],
+      "alt": "Bronze Foot Control Kit dimensions view"
+    },
+    {
+      "stem": "metal-foot-controls-gallery-04",
+      "source": "/mnt/data/ghostwriter_images/context/1276022a-c41d-527d-9b34-d418ec230aa3.png",
+      "webp": "metal-foot-controls-gallery-04.webp",
+      "png_backup": "metal-foot-controls-gallery-04.png",
+      "size": [
+        734,
+        970
+      ],
+      "alt": "Bronze Foot Control Kit detail / detachable design view"
+    },
+    {
+      "stem": "metal-foot-controls-gallery-05",
+      "source": "/mnt/data/ghostwriter_images/context/d2a363ce-7aca-5c90-9c06-43c5cc13fbec.png",
+      "webp": "metal-foot-controls-gallery-05.webp",
+      "png_backup": "metal-foot-controls-gallery-05.png",
+      "size": [
+        734,
+        550
+      ],
+      "alt": "Bronze Foot Control Kit alternative dimensions view"
     }
   ],
-  "preserve": [
-    "price 261 TTC",
-    "request flow",
-    "no direct payment",
-    "GTM",
-    "tracking",
-    "anti-copy",
-    "order-flow"
-  ],
   "checks": {
-    "index_contains_new_hero": true,
-    "target_card_background_replaced": true,
-    "product_page_has_4_gallery_images": true,
+    "index_contains_hero": true,
+    "product_page_has_5_thumbs": true,
+    "old_and_new_present": true,
     "request_flow_preserved": true,
     "gtm_present": true
   }
