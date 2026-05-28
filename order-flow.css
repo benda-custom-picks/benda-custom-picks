@@ -216,3 +216,26 @@
 @media (max-width:760px){
   .order-section-head{display:block}.featured-products{grid-template-columns:1fr}.order-links{display:none}.request-top{display:block}.request-product-mini{justify-content:flex-start;margin-top:16px}.form-grid{grid-template-columns:1fr}.next-grid{grid-template-columns:1fr}.main-product-img{height:360px}.product-thumb img{height:76px}
 }
+
+
+
+/* BENDAGO anti-copy friction layer: reduces casual image/title copying; not a DRM system. */
+img, .featured-thumb, .featured-media, .main-product-img, .product-thumb img, .build-card img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+img, .featured-thumb, .main-product-img, .product-thumb img, .build-card img {
+  -webkit-touch-callout: none;
+}
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+input, textarea, button, a {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+.featured-card h3, .featured-card p, .featured-price, .build-parts a, .product-title, .info-card h2, .info-card p {
+  -webkit-user-select: none;
+  user-select: none;
+}

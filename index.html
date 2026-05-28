@@ -707,6 +707,31 @@ footer {
 
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
+
+<style>
+
+/* BENDAGO anti-copy friction layer: reduces casual image/title copying; not a DRM system. */
+img, .featured-thumb, .featured-media, .main-product-img, .product-thumb img, .build-card img {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+img, .featured-thumb, .main-product-img, .product-thumb img, .build-card img {
+  -webkit-touch-callout: none;
+}
+body {
+  -webkit-user-select: none;
+  user-select: none;
+}
+input, textarea, button, a {
+  -webkit-user-select: auto;
+  user-select: auto;
+}
+.featured-card h3, .featured-card p, .featured-price, .build-parts a, .product-title, .info-card h2, .info-card p {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+</style>
 </head>
 <!-- BENDAGO HOTFIX: 3 premium product cards restored to product pages, not direct PayPal. -->
 <!-- BENDAGO INDEX: unified product-card catalog; 3 premium cards open product detail pages; remaining cards keep PayPal until pages exist. -->
@@ -1247,5 +1272,7 @@ buildVideo.play().catch(() => {});
   });
 </script>
 <script src="./order-flow.js"></script>
+
+<script src="./anti-copy.js" defer></script>
 </body>
 </html>
