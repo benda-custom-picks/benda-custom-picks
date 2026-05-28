@@ -1,10 +1,8 @@
-/* BENDAGO v17 — anti-copy + gallery cleanup hotfix
+/* BENDAGO v17 — anti-copy + clutch gallery fixes + gold clutch gallery add
    Purpose:
    - keep normal anti-copy friction
-   - remove cross-product gallery photos from:
-     1) Black striped clutch cover page
-     2) Gold clutch flywheel page
-   Safe scope: only runs cleanup when the page title/H1/URL matches these products.
+   - remove cross-product gallery photos from black/gold clutch pages
+   - add the new beautified product photo to Gold Clutch Inner Accent gallery
 */
 (function () {
   function norm(s) {
@@ -27,6 +25,7 @@
     if (
       haystack.includes('gold clutch') ||
       haystack.includes('gold flywheel') ||
+      haystack.includes('gold clutch inner accent') ||
       haystack.includes('order-gold-clutch-flywheel')
     ) return 'gold_clutch';
 
@@ -78,22 +77,24 @@
     return false;
   }
 
-  function setMainToFirstValid() {
-    var main =
-      document.querySelector('.main-product-img') ||
+  function mainImage() {
+    return document.querySelector('.main-product-img') ||
       document.querySelector('#mainProductImage') ||
       document.querySelector('.product-main img') ||
       document.querySelector('.media-card > img');
+  }
 
-    var first =
-      document.querySelector('.product-thumb img') ||
-      document.querySelector('.thumb img') ||
-      document.querySelector('.gallery button img') ||
-      document.querySelector('.gallery a img');
+  function thumbElements() {
+    return Array.prototype.slice.call(document.querySelectorAll('.product-thumb, .thumb, .gallery button, .gallery a'));
+  }
 
-    if (main && first && first.getAttribute('src')) {
-      main.setAttribute('src', first.getAttribute('src'));
-      if (first.getAttribute('alt')) main.setAttribute('alt', first.getAttribute('alt'));
+  function setMainToFirstValid() {
+    var main = mainImage();
+    var firstImg = document.querySelector('.product-thumb img, .thumb img, .gallery button img, .gallery a img');
+
+    if (main && firstImg && firstImg.getAttribute('src')) {
+      main.setAttribute('src', firstImg.getAttribute('src'));
+      if (firstImg.getAttribute('alt')) main.setAttribute('alt', firstImg.getAttribute('alt'));
     }
 
     var active = document.querySelector('.product-thumb.active, .thumb.active');
@@ -124,12 +125,7 @@
       }
     });
 
-    var main =
-      document.querySelector('.main-product-img') ||
-      document.querySelector('#mainProductImage') ||
-      document.querySelector('.product-main img') ||
-      document.querySelector('.media-card > img');
-
+    var main = mainImage();
     if (main && shouldRemove(imageInfo(main), key)) {
       setMainToFirstValid();
     }
@@ -142,6 +138,93 @@
         removed_count: removed
       });
     }
+  }
+
+  function findGalleryContainer() {
+    var firstThumb = document.querySelector('.product-thumb, .thumb, .gallery button, .gallery a');
+    if (firstThumb && firstThumb.parentElement) return firstThumb.parentElement;
+    return document.querySelector('.gallery');
+  }
+
+  function activateThumb(thumb) {
+    var main = mainImage();
+    var src = thumb.getAttribute('data-img') || thumb.getAttribute('href');
+    var alt = thumb.getAttribute('aria-label') || 'Gold Clutch Inner Accent studio product photo';
+    if (main && src) {
+      main.setAttribute('src', src);
+      main.setAttribute('alt', alt);
+    }
+    thumbElements().forEach(function (t) { if (t.classList) t.classList.remove('active'); });
+    if (thumb.classList) thumb.classList.add('active');
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'product_gallery_click',
+      product_page: 'gold_clutch',
+      image_src: src
+    });
+  }
+
+  function bindThumb(thumb) {
+    if (!thumb || thumb.getAttribute('data-bendago-bound') === '1') return;
+    thumb.setAttribute('data-bendago-bound', '1');
+    thumb.addEventListener('click', function (e) {
+      if (thumb.tagName.toLowerCase() === 'a') e.preventDefault();
+      activateThumb(thumb);
+    });
+  }
+
+  function addGoldClutchGalleryImage() {
+    if (pageKey() !== 'gold_clutch') return;
+    var gallery = findGalleryContainer();
+    if (!gallery) return;
+
+    if (document.querySelector('[data-bendago-gallery-add="gold-clutch-05"]')) return;
+
+    var existingSample = document.querySelector('.product-thumb, .thumb, .gallery button, .gallery a');
+    var thumb;
+
+    if (existingSample) {
+      thumb = existingSample.cloneNode(true);
+      thumb.classList.remove('active');
+      thumb.setAttribute('data-bendago-gallery-add', 'gold-clutch-05');
+      thumb.setAttribute('data-img', './gold-clutch-inner-accent-gallery-05.webp');
+      thumb.setAttribute('aria-label', 'Gold Clutch Inner Accent studio product photo');
+      if (thumb.tagName.toLowerCase() === 'a') thumb.setAttribute('href', './gold-clutch-inner-accent-gallery-05.webp');
+      var img = thumb.querySelector('img');
+      if (img) {
+        img.setAttribute('src', './gold-clutch-inner-accent-gallery-05.webp');
+        img.setAttribute('alt', 'Gold Clutch Inner Accent studio product photo');
+        img.setAttribute('loading', 'lazy');
+      } else {
+        img = document.createElement('img');
+        img.setAttribute('src', './gold-clutch-inner-accent-gallery-05.webp');
+        img.setAttribute('alt', 'Gold Clutch Inner Accent studio product photo');
+        img.setAttribute('loading', 'lazy');
+        thumb.appendChild(img);
+      }
+    } else {
+      thumb = document.createElement('button');
+      thumb.type = 'button';
+      thumb.className = 'product-thumb';
+      thumb.setAttribute('data-bendago-gallery-add', 'gold-clutch-05');
+      thumb.setAttribute('data-img', './gold-clutch-inner-accent-gallery-05.webp');
+      thumb.setAttribute('aria-label', 'Gold Clutch Inner Accent studio product photo');
+      var img2 = document.createElement('img');
+      img2.setAttribute('src', './gold-clutch-inner-accent-gallery-05.webp');
+      img2.setAttribute('alt', 'Gold Clutch Inner Accent studio product photo');
+      img2.setAttribute('loading', 'lazy');
+      thumb.appendChild(img2);
+    }
+
+    bindThumb(thumb);
+    gallery.appendChild(thumb);
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'bendago_gallery_add',
+      product_page: 'gold_clutch',
+      image_src: './gold-clutch-inner-accent-gallery-05.webp'
+    });
   }
 
   function applyAntiCopyFriction() {
@@ -165,11 +248,17 @@
     }, { passive: false });
   }
 
+  function bindExistingThumbs() {
+    thumbElements().forEach(bindThumb);
+  }
+
   function run() {
     applyAntiCopyFriction();
     cleanupCrossProductGallery();
-    setTimeout(cleanupCrossProductGallery, 250);
-    setTimeout(cleanupCrossProductGallery, 900);
+    bindExistingThumbs();
+    addGoldClutchGalleryImage();
+    setTimeout(function(){ cleanupCrossProductGallery(); bindExistingThumbs(); addGoldClutchGalleryImage(); }, 250);
+    setTimeout(function(){ cleanupCrossProductGallery(); bindExistingThumbs(); addGoldClutchGalleryImage(); }, 900);
   }
 
   if (document.readyState === 'loading') {

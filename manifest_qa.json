@@ -1,29 +1,16 @@
 {
-  "patch": "remove wrong clutch gallery photos",
+  "patch": "add beautified photo to Gold Clutch Inner Accent gallery",
   "files": [
     "anti-copy.js",
-    "README_GO_PATCH.txt"
+    "gold-clutch-inner-accent-gallery-05.webp",
+    "gold-clutch-inner-accent-gallery-05.png"
   ],
   "scope": [
-    "order-black-striped-clutch-cover.html",
-    "order-gold-clutch-flywheel.html"
+    "order-gold-clutch-flywheel.html / gold clutch inner accent page"
   ],
-  "removes": {
-    "black_clutch_page": [
-      "gold-clutch",
-      "gold flywheel",
-      "flywheel",
-      "gold-inner"
-    ],
-    "gold_clutch_page": [
-      "black-striped-clutch",
-      "black ribbed clutch",
-      "ribbed-clutch",
-      "striped-clutch"
-    ]
-  },
   "preserve": [
-    "prices",
+    "existing good gallery photos",
+    "price",
     "CTA",
     "request flow",
     "SumUp",
@@ -31,5 +18,9 @@
     "GTM",
     "tracking"
   ],
-  "qa": "testzip PASS"
+  "qa": {
+    "image_added_to_gold_gallery": "gold-clutch-inner-accent-gallery-05.webp",
+    "wrong_cross_product_photos_cleanup_kept": true,
+    "testzip": "PASS"
+  }
 }
