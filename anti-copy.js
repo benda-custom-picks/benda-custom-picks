@@ -1,19 +1,6 @@
-// BENDAGO anti-copy layer.
-(function () {
-  document.addEventListener('contextmenu', function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    return false;
-  }, true);
-  document.addEventListener('dragstart', function (event) {
-    event.preventDefault();
-    event.stopPropagation();
-    return false;
-  }, true);
-})();
-
-// BENDAGO SumUp direct card payment links.
-// Replaces PayPal/request payment buttons on product pages without touching galleries, MP4, prices, IDs or URLs.
+// BENDAGO SAFE SumUp payment switch.
+// Safety rule: this file does not touch product media or layout.
+// It only replaces the main payment/request button URL and label on product pages.
 (function () {
   var sumupLinks = {
     "order-black-striped-clutch-cover.html": { name: 'Black Ribbed Clutch Cover', price: '119 € TTC', url: 'https://pay.sumup.com/b2c/Q9VN0MTA' },
@@ -39,19 +26,22 @@
     "order-headlight-fairing.html": { name: 'Front Fairing Style Kit', price: '169 € TTC', url: 'https://pay.sumup.com/b2c/Q05YR41S' }
   };
 
-  function applySumUpPaymentLinks() {
-    var page = (window.location.pathname.split('/').pop() || '').trim();
+  function setPaymentButton() {
+    var page = (window.location.pathname.split("/").pop() || "").trim();
     var payment = sumupLinks[page];
     if (!payment) return;
 
-    var buttons = Array.prototype.slice.call(
-      document.querySelectorAll('a.buy-btn, a.js-request-link, a[href*="paypal.me"], a[href*="request-part.html"]')
-    );
+    var candidates = Array.prototype.slice.call(document.querySelectorAll("a.buy-btn, a.js-request-link"));
+    candidates = candidates.filter(function (a) {
+      if (!a) return false;
+      if (a.classList && a.classList.contains("secondary-btn")) return false;
+      if (a.closest && a.closest(".order-links")) return false;
+      return true;
+    });
 
-    buttons.forEach(function (button) {
-      if (button.classList && button.classList.contains('secondary-btn')) return;
-      if (button.closest && button.closest('.order-links')) return;
+    if (!candidates.length) return;
 
+    candidates.forEach(function (button) {
       button.href = payment.url;
       button.target = "_blank";
       button.rel = "noopener";
@@ -62,23 +52,23 @@
       button.setAttribute("data-product-price", payment.price);
     });
 
-    var priceNote = document.querySelector('.price-line p');
+    var priceNote = document.querySelector(".price-line p");
     if (priceNote) {
       priceNote.textContent = "Secure card payment by SumUp. Order starts after payment confirmation and supplier validation.";
     }
 
-    var trustList = document.querySelector('.trust-list');
-    if (trustList && !trustList.querySelector('[data-sumup-trust]')) {
-      var line = document.createElement('div');
-      line.setAttribute('data-sumup-trust', 'true');
+    var trustList = document.querySelector(".trust-list");
+    if (trustList && !trustList.querySelector("[data-sumup-trust]")) {
+      var line = document.createElement("div");
+      line.setAttribute("data-sumup-trust", "true");
       line.textContent = "✓ Secure card payment by SumUp";
       trustList.insertBefore(line, trustList.firstChild);
     }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", applySumUpPaymentLinks);
+    document.addEventListener("DOMContentLoaded", setPaymentButton);
   } else {
-    applySumUpPaymentLinks();
+    setPaymentButton();
   }
 })();
