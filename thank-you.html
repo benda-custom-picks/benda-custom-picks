@@ -1,55 +1,70 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <!-- Google Tag Manager -->
+<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-MQHMSX8X');</script>
 <!-- End Google Tag Manager -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Request received – Bendago</title>
-  <link rel="stylesheet" href="./order-flow.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Request received – Bendago</title>
+<link href="./order-flow.css" rel="stylesheet"/>
 </head>
 <body class="order-body">
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MQHMSX8X"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MQHMSX8X" style="display:none;visibility:hidden" width="0"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <header class="order-header">
-    <nav class="order-wrap order-nav">
-      <a class="order-brand" href="./index.html"><span class="order-logo">B</span><span>Benda Custom Picks</span></a>
-      <div class="order-links">
-        <a href="./index.html#shop-builds">Builds</a>
-        <a href="./order-headlight-fairing.html">Headlight</a>
-        <a href="./order-chassis-protection.html">Chassis Protection</a>
-        <a href="./index.html#products">Parts</a>
-        <a href="./index.html#pack">Custom Pack</a>
-        <a class="send-moto" href="./index.html#pack">Send my Moto</a>
-      </div>
-    </nav>
-  </header>
+<nav class="order-wrap order-nav">
+<a class="order-brand" href="./index.html"><span class="order-logo">B</span><span>Benda Custom Picks</span></a>
+<div class="order-links">
+<a href="./index.html#shop-builds">Builds</a>
+<a href="./order-headlight-fairing.html">Headlight</a>
+<a href="./order-chassis-protection.html">Chassis Protection</a>
+<a href="./index.html#products">Parts</a>
+<a href="./index.html#pack">Custom Pack</a>
+<a class="send-moto" href="./index.html#pack">Send my Moto</a>
+</div>
+</nav>
+</header>
 <main class="order-wrap">
-  <section class="thanks-card">
-    <h1>Request received.</h1>
-    <p>Your request has been sent. This is not a paid order yet. We will check compatibility, availability, final price and shipping, then send you a payment link by email.</p>
-    <div class="summary-box" id="requestSummary">You should also receive a recap email shortly.</div>
-    <a class="request-btn" href="./index.html#order-selected-parts">Back to Bendago</a>
-  </section>
+<section class="thanks-card">
+<h1>Order details confirmed.</h1>
+<p>Your order details have been sent. Please pay securely by card now so the order can start after payment confirmation and supplier validation.</p>
+<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Please pay securely by card →</a>
+<a class="request-btn" href="./index.html#order-selected-parts">Back to Bendago</a>
+</section>
 </main>
 <footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
 <script>
-const y=document.getElementById('year'); if(y)y.textContent=new Date().getFullYear();
+const y = document.getElementById('year');
+if (y) y.textContent = new Date().getFullYear();
+
 try {
   const last = JSON.parse(sessionStorage.getItem('bendago_last_request') || '{}');
-  if (last.product_name) {
-    document.getElementById('requestSummary').innerHTML = '<strong>Product:</strong> ' + last.product_name + '<br><strong>Email:</strong> ' + (last.email || '') + '<br><strong>Request ID:</strong> ' + (last.request_id || '');
+  const summary = document.getElementById('requestSummary');
+  const payBtn = document.getElementById('sumupPayButton');
+
+  if (last.product_name && summary) {
+    summary.innerHTML =
+      '<strong>Product:</strong> ' + last.product_name +
+      '<br><strong>Price:</strong> ' + (last.price || '') +
+      '<br><strong>Email:</strong> ' + (last.email || '') +
+      '<br><strong>Request ID:</strong> ' + (last.request_id || '');
+  }
+
+  if (last.sumup_url && payBtn) {
+    payBtn.href = last.sumup_url;
+    payBtn.style.display = 'inline-flex';
+  } else if (payBtn) {
+    payBtn.style.display = 'none';
   }
 } catch(e) {}
 </script>
-
-<script src="./anti-copy.js" defer></script>
+<script defer="" src="./anti-copy.js"></script>
 </body>
 </html>
