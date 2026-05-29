@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MQHMSX8X');</script>
+<!-- End Google Tag Manager -->
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Finalize cart – Bendago</title>
+<meta content="Send a grouped Bendago cart request. A single SumUp payment link is sent after validation." name="description"/>
+<link href="./order-flow.css" rel="stylesheet"/>
+<link href="./cart-flow.css" rel="stylesheet"/>
+</head>
+<body class="order-body">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MQHMSX8X" style="display:none;visibility:hidden" width="0"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<header class="order-header">
+<nav class="order-wrap order-nav">
+<a class="order-brand" href="./index.html"><span class="order-logo">B</span><span>Benda Custom Picks</span></a>
+<div class="order-links">
+<a href="./index.html#shop-builds">Builds</a>
+<a href="./index.html#order-selected-parts">Parts</a>
+<a href="./index.html#pack">Custom Pack</a>
+<a class="send-moto" href="./index.html#order-selected-parts">Continue shopping</a>
+</div>
+</nav>
+</header>
+<main class="order-wrap request-layout">
+<a class="back-link" href="./index.html#order-selected-parts">← Back to parts</a>
+<section class="request-card">
+<div class="request-top">
+<div>
+<h1 class="product-title">Finalize your Bendago cart</h1>
+<p>Check your selected parts, fill out your contact and bike details once, then receive one SumUp payment link for the total after validation.</p>
+</div>
+</div>
+<div class="cart-summary-card" id="cartSummary"></div>
+<form id="cartRequestForm">
+<div class="form-grid">
+<div class="field"><label>Full name *</label><input name="customer_name" placeholder="e.g. John Doe" required=""/></div>
+<div class="field"><label>Email *</label><input name="email" placeholder="e.g. john@example.com" required="" type="email"/></div>
+<div class="field"><label>Phone *</label><input name="phone" placeholder="e.g. +33 6 12 34 56 78" required=""/></div>
+<div class="field"><label>Country *</label><input name="country" placeholder="e.g. France" required=""/></div>
+<div class="field"><label>Motorcycle model *</label><input name="motorcycle_model" placeholder="e.g. Benda Napoleon 125" required=""/></div>
+<div class="field"><label>Year / version *</label><input name="year_version" placeholder="e.g. 2024" required=""/></div>
+<div class="field"><label>Colour / option</label><input name="color_option" placeholder="e.g. black parts / green bike / to confirm"/></div>
+<div class="field"><label>Delivery city / country *</label><input name="delivery_city_country" placeholder="e.g. Paris, France" required=""/></div>
+<div class="field full"><label>Delivery address</label><textarea name="delivery_address" placeholder="Street, postcode, city, country"></textarea></div>
+<div class="field full"><label>Message / notes</label><textarea name="message" placeholder="Anything we should know about your bike, colour, build or order?"></textarea></div>
+</div>
+<div class="form-note">This is a grouped cart request. The total is calculated automatically from the selected parts. After validation, you receive one SumUp payment link for the total amount.</div>
+<button class="yellow-btn" type="submit">Envoyer ma commande</button>
+<div class="status-box" id="cartFormStatus"></div>
+</form>
+</section>
+<section class="next-card">
+<h2>What happens next?</h2>
+<div class="next-grid">
+<div class="next-step"><strong>1. Cart received</strong><p>We receive your selected parts, total, bike and delivery details.</p></div>
+<div class="next-step"><strong>2. Validation</strong><p>Availability, options and compatibility are checked before payment.</p></div>
+<div class="next-step"><strong>3. One payment link</strong><p>You receive one SumUp link for the total cart amount.</p></div>
+<div class="next-step"><strong>4. Order starts</strong><p>The supplier order starts after payment confirmation.</p></div>
+</div>
+</section>
+</main>
+<footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="./emailjs-config.js"></script>
+<script src="./order-flow.js"></script>
+<script src="./cart-flow.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script defer="" src="./anti-copy.js"></script>
+</body>
+</html>

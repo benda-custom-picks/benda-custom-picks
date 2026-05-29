@@ -215,6 +215,8 @@ const BENDAGO_PRODUCTS = {
   }
 };
 
+window.BENDAGO_PRODUCTS = BENDAGO_PRODUCTS;
+
 function bendagoPush(eventName, params = {}) {
   window.dataLayer = window.dataLayer || [];
   window.dataLayer.push({ event: eventName, ...params });
