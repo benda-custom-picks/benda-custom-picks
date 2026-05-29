@@ -30,7 +30,12 @@ h2{font-size:31px;line-height:1.06;margin:0 0 18px}.desc{font-size:17px;line-hei
 .divider{height:1px;background:var(--line);margin:22px 0}.price-label{color:var(--muted);font-size:14px}.price{font-size:30px;font-weight:950;color:#64ffb1;margin:6px 0 18px}
 .btn{display:flex;align-items:center;justify-content:center;text-decoration:none;border-radius:17px;padding:16px 18px;background:linear-gradient(135deg,var(--accent),var(--cyan));color:#071014;font-weight:950;margin:18px 0 12px}
 .secondary{background:transparent;border:1px solid var(--line);color:var(--text)}.note{font-size:14px;line-height:1.5;color:#dbe4ed;margin:9px 0}
-.video-title{font-weight:950;font-size:20px;margin:18px 0 0}
+.video-title{font-weight:950;font-size:20px;margin:18px 0 12px;padding:0 14px}
+.video-preview{padding:0 14px 14px;background:rgba(0,0,0,.18)}
+.video-shell{border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#000}
+.video-preview video{display:block;width:100%;aspect-ratio:9/16;object-fit:cover;background:#000}
+.video-fallback{font-size:13px;line-height:1.4;color:#dbe4ed;margin:10px 2px 0}
+.video-fallback a{text-decoration:underline}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(3,1fr)}.info-card{padding:22px}}
 </style>
 </head>
@@ -44,6 +49,16 @@ h2{font-size:31px;line-height:1.06;margin:0 0 18px}.desc{font-size:17px;line-hei
 <section class="media-card">
 <img id="mainProductImage" class="main-product-img" src="./black-striped-clutch-cover-retouched-1.webp" alt="Black striped clutch cover">
 <div class="gallery"><button class="product-thumb active" type="button" data-img="./black-striped-clutch-cover-retouched-1.webp" data-alt="Black striped clutch cover"><img src="./black-striped-clutch-cover-retouched-1.webp" alt="Black striped clutch cover" loading="lazy"></button><button class="product-thumb" type="button" data-img="./black-striped-clutch-cover-retouched-2.webp" data-alt="Black striped clutch cover standalone view"><img src="./black-striped-clutch-cover-retouched-2.webp" alt="Black striped clutch cover standalone view" loading="lazy"></button><button class="product-thumb" type="button" data-img="./black-striped-clutch-cover-retouched-3.webp" data-alt="Black striped clutch cover engine side view"><img src="./black-striped-clutch-cover-retouched-3.webp" alt="Black striped clutch cover engine side view" loading="lazy"></button></div>
+<div class="video-title">Watch the product video</div>
+<div class="video-preview">
+<div class="video-shell">
+<video controls playsinline poster="./black-striped-clutch-cover-retouched-1.webp" preload="metadata">
+<source src="./black-striped-clutch-cover.mp4" type="video/mp4">
+Your browser cannot play this MP4.
+</video>
+</div>
+<p class="video-fallback"><a href="./black-striped-clutch-cover.mp4" target="_blank" rel="noopener">Open MP4 directly</a></p>
+</div>
 </section>
 <aside class="info-card">
 <div class="label">Part type</div>
