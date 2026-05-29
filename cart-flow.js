@@ -115,7 +115,7 @@
 
     if (!body) return;
     if (!cart.length) {
-      body.innerHTML = '<div class="cart-empty">Votre panier est vide. Ajoutez plusieurs pièces pour créer un look complet et recevoir un seul lien SumUp global après validation.</div>';
+      body.innerHTML = '<div class="cart-empty">Your cart is empty. Add several parts to build a complete look and receive one single SumUp payment link after validation.</div>';
       return;
     }
 
@@ -162,22 +162,22 @@
       button.type = 'button';
       button.className = 'cart-add-btn';
       button.setAttribute('data-cart-add', code);
-      button.textContent = 'Ajouter au panier';
+      button.textContent = 'Add to cart';
       if (orderButton && orderButton.parentNode) orderButton.insertAdjacentElement('afterend', button);
     });
 
     if (!document.querySelector('.cart-floating-btn')) {
       document.body.insertAdjacentHTML('beforeend',
-        '<button class="cart-floating-btn" type="button" data-cart-open>🛒 Panier <span class="cart-count-badge" data-cart-count>0</span></button>' +
+        '<button class="cart-floating-btn" type="button" data-cart-open>🛒 Cart <span class="cart-count-badge" data-cart-count>0</span></button>' +
         '<div class="cart-overlay" data-cart-close></div>' +
         '<aside class="cart-drawer" aria-label="Bendago cart">' +
-          '<div class="cart-head"><div><h2>Votre sélection custom</h2><p>Total automatique. Paiement unique SumUp envoyé après validation.</p></div><button class="cart-close" type="button" data-cart-close>×</button></div>' +
+          '<div class="cart-head"><div><h2>Your custom selection</h2><p>Automatic total. One single SumUp payment link sent after validation.</p></div><button class="cart-close" type="button" data-cart-close>×</button></div>' +
           '<div class="cart-body" data-cart-body></div>' +
           '<div class="cart-footer">' +
-            '<div class="cart-total-row"><span>Total articles</span><span data-cart-total>0 € TTC</span></div>' +
-            '<div class="cart-note">Ajoutez plusieurs pièces, envoyez votre demande une seule fois, puis recevez un lien SumUp unique du montant total après vérification.</div>' +
-            '<a class="cart-checkout-btn" data-cart-checkout href="./cart-request.html">Finaliser ma commande</a>' +
-            '<button class="cart-clear-btn" type="button" data-cart-clear>Vider le panier</button>' +
+            '<div class="cart-total-row"><span>Cart total</span><span data-cart-total>0 € TTC</span></div>' +
+            '<div class="cart-note">Add several parts, send your request once, then receive one single SumUp payment link for the total after validation.</div>' +
+            '<a class="cart-checkout-btn" data-cart-checkout href="./cart-request.html">Complete my order</a>' +
+            '<button class="cart-clear-btn" type="button" data-cart-clear>Clear cart</button>' +
           '</div>' +
         '</aside>'
       );
@@ -191,18 +191,18 @@
     if (!summary) return;
     const cart = readCart();
     if (!cart.length) {
-      summary.innerHTML = '<div class="cart-empty">Votre panier est vide. Retournez aux pièces Bendago pour ajouter votre sélection.</div>';
+      summary.innerHTML = '<div class="cart-empty">Your cart is empty. Go back to Bendago parts to add your selection.</div>';
       const form = document.getElementById('cartRequestForm');
       if (form) form.style.display = 'none';
       return;
     }
-    summary.innerHTML = '<h2>Votre panier Bendago</h2>' +
+    summary.innerHTML = '<h2>Your Bendago cart</h2>' +
       cart.map(item => {
         const product = getProduct(item.code);
         if (!product) return '';
         return '<div class="cart-summary-row"><div><strong>' + product.name + '</strong><br><span>' + product.priceLabel + ' × ' + item.qty + '</span></div><div>' + formatEuro(product.priceValue * item.qty) + '</div></div>';
       }).join('') +
-      '<div class="cart-summary-total"><span>Total articles</span><span>' + formatEuro(cartTotal(cart)) + '</span></div>';
+      '<div class="cart-summary-total"><span>Cart total</span><span>' + formatEuro(cartTotal(cart)) + '</span></div>';
   }
 
   function installCartRequestForm() {
@@ -223,7 +223,7 @@
       }
 
       if (!cart.length) {
-        showStatus('err', 'Votre panier est vide. Ajoutez au moins une pièce avant envoi.');
+        showStatus('err', 'Your cart is empty. Add at least one part before sending your request.');
         return;
       }
       if (!cfg.publicKey || !cfg.serviceId || !cfg.adminTemplateId || !cfg.clientTemplateId) {
@@ -286,7 +286,7 @@
         console.error(err);
         showStatus('err', 'The cart request could not be sent. Check EmailJS settings, then try again.');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Envoyer ma commande';
+        submitBtn.textContent = 'Send my order request';
       }
     });
   }
