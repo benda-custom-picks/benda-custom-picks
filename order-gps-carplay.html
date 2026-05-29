@@ -9,7 +9,7 @@
 <link href="./order-flow.css" rel="stylesheet"/>
 <style>
     .thumb-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
-    .product-thumb { padding:0; border:1px solid rgba(255,255,255,.16); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.04); cursor:pointer; }
+    .product-thumb { padding:0; border:1px solid rgba(255,255,255,.16); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.04); cursor:pointer; } .product-thumb.active { border-color:#ffd34d; box-shadow:0 0 0 2px rgba(255,211,77,.22); }
     .product-thumb img { width:100%; height:92px; object-fit:cover; display:block; }
     .video-preview { margin-top:18px; }
     .video-preview h3 { margin:0 0 12px; }
@@ -43,8 +43,15 @@
 <section>
 <h1 class="product-title">GPS / CarPlay screen for Benda Napoleon 125/250</h1>
 <div class="media-card">
-<img alt="GPS / CarPlay screen for Benda Napoleon 125/250" class="main-product-img" id="mainProductImage" src="./carplay-benda.webp"/>
-<div class="thumb-row"><button class="product-thumb" data-src="./carplay-benda.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 view 1" src="./carplay-benda.webp"/></button></div>
+<img alt="GPS / CarPlay screen for Benda Napoleon 125/250 premium Benda Napoleon integration" class="main-product-img" id="mainProductImage" src="./gps-carplay-gallery-03.webp"/>
+<div class="thumb-row">
+<button class="product-thumb active" data-src="./gps-carplay-gallery-03.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 premium hero view" src="./gps-carplay-gallery-03.webp"/></button>
+<button class="product-thumb" data-src="./carplay-benda.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 original view" src="./carplay-benda.webp"/></button>
+<button class="product-thumb" data-src="./gps-carplay-gallery-01.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 central mounting view" src="./gps-carplay-gallery-01.webp"/></button>
+<button class="product-thumb" data-src="./gps-carplay-gallery-02.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 product list view" src="./gps-carplay-gallery-02.webp"/></button>
+<button class="product-thumb" data-src="./gps-carplay-gallery-04.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 navigation view" src="./gps-carplay-gallery-04.webp"/></button>
+<button class="product-thumb" data-src="./gps-carplay-gallery-05.webp" type="button"><img alt="GPS / CarPlay screen for Benda Napoleon 125/250 screen dimensions view" src="./gps-carplay-gallery-05.webp"/></button>
+</div>
 <div class="video-preview">
 <h3>Product preview</h3>
 <div class="preview-placeholder">
@@ -85,6 +92,10 @@ document.querySelectorAll('.product-thumb').forEach(function(btn) {
   btn.addEventListener('click', function() {
     var img = document.getElementById('mainProductImage');
     img.src = btn.getAttribute('data-src');
+    document.querySelectorAll('.product-thumb').forEach(function(item) {
+      item.classList.remove('active');
+    });
+    btn.classList.add('active');
   });
 });
 </script>
