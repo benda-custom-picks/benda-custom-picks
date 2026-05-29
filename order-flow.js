@@ -161,7 +161,7 @@ const BENDAGO_PRODUCTS = {
     price: '512 € TTC',
     delivery_estimate: '10 to 20 days',
     image: './dual-exhaust-card-hero.webp',
-    sumup_url: 'https://pay.sumup.com/b2c/QSBDSEOT'
+    sumup_url: 'https://pay.sumup.com/b2c/QPDLYF56'
   },
   "right-engine-filter-cover": {
     product_code: "right-engine-filter-cover",
