@@ -218,6 +218,31 @@ p {
   line-height: 1.5;
 }
 
+.build-showcase-video {
+  margin: 22px 0 28px;
+  padding: 12px;
+  border-radius: 24px;
+  background: rgba(0,0,0,.28);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 22px 60px rgba(0,0,0,.30);
+}
+
+.build-showcase-video video {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  background: #020617;
+  max-height: 620px;
+  object-fit: cover;
+}
+
+.build-showcase-video .video-caption {
+  margin: 10px 4px 2px;
+  color: #cbd5e1;
+  font-size: .92rem;
+  line-height: 1.45;
+}
+
 .build-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -836,6 +861,13 @@ input, textarea, select, button, a {
 <section class="shop-builds wrap" id="shop-builds">
 <h2>Choose your Bendago look first</h2>
 <p class="hook">Pick the style you want first, then open the parts list for that look.</p>
+<div class="build-showcase-video" aria-label="Benda Napoleon 125 showcase video">
+<video controls playsinline preload="metadata" poster="./hro-benda.png">
+<source src="./benda-napoleon-125-showcase.mp4" type="video/mp4">
+Your browser cannot play this MP4.
+</video>
+<p class="video-caption">Benda Napoleon 125 showcase — choose your look, then open the parts list below.</p>
+</div>
 <div class="build-grid">
 <article class="build-card video-card" data-build="Strong Pure Bob" data-video="./bendago_strong_pure_bob_10s_smooth.mp4">
 <img alt="Strong Pure Bob build for Benda Napoleon 125/250" src="./build-strong-pure-bob.webp"/>
