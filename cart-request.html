@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Finalize cart – Bendago</title>
-<meta content="Send a grouped Bendago cart request. A single SumUp payment link is sent after validation." name="description"/>
+<meta content="Finalize one or several Bendago parts through the cart-first order flow." name="description"/>
 <link href="./order-flow.css" rel="stylesheet"/>
 <link href="./cart-flow.css" rel="stylesheet"/>
 </head>
@@ -36,7 +36,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="request-top">
 <div>
 <h1 class="product-title">Finalize your Bendago cart</h1>
-<p>Check your selected parts, fill out your contact and bike details once, then receive one SumUp payment link for the total after validation.</p>
+<p>Check your selected parts, fill out your contact and bike details once. One item goes to its product SumUp payment link after confirmation; several items are grouped into one total request.</p>
 </div>
 </div>
 <div class="cart-summary-card" id="cartSummary"></div>
@@ -53,7 +53,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="field full"><label>Delivery address</label><textarea name="delivery_address" placeholder="Street, postcode, city, country"></textarea></div>
 <div class="field full"><label>Message / notes</label><textarea name="message" placeholder="Anything we should know about your bike, colour, build or order?"></textarea></div>
 </div>
-<div class="form-note">This is a grouped cart request. The total is calculated automatically from the selected parts. After validation, you receive one SumUp payment link for the total amount.</div>
+<div class="form-note">The cart total is calculated automatically. If your cart contains one item, you will continue to the product SumUp payment link after confirmation. If your cart contains several items, you will receive one SumUp payment link for the grouped total after validation.</div>
 <button class="yellow-btn" type="submit">Send my order request</button>
 <div class="status-box" id="cartFormStatus"></div>
 </form>
@@ -62,8 +62,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <h2>What happens next?</h2>
 <div class="next-grid">
 <div class="next-step"><strong>1. Cart received</strong><p>We receive your selected parts, total, bike and delivery details.</p></div>
-<div class="next-step"><strong>2. Validation</strong><p>Availability, options and compatibility are checked before payment.</p></div>
-<div class="next-step"><strong>3. One payment link</strong><p>You receive one SumUp link for the total cart amount.</p></div>
+<div class="next-step"><strong>2. Validation</strong><p>Customer, bike and delivery details are attached to the request.</p></div>
+<div class="next-step"><strong>3. Payment</strong><p>One item opens its SumUp payment link. Several items receive one grouped SumUp link after validation.</p></div>
 <div class="next-step"><strong>4. Order starts</strong><p>The supplier order starts after payment confirmation.</p></div>
 </div>
 </section>

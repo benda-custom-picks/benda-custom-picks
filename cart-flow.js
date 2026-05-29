@@ -115,7 +115,7 @@
 
     if (!body) return;
     if (!cart.length) {
-      body.innerHTML = '<div class="cart-empty">Your cart is empty. Add several parts to build a complete look and receive one single SumUp payment link after validation.</div>';
+      body.innerHTML = '<div class="cart-empty">Your cart is empty. Add one part or build a complete multi-part look.</div>';
       return;
     }
 
@@ -171,11 +171,11 @@
         '<button class="cart-floating-btn" type="button" data-cart-open>🛒 Cart <span class="cart-count-badge" data-cart-count>0</span></button>' +
         '<div class="cart-overlay" data-cart-close></div>' +
         '<aside class="cart-drawer" aria-label="Bendago cart">' +
-          '<div class="cart-head"><div><h2>Your custom selection</h2><p>Automatic total. One single SumUp payment link sent after validation.</p></div><button class="cart-close" type="button" data-cart-close>×</button></div>' +
+          '<div class="cart-head"><div><h2>Your custom selection</h2><p>Cart-first checkout. One item pays through its product SumUp link; several items are grouped into one request.</p></div><button class="cart-close" type="button" data-cart-close>×</button></div>' +
           '<div class="cart-body" data-cart-body></div>' +
           '<div class="cart-footer">' +
             '<div class="cart-total-row"><span>Cart total</span><span data-cart-total>0 € TTC</span></div>' +
-            '<div class="cart-note">Add several parts, send your request once, then receive one single SumUp payment link for the total after validation.</div>' +
+            '<div class="cart-note">One item: pay through the product SumUp link after details. Several items: receive one SumUp link for the grouped total after validation.</div>' +
             '<a class="cart-checkout-btn" data-cart-checkout href="./cart-request.html">Complete my order</a>' +
             '<button class="cart-clear-btn" type="button" data-cart-clear>Clear cart</button>' +
           '</div>' +
@@ -223,7 +223,7 @@
       }
 
       if (!cart.length) {
-        showStatus('err', 'Your cart is empty. Add at least one part before sending your request.');
+        showStatus('err', 'Your cart is empty. Add at least one part before continuing.');
         return;
       }
       if (!cfg.publicKey || !cfg.serviceId || !cfg.adminTemplateId || !cfg.clientTemplateId) {
@@ -234,57 +234,78 @@
       const data = Object.fromEntries(new FormData(form).entries());
       const requestId = 'BENDAGO-CART-' + Date.now();
       const total = cartTotal(cart);
+      const count = cartCount(cart);
       const lines = itemSummaryLines(cart);
+      const isSingleUnit = count === 1;
+      const singleCartItem = isSingleUnit ? cart[0] : null;
+      const singleProduct = singleCartItem ? getProduct(singleCartItem.code) : null;
+      const singleProductRaw = singleCartItem ? PRODUCTS()[singleCartItem.code] : null;
 
       Object.assign(data, {
         request_id: requestId,
         request_date: new Date().toLocaleString(),
         customer_email: data.email,
-        product_code: 'cart_multi_parts',
-        product_name: 'Bendago multi-part cart order',
-        product_short: 'Grouped Bendago cart request',
+        product_code: isSingleUnit && singleProduct ? singleProduct.code : 'cart_multi_parts',
+        product_name: isSingleUnit && singleProduct ? singleProduct.name : 'Bendago multi-part cart order',
+        product_short: isSingleUnit && singleProductRaw ? (singleProductRaw.product_short || singleProduct.name) : 'Grouped Bendago cart request',
         price: formatEuro(total),
         fitment: data.motorcycle_model || 'Benda Napoleon 125/250',
-        quantity: String(cartCount(cart)),
-        delivery_estimate: 'To confirm after validation',
+        quantity: String(count),
+        delivery_estimate: isSingleUnit && singleProductRaw ? (singleProductRaw.delivery_estimate || '10 to 20 days') : 'To confirm after validation',
         request_page: window.location.href,
         referrer: document.referrer || 'direct',
-        payment_provider: 'Manual SumUp link after validation',
-        payment_url: 'Manual SumUp total link to be sent after validation',
-        sumup_url: 'Manual SumUp total link to be sent after validation',
+        payment_provider: isSingleUnit ? 'SumUp' : 'Manual SumUp link after validation',
+        payment_url: isSingleUnit && singleProductRaw ? singleProductRaw.sumup_url : 'Manual SumUp total link to be sent after validation',
+        sumup_url: isSingleUnit && singleProductRaw ? singleProductRaw.sumup_url : 'Manual SumUp total link to be sent after validation',
         color_option: data.color_option || 'To confirm / not applicable',
         cart_summary: lines.join('\n'),
         cart_total: formatEuro(total),
-        cart_count: String(cartCount(cart)),
-        order_status_message: 'Cart request received. A single SumUp payment link for the total will be sent after validation.',
+        cart_count: String(count),
+        order_status_message: isSingleUnit ? 'Order details confirmed. Please complete secure card payment now.' : 'Cart request received. A single SumUp payment link for the total will be sent after validation.',
         tracking_note: 'Tracking details will be shared as soon as supplier shipping details are available.',
-        supplier_validation_note: 'Compatibility, availability and final supplier validation are checked before the grouped SumUp payment link is sent.'
+        supplier_validation_note: isSingleUnit ? 'The order starts after payment confirmation and supplier validation.' : 'Compatibility, availability and final supplier validation are checked before the grouped SumUp payment link is sent.'
       });
 
       try {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending cart request…';
-        showStatus('ok', 'Sending cart request…');
+        submitBtn.textContent = 'Sending order details…';
+        showStatus('ok', 'Sending order details…');
         if (window.emailjs && emailjs.init) emailjs.init({ publicKey: cfg.publicKey });
         await emailjs.send(cfg.serviceId, cfg.adminTemplateId, data);
         await emailjs.send(cfg.serviceId, cfg.clientTemplateId, data);
-        pushEvent('bendago_cart_request_sent', {
+        pushEvent(isSingleUnit ? 'bendago_single_cart_order_sent' : 'bendago_cart_request_sent', {
           request_id: requestId,
-          cart_count: cartCount(cart),
+          cart_count: count,
           cart_total: total
         });
-        sessionStorage.setItem('bendago_last_cart_request', JSON.stringify({
-          request_id: requestId,
-          customer_name: data.customer_name,
-          email: data.email,
-          cart_summary: lines.join('<br>'),
-          cart_total: formatEuro(total)
-        }));
-        clearCart();
-        window.location.href = './thank-you.html?cart=1&request_id=' + encodeURIComponent(requestId);
+        if (isSingleUnit && singleProductRaw) {
+          sessionStorage.setItem('bendago_last_request', JSON.stringify({
+            product_name: data.product_name,
+            price: data.price,
+            customer_name: data.customer_name,
+            email: data.email,
+            color_option: data.color_option || 'To confirm / not applicable',
+            request_id: data.request_id,
+            sumup_url: singleProductRaw.sumup_url
+          }));
+          sessionStorage.removeItem('bendago_last_cart_request');
+          clearCart();
+          window.location.href = './thank-you.html?request_id=' + encodeURIComponent(requestId);
+        } else {
+          sessionStorage.setItem('bendago_last_cart_request', JSON.stringify({
+            request_id: requestId,
+            customer_name: data.customer_name,
+            email: data.email,
+            cart_summary: lines.join('<br>'),
+            cart_total: formatEuro(total)
+          }));
+          sessionStorage.removeItem('bendago_last_request');
+          clearCart();
+          window.location.href = './thank-you.html?cart=1&request_id=' + encodeURIComponent(requestId);
+        }
       } catch (err) {
         console.error(err);
-        showStatus('err', 'The cart request could not be sent. Check EmailJS settings, then try again.');
+        showStatus('err', 'The order request could not be sent. Check EmailJS settings, then try again.');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Send my order request';
       }

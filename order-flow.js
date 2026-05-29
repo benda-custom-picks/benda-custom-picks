@@ -158,9 +158,9 @@ const BENDAGO_PRODUCTS = {
     product_name: 'Dual Exhaust Custom Kit',
     product_short: 'Dual exhaust custom kit Napoleon 125/250',
     fitment: 'Benda Napoleon 125/250',
-    price: '579 € TTC',
+    price: '512 € TTC',
     delivery_estimate: '10 to 20 days',
-    image: './standby-product-visual.png',
+    image: './dual-exhaust-card-hero.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QSBDSEOT'
   },
   "right-engine-filter-cover": {
@@ -238,6 +238,42 @@ function setText(selector, value) {
   if (el) el.textContent = value || '';
 }
 
+const BENDAGO_CART_KEY = 'bendago_cart_v1';
+
+function bendagoReadCart() {
+  try {
+    const cart = JSON.parse(localStorage.getItem(BENDAGO_CART_KEY) || '[]');
+    return Array.isArray(cart) ? cart.filter(item => item && item.code && item.qty > 0) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function bendagoSaveCart(cart) {
+  localStorage.setItem(BENDAGO_CART_KEY, JSON.stringify(cart));
+}
+
+function bendagoProductCodeFromLink(link) {
+  try {
+    const href = link.getAttribute('href') || '';
+    const url = new URL(href, window.location.href);
+    const part = url.searchParams.get('part');
+    if (part) return part;
+  } catch (e) {}
+  const current = String(window.location.pathname || '').match(/order-([^/]+)\.html$/);
+  return current ? current[1] : '';
+}
+
+function bendagoAddOneToCart(code) {
+  if (!code || !BENDAGO_PRODUCTS[code]) return false;
+  const cart = bendagoReadCart();
+  const existing = cart.find(item => item.code === code);
+  if (existing) existing.qty += 1;
+  else cart.push({ code, qty: 1 });
+  bendagoSaveCart(cart);
+  return true;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-order-product]').forEach(el => {
     el.addEventListener('click', () => {
@@ -257,11 +293,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelectorAll('.js-request-link').forEach(link => {
-    link.addEventListener('click', () => {
-      bendagoPush('product_detail_order_click', {
+    link.textContent = 'Add to cart →';
+    link.setAttribute('aria-label', 'Add this part to cart');
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const code = bendagoProductCodeFromLink(link);
+      const added = bendagoAddOneToCart(code);
+      bendagoPush('product_detail_add_to_cart', {
+        product_code: code,
         product_name: link.getAttribute('data-product-name') || document.title,
         product_url: window.location.href
       });
+      if (added) window.location.href = './cart-request.html';
+      else window.location.href = link.getAttribute('href') || './cart-request.html';
     });
   });
 
