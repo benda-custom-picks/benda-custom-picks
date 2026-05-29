@@ -218,31 +218,6 @@ p {
   line-height: 1.5;
 }
 
-.build-showcase-video {
-  margin: 22px 0 28px;
-  padding: 12px;
-  border-radius: 24px;
-  background: rgba(0,0,0,.28);
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 22px 60px rgba(0,0,0,.30);
-}
-
-.build-showcase-video video {
-  width: 100%;
-  display: block;
-  border-radius: 18px;
-  background: #020617;
-  max-height: 620px;
-  object-fit: cover;
-}
-
-.build-showcase-video .video-caption {
-  margin: 10px 4px 2px;
-  color: #cbd5e1;
-  font-size: .92rem;
-  line-height: 1.45;
-}
-
 .build-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -732,7 +707,6 @@ footer {
 
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
-<link href="./cart-flow.css" rel="stylesheet"/>
 <style>
 
 /* BENDAGO anti-copy friction layer: reduces casual image/title copying; not a DRM system. */
@@ -862,13 +836,6 @@ input, textarea, select, button, a {
 <section class="shop-builds wrap" id="shop-builds">
 <h2>Choose your Bendago look first</h2>
 <p class="hook">Pick the style you want first, then open the parts list for that look.</p>
-<div class="build-showcase-video" aria-label="Benda Napoleon 125 showcase video">
-<video autoplay muted loop controls playsinline preload="auto" poster="./hro-benda.png">
-<source src="./benda-napoleon-125-showcase.mp4" type="video/mp4">
-Your browser cannot play this MP4.
-</video>
-<p class="video-caption">Benda Napoleon 125 showcase — choose your look, then open the parts list below.</p>
-</div>
 <div class="build-grid">
 <article class="build-card video-card" data-build="Strong Pure Bob" data-video="./bendago_strong_pure_bob_10s_smooth.mp4">
 <img alt="Strong Pure Bob build for Benda Napoleon 125/250" src="./build-strong-pure-bob.webp"/>
@@ -929,7 +896,7 @@ Your browser cannot play this MP4.
 <a href="#part-rear-fender">Rear Clean Fender Kit — 283 € TTC</a>
 <a href="#part-left-side-bag-support">Left Side Travel Bag Kit — 221 € TTC</a>
 <a href="./order-closed-metal-hubcap-benda-samurai.html">Samurai Wheel Cover — 199 € TTC</a>
-<a href="#part-dual-exhaust">Dual Exhaust Custom Kit — 579 € TTC</a>
+<a href="#part-dual-exhaust">Dual Exhaust Custom Kit — 512 € TTC</a>
 </div>
 </div>
 </article>
@@ -947,7 +914,7 @@ Your browser cannot play this MP4.
 <div>
 <span class="order-eyebrow">Order selected parts</span>
 <h2>Shop featured parts</h2>
-<p>Browse the full Bendago product selection with the same premium structure: product photo, TTC price, detail page and Bendago order page and grouped cart request.</p>
+<p>Browse the full Bendago product selection with the same premium structure: product photo, TTC price, detail page and secure PayPal checkout.</p>
 </div>
 <input class="search" id="search" placeholder="Search: seat, exhaust, handlebar…"/>
 </div>
@@ -1017,14 +984,14 @@ Your browser cannot play this MP4.
 <a class="btn order-btn" data-order-product="Comfort Handlebar Riser Kit" href="./order-handlebar-riser.html">View details</a>
 </div>
 </article>
-<article class="featured-card card bendago-product-card" data-title="Dual Exhaust Custom Kit 579 TTC" id="part-dual-exhaust">
+<article class="featured-card card bendago-product-card" data-title="Dual Exhaust Custom Kit 512 TTC" id="part-dual-exhaust">
 <a aria-label="View details for Dual Exhaust Custom Kit" class="featured-media" href="./order-dual-exhaust.html">
-<img alt="Dual Exhaust Custom Kit" src="./complete-dual-exhaust-featured.webp"/>
+<img alt="Dual Exhaust Custom Kit" src="./dual-exhaust-card-hero.webp"/>
 </a>
 <div class="featured-body">
 <div class="featured-topline">
 <h3>Dual Exhaust Custom Kit</h3>
-<span class="featured-price">579 € TTC</span>
+<span class="featured-price">512 € TTC</span>
 </div>
 <p>Bold dual-exhaust visual upgrade for a stronger custom side profile.</p>
 <a class="btn order-btn" data-order-product="Dual Exhaust Custom Kit" href="./order-dual-exhaust.html">View details</a>
@@ -1082,7 +1049,7 @@ Your browser cannot play this MP4.
 </article>
 <article class="featured-card card bendago-product-card" data-title="GPS / CarPlay screen for Benda Napoleon 125/250 105 TTC" id="part-gps-carplay">
 <a aria-label="View details for GPS / CarPlay screen for Benda Napoleon 125/250" class="featured-media" href="./order-gps-carplay.html">
-<div class="featured-thumb" style="background-image:url('./gps-carplay-card-premium.webp');"></div>
+<div class="featured-thumb" style="background-image:url('./carplay-benda.webp');"></div>
 </a>
 <div class="featured-body">
 <div class="featured-topline">
@@ -1326,7 +1293,7 @@ document.addEventListener('click', function (event) {
 <div class="video-modal" id="videoModal">
 <div class="video-modal-content">
 <button class="video-close" id="closeVideoModal">×</button>
-<video autoplay muted loop controls="" id="buildVideo" playsinline="" preload="auto"></video>
+<video controls="" id="buildVideo" playsinline="" preload="metadata"></video>
 </div>
 </div>
 <script>
@@ -1344,8 +1311,6 @@ document.addEventListener('click', function (event) {
       const buildName = card.getAttribute('data-build') || card.querySelector('h3')?.textContent?.trim() || 'Unknown build';
 
 buildVideo.src = videoSrc;
-buildVideo.muted = true;
-buildVideo.loop = true;
 videoModal.classList.add('active');
 
 window.dataLayer = window.dataLayer || [];
@@ -1374,7 +1339,6 @@ buildVideo.play().catch(() => {});
   });
 </script>
 <script src="./order-flow.js"></script>
-<script src="./cart-flow.js"></script>
 <script defer="" src="./anti-copy.js"></script>
 </body>
 </html>
