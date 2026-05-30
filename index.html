@@ -841,57 +841,63 @@ footer {
 }
 
 
-/* BENDAGO PATCH V7 — live traffic ticker */
+
+
+/* BENDAGO PATCH V8 — clean live traffic ticker */
 .live-traffic-ticker {
-  width: 100vw;
-  max-width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   white-space: nowrap;
   color: #f6c431;
   background: transparent;
   border: 0;
-  padding: 8px 0 7px;
+  padding: 7px 0 6px;
   font-size: 13px;
   line-height: 1;
   font-weight: 850;
   letter-spacing: .02em;
   pointer-events: none;
   user-select: none;
+  position: relative;
+  z-index: 2;
+  box-sizing: border-box;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
 }
 
 .live-traffic-ticker-track {
   display: inline-flex;
   width: max-content;
-  min-width: 200%;
   will-change: transform;
-  animation: bendagoLiveTicker 42s linear infinite;
+  animation: bendagoLiveTickerV8 48s linear infinite;
 }
 
 .live-traffic-ticker-item {
   flex: 0 0 auto;
-  padding-right: 3rem;
+  padding-right: 4rem;
 }
 
-@keyframes bendagoLiveTicker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+@keyframes bendagoLiveTickerV8 {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @media (max-width: 640px) {
   .live-traffic-ticker {
     font-size: 12px;
-    padding: 7px 0 6px;
+    padding: 6px 0 5px;
     letter-spacing: .01em;
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+    mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
   }
 
   .live-traffic-ticker-track {
-    animation-duration: 34s;
+    animation-duration: 38s;
   }
 
   .live-traffic-ticker-item {
-    padding-right: 2rem;
+    padding-right: 2.5rem;
   }
 }
 
@@ -901,7 +907,7 @@ footer {
     transform: none;
   }
 }
-/* END BENDAGO PATCH V7 */
+/* END BENDAGO PATCH V8 */
 
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
@@ -1015,14 +1021,17 @@ input, textarea, select, button, a {
 </nav>
 </header>
 
-<!-- BENDAGO PATCH V7 — live traffic ticker -->
+<!-- BENDAGO PATCH V8 — clean live traffic ticker -->
 <div class="live-traffic-ticker" aria-label="Live traffic update">
   <div class="live-traffic-ticker-track">
-    <span class="live-traffic-ticker-item" data-live-ticker-text>Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
-    <span class="live-traffic-ticker-item" data-live-ticker-text aria-hidden="true">Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
+    <span class="live-traffic-ticker-item" data-live-ticker-text>• Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
+    <span class="live-traffic-ticker-item" data-live-ticker-text aria-hidden="true">• Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
+    <span class="live-traffic-ticker-item" data-live-ticker-text aria-hidden="true">• Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
   </div>
 </div>
-<!-- END BENDAGO PATCH V7 -->
+<!-- END BENDAGO PATCH V8 -->
+
+
 
 <main>
 <section class="hero wrap">
@@ -1666,7 +1675,11 @@ buildVideo.play().catch(() => {});
 <script defer="" src="./anti-copy.js"></script>
 
 <script>
-/* BENDAGO PATCH V7 — live traffic ticker */
+</script>
+
+
+<script>
+/* BENDAGO PATCH V8 — clean live traffic ticker */
 (function () {
   const minUsers = 54;
   const maxUsers = 200;
@@ -1698,7 +1711,7 @@ buildVideo.play().catch(() => {});
     const now = new Date();
     const users = stableHourlyUsers(now);
     const time = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-    const message = `Live Now • ${users} Active Users • ${productClicksToday} Product Clicks Today • Updated ${time} • Germany, France, Spain & Poland Active •`;
+    const message = `• Live Now • ${users} Active Users • ${productClicksToday} Product Clicks Today • Updated ${time} • Germany, France, Spain & Poland Active •`;
 
     document.querySelectorAll('[data-live-ticker-text]').forEach((node) => {
       node.textContent = message;
@@ -1708,7 +1721,7 @@ buildVideo.play().catch(() => {});
   updateTicker();
   window.setInterval(updateTicker, 60000);
 }());
-/* END BENDAGO PATCH V7 */
+/* END BENDAGO PATCH V8 */
 </script>
 
 </body>
