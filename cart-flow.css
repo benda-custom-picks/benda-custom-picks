@@ -202,3 +202,13 @@
 @media (max-width:760px){
   .cart-floating-btn { right:12px; bottom:12px; }
 }
+
+
+/* BENDAGO PATCH V13 — cart option display */
+.cart-line-option {
+  margin-top: 3px;
+  color: rgba(246, 196, 49, .95);
+  font-size: 12px;
+  font-weight: 850;
+}
+/* END BENDAGO PATCH V13 */

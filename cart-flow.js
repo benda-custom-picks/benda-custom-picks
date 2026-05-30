@@ -30,6 +30,19 @@
     return Math.round(value) + ' € TTC';
   }
 
+  function cleanOption(value) {
+    return String(value || '').trim();
+  }
+
+  function optionLabel(item) {
+    return cleanOption(item && item.color_option);
+  }
+
+  function optionText(item) {
+    const color = optionLabel(item);
+    return color ? 'Colour: ' + color : '';
+  }
+
   function products() {
     return window.BENDAGO_PRODUCTS || {};
   }
@@ -41,7 +54,7 @@
       if (!product) return null;
       const qty = Math.max(1, Number(item.qty) || 1);
       const unit = euroToNumber(product.price);
-      return { ...product, code: item.code, qty, line_total: unit * qty };
+      return { ...product, code: item.code, qty, color_option: optionLabel(item), line_total: unit * qty };
     }).filter(Boolean);
   }
 
@@ -49,32 +62,38 @@
     return readCart().reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
   }
 
-  function setQty(code, qty) {
-    const next = readCart().map(item => item.code === code ? { ...item, qty: Number(qty) } : item)
+  function itemKey(item) {
+    return String(item.code || '') + '::' + optionLabel(item);
+  }
+
+  function setQty(key, qty) {
+    const next = readCart().map(item => itemKey(item) === key ? { ...item, qty: Number(qty) } : item)
       .filter(item => item.qty > 0);
     saveCart(next);
   }
 
-  function removeItem(code) {
-    saveCart(readCart().filter(item => item.code !== code));
+  function removeItem(key) {
+    saveCart(readCart().filter(item => itemKey(item) !== key));
   }
 
   function clearCart() {
     saveCart([]);
   }
 
-  function addToCart(code, qty = 1) {
+  function addToCart(code, qty = 1, options = {}) {
     const map = products();
     if (!code || !map[code]) return false;
+    const colorOption = cleanOption(options.color_option);
     const cart = readCart();
-    const existing = cart.find(item => item.code === code);
+    const existing = cart.find(item => item.code === code && optionLabel(item) === colorOption);
     if (existing) existing.qty += qty;
-    else cart.push({ code, qty });
+    else cart.push({ code, qty, color_option: colorOption });
     saveCart(cart);
     push('add_to_cart', {
       product_code: code,
       product_name: map[code].product_name,
       price: map[code].price,
+      color_option: colorOption,
       cart_count: cartCount()
     });
     return true;
@@ -133,14 +152,14 @@
       const inc = event.target.closest('[data-cart-inc]');
       const rem = event.target.closest('[data-cart-remove]');
       if (dec) {
-        const code = dec.getAttribute('data-cart-dec');
-        const item = readCart().find(x => x.code === code);
-        if (item) setQty(code, (Number(item.qty) || 1) - 1);
+        const key = dec.getAttribute('data-cart-dec');
+        const item = readCart().find(x => itemKey(x) === key);
+        if (item) setQty(key, (Number(item.qty) || 1) - 1);
       }
       if (inc) {
-        const code = inc.getAttribute('data-cart-inc');
-        const item = readCart().find(x => x.code === code);
-        if (item) setQty(code, (Number(item.qty) || 1) + 1);
+        const key = inc.getAttribute('data-cart-inc');
+        const item = readCart().find(x => itemKey(x) === key);
+        if (item) setQty(key, (Number(item.qty) || 1) + 1);
       }
       if (rem) removeItem(rem.getAttribute('data-cart-remove'));
       if (dec || inc || rem) renderCartDrawer();
@@ -183,12 +202,13 @@
       '<img src="' + (line.image || './standby-product-visual.png') + '" alt="' + escapeHtml(line.product_name) + '">',
       '<div>',
       '<div class="cart-line-title">' + escapeHtml(line.product_name) + '</div>',
+      optionText(line) ? '<div class="cart-line-option">' + escapeHtml(optionText(line)) + '</div>' : '',
       '<div class="cart-line-price">' + escapeHtml(line.price) + '</div>',
       '<div class="cart-line-actions">',
-      '<button class="cart-qty-btn" type="button" data-cart-dec="' + escapeHtml(line.code) + '">−</button>',
+      '<button class="cart-qty-btn" type="button" data-cart-dec="' + escapeHtml(itemKey(line)) + '">−</button>',
       '<strong>' + line.qty + '</strong>',
-      '<button class="cart-qty-btn" type="button" data-cart-inc="' + escapeHtml(line.code) + '">+</button>',
-      '<button class="cart-remove-btn" type="button" data-cart-remove="' + escapeHtml(line.code) + '">Remove</button>',
+      '<button class="cart-qty-btn" type="button" data-cart-inc="' + escapeHtml(itemKey(line)) + '">+</button>',
+      '<button class="cart-remove-btn" type="button" data-cart-remove="' + escapeHtml(itemKey(line)) + '">Remove</button>',
       '</div>',
       '</div>',
       '</div>'
@@ -211,7 +231,7 @@
     }
     const total = lines.reduce((sum, line) => sum + line.line_total, 0);
     box.innerHTML = '<h2>Selected parts</h2>' + lines.map(line =>
-      '<div class="cart-summary-row"><span>' + escapeHtml(line.product_name) + ' × ' + line.qty + '</span><strong>' + formatEuro(line.line_total) + '</strong></div>'
+      '<div class="cart-summary-row"><span>' + escapeHtml(line.product_name) + ' × ' + line.qty + (optionText(line) ? ' — ' + escapeHtml(optionText(line)) : '') + '</span><strong>' + formatEuro(line.line_total) + '</strong></div>'
     ).join('') + '<div class="cart-summary-total"><span>Total</span><strong>' + formatEuro(total) + '</strong></div>';
   }
 
@@ -246,7 +266,7 @@
 
       const formData = Object.fromEntries(new FormData(form).entries());
       const total = lines.reduce((sum, line) => sum + line.line_total, 0);
-      const cartSummary = lines.map(line => line.product_name + ' x ' + line.qty + ' — ' + formatEuro(line.line_total)).join('\n');
+      const cartSummary = lines.map(line => line.product_name + ' x ' + line.qty + (optionText(line) ? ' — ' + optionText(line) : '') + ' — ' + formatEuro(line.line_total)).join('\n');
       const first = lines[0];
       const isSingle = lines.length === 1 && first.qty === 1;
       const requestId = 'BENDAGO-CART-' + Date.now();
@@ -271,6 +291,7 @@
         request_page: window.location.href,
         referrer: document.referrer || 'direct',
         order_status_message: isSingle ? 'Checkout details received. Continue to secure SumUp card payment.' : 'Cart checkout details received. One grouped secure payment checkout follows for the cart total.',
+        color_option: isSingle ? (first.color_option || formData.color_option || 'To confirm / not applicable') : (formData.color_option || 'See cart summary'),
         tracking_note: 'Tracking details are shared as soon as they are available after shipment.',
         processing_note: 'Order processed after secure SumUp payment confirmation.'
       };
@@ -300,7 +321,7 @@
             price: first.price,
             customer_name: formData.customer_name,
             email: formData.email,
-            color_option: formData.color_option || 'To confirm / not applicable',
+            color_option: first.color_option || formData.color_option || 'To confirm / not applicable',
             request_id: requestId,
             sumup_url: first.sumup_url
           }));

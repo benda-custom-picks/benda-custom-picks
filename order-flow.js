@@ -91,7 +91,9 @@ const BENDAGO_PRODUCTS = {
     price: '590 € TTC',
     delivery_estimate: '10 to 15 days',
     image: './premium-double-seat-hero-v3.webp',
-    sumup_url: 'https://pay.sumup.com/b2c/QA9QRRRN'
+    sumup_url: 'https://pay.sumup.com/b2c/QA9QRRRN',
+    color_required: true,
+    color_options: "Black / Brown"
   },
   "premium-double-seat": {
     product_code: "premium-double-seat",
@@ -264,14 +266,45 @@ function bendagoProductCodeFromLink(link) {
   return current ? current[1] : '';
 }
 
-function bendagoAddOneToCart(code) {
-  if (!code || !BENDAGO_PRODUCTS[code]) return false;
-  const cart = bendagoReadCart();
-  const existing = cart.find(item => item.code === code);
-  if (existing) existing.qty += 1;
-  else cart.push({ code, qty: 1 });
-  bendagoSaveCart(cart);
-  return true;
+function bendagoAddOneToCart(code, options = {}) {
+  if (!code) return false;
+  if (window.BendagoCart && typeof window.BendagoCart.add === 'function') {
+    return window.BendagoCart.add(code, 1, options);
+  }
+  return false;
+}
+
+
+function bendagoSelectedProductOptions(link) {
+  const scope = link.closest('.info-card') || document;
+  const result = {};
+  const requiredMissing = [];
+
+  scope.querySelectorAll('[data-product-option-select]').forEach(select => {
+    const key = select.getAttribute('data-product-option-select') || 'option';
+    const label = select.getAttribute('data-product-option-label') || 'Option';
+    const value = (select.value || '').trim();
+
+    if (select.hasAttribute('data-product-option-required') && !value) {
+      requiredMissing.push(label);
+    }
+
+    if (value) result[key] = value;
+  });
+
+  return { options: result, requiredMissing };
+}
+
+function bendagoShowProductOptionError(link, message) {
+  const scope = link.closest('.info-card') || document;
+  let box = scope.querySelector('[data-product-option-error]');
+  if (!box) {
+    box = document.createElement('div');
+    box.setAttribute('data-product-option-error', '');
+    box.style.cssText = 'margin:10px 0 0;color:#fca5a5;font-size:13px;font-weight:800;';
+    link.insertAdjacentElement('beforebegin', box);
+  }
+  box.textContent = message;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -298,11 +331,17 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const code = bendagoProductCodeFromLink(link);
-      const added = bendagoAddOneToCart(code);
+      const selected = bendagoSelectedProductOptions(link);
+      if (selected.requiredMissing.length) {
+        bendagoShowProductOptionError(link, 'Choose seat colour before adding to cart.');
+        return;
+      }
+      const added = bendagoAddOneToCart(code, selected.options);
       bendagoPush('product_detail_add_to_cart', {
         product_code: code,
         product_name: link.getAttribute('data-product-name') || document.title,
-        product_url: window.location.href
+        product_url: window.location.href,
+        color_option: selected.options.color_option || ''
       });
       if (added && window.BendagoCart && typeof window.BendagoCart.open === 'function') {
         window.BendagoCart.open();
