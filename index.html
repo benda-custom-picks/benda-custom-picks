@@ -924,6 +924,107 @@ footer {
 }
 /* END BENDAGO PATCH V10 */
 
+
+/* BENDAGO PATCH V11 — social links footer */
+.social-follow-block {
+  margin: 2.2rem auto 1.2rem;
+  max-width: 980px;
+  padding: 1.05rem 1rem;
+  border: 1px solid rgba(255, 255, 255, .10);
+  border-radius: 22px;
+  background: rgba(10, 16, 26, .46);
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, .18);
+}
+
+.social-follow-title {
+  margin: 0 0 .25rem;
+  color: #f8fafc;
+  font-size: .98rem;
+  font-weight: 850;
+  letter-spacing: .02em;
+}
+
+.social-follow-subtitle {
+  margin: 0 0 .85rem;
+  color: rgba(226, 232, 240, .78);
+  font-size: .82rem;
+}
+
+.social-follow-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .65rem;
+  flex-wrap: wrap;
+}
+
+.social-follow-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .45rem;
+  min-height: 42px;
+  padding: .58rem .82rem;
+  border-radius: 999px;
+  color: #f8fafc;
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .12);
+  text-decoration: none;
+  font-size: .86rem;
+  font-weight: 800;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+
+.social-follow-link:hover,
+.social-follow-link:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(46, 230, 188, .13);
+  border-color: rgba(46, 230, 188, .38);
+  outline: none;
+}
+
+.social-follow-icon {
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+}
+
+.social-follow-link.instagram .social-follow-icon {
+  color: #ff4f93;
+}
+
+.social-follow-link.facebook .social-follow-icon {
+  color: #5aa2ff;
+}
+
+.social-follow-link.tiktok .social-follow-icon {
+  color: #f8fafc;
+}
+
+@media (max-width: 640px) {
+  .social-follow-block {
+    margin: 1.75rem .35rem 1rem;
+    padding: .95rem .75rem;
+  }
+
+  .social-follow-links {
+    gap: .5rem;
+  }
+
+  .social-follow-link {
+    flex: 1 1 30%;
+    min-width: 94px;
+    padding: .55rem .58rem;
+    font-size: .78rem;
+  }
+
+  .social-follow-subtitle {
+    font-size: .78rem;
+  }
+}
+/* END BENDAGO PATCH V11 */
+
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
 <link href="./cart-flow.css" rel="stylesheet"/>
@@ -1591,6 +1692,34 @@ Your browser does not support the video tag.
 </div>
 </section>
 </main>
+
+<!-- BENDAGO PATCH V11 — social links footer -->
+<section class="social-follow-block" aria-label="Benda Custom Picks social links">
+  <p class="social-follow-title">Follow the builds</p>
+  <p class="social-follow-subtitle">See more Benda Napoleon inspiration, reels and product updates.</p>
+  <div class="social-follow-links">
+    <a class="social-follow-link tiktok" href="https://www.tiktok.com/%40custom125picks" target="_blank" rel="noopener noreferrer" aria-label="Open Custom 125 Picks on TikTok">
+      <svg class="social-follow-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M16.7 3c.4 2.2 1.7 3.8 4.1 4.1v3.4c-1.5.1-2.9-.4-4.1-1.2v6.2c0 3.1-2.2 5.5-5.7 5.5-3.2 0-5.4-2.1-5.4-5.1 0-3.4 2.7-5.4 6.3-5.1v3.5c-1.6-.2-2.6.5-2.6 1.6 0 .9.7 1.6 1.7 1.6 1.2 0 2-.8 2-2.3V3h3.7Z"/>
+      </svg>
+      TikTok
+    </a>
+    <a class="social-follow-link instagram" href="https://www.instagram.com/benda_custom_picks?igsh=MTByYXU4OGQ1bWR5YQ==" target="_blank" rel="noopener noreferrer" aria-label="Open Benda Custom Picks on Instagram">
+      <svg class="social-follow-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M7.6 2h8.8C19.5 2 22 4.5 22 7.6v8.8c0 3.1-2.5 5.6-5.6 5.6H7.6C4.5 22 2 19.5 2 16.4V7.6C2 4.5 4.5 2 7.6 2Zm0 2C5.6 4 4 5.6 4 7.6v8.8c0 2 1.6 3.6 3.6 3.6h8.8c2 0 3.6-1.6 3.6-3.6V7.6c0-2-1.6-3.6-3.6-3.6H7.6Zm4.4 3.4A4.6 4.6 0 1 1 12 16.6a4.6 4.6 0 0 1 0-9.2Zm0 2A2.6 2.6 0 1 0 12 14.6a2.6 2.6 0 0 0 0-5.2Zm5-2.2a1.1 1.1 0 1 1-1.1 1.1A1.1 1.1 0 0 1 17 7.2Z"/>
+      </svg>
+      Instagram
+    </a>
+    <a class="social-follow-link facebook" href="https://www.facebook.com/share/1NdeTQ1NKa/" target="_blank" rel="noopener noreferrer" aria-label="Open Benda Custom Picks on Facebook">
+      <svg class="social-follow-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path fill="currentColor" d="M14.2 22v-8h2.7l.4-3.1h-3.1V9c0-.9.3-1.5 1.6-1.5h1.7V4.7c-.8-.1-1.6-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.1H8v3.1h2.8v8h3.4Z"/>
+      </svg>
+      Facebook
+    </a>
+  </div>
+</section>
+<!-- END BENDAGO PATCH V11 -->
+
 <footer>
 <div class="wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div>
 </footer>
