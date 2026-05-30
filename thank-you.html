@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Request received – Bendago</title>
+<title>Checkout details received – Benda Custom Picks</title>
 <link href="./order-flow.css" rel="stylesheet"/>
 </head>
 <body class="order-body">
@@ -33,10 +33,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 <main class="order-wrap">
 <section class="thanks-card">
-<h1>Order request received.</h1>
-<p>Your order request has been received. For one selected item, complete secure SumUp card payment using the button below when available. For grouped carts, one secure SumUp payment link is sent for the grouped total.</p>
-<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking is shared as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Secure card payment →</a>
-<a class="request-btn" href="./index.html#order-selected-parts">Back to parts list</a>
+<h1>Checkout details received.</h1>
+<p>Your checkout details have been sent. For one item, complete secure SumUp card payment using the button below. For several selected parts, one grouped secure payment checkout follows for the cart total.</p>
+<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay securely by card →</a>
+<a class="request-btn" href="./index.html#order-selected-parts">Back to parts</a>
 </section>
 </main>
 <footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
@@ -55,7 +55,7 @@ try {
       '<br><br><strong>Cart total:</strong> ' + (lastCart.cart_total || '') +
       '<br><strong>Email:</strong> ' + (lastCart.email || '') +
       '<br><strong>Request ID:</strong> ' + (lastCart.request_id || '') +
-      '<br><br><strong>Next step:</strong> secure SumUp payment link for the grouped total.';
+      '<br><br><strong>Next step:</strong> one secure payment checkout follows for the grouped cart total.';
     if (payBtn) payBtn.style.display = 'none';
   } else {
     const last = JSON.parse(sessionStorage.getItem('bendago_last_request') || '{}');

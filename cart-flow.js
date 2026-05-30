@@ -1,4 +1,4 @@
-/* BENDAGO CART REQUEST FLOW V1 — secure SumUp payment after confirmation */
+/* BENDAGO CART CHECKOUT FLOW V1 — cart preserved, SumUp product links preserved */
 (function () {
   const CART_KEY = 'bendago_cart_v1';
 
@@ -109,21 +109,21 @@
         cart_count: String(lines.reduce((sum, line) => sum + line.qty, 0)),
         request_page: window.location.href,
         referrer: document.referrer || 'direct',
-        order_status_message: 'Cart order request received. Secure SumUp payment after confirmation.',
-        tracking_note: 'Delivery tracking is shared as soon as it is available after shipping.',
+        order_status_message: isSingle ? 'Checkout details received. Continue to secure SumUp card payment.' : 'Cart checkout details received. One grouped secure payment checkout follows for the cart total.',
+        tracking_note: 'Tracking details are shared as soon as they are available after shipment.',
         processing_note: 'Order processed after secure SumUp payment confirmation.'
       };
 
       try {
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending request…';
-        showStatus('ok', 'Sending cart order request…');
+        submitBtn.textContent = 'Continuing checkout…';
+        showStatus('ok', 'Preparing secure checkout…');
 
         if (window.emailjs && emailjs.init) emailjs.init({ publicKey: cfg.publicKey });
         await emailjs.send(cfg.serviceId, cfg.adminTemplateId, data);
         await emailjs.send(cfg.serviceId, cfg.clientTemplateId, data);
 
-        push('cart_order_request_sent', {
+        push('cart_checkout_details_sent', {
           request_id: requestId,
           cart_total: formatEuro(total),
           cart_count: data.cart_count,
@@ -155,9 +155,9 @@
         window.location.href = './thank-you.html?request_id=' + encodeURIComponent(requestId);
       } catch (err) {
         console.error(err);
-        showStatus('err', 'The cart order request could not be sent. Check EmailJS keys/templates, then try again.');
+        showStatus('err', 'Checkout details could not be sent. Check EmailJS keys/templates, then try again.');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Send my order request';
+        submitBtn.textContent = 'Continue checkout';
       }
     });
   });
