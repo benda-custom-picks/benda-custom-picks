@@ -263,7 +263,7 @@
         cart_count: String(count),
         order_status_message: isSingleUnit ? 'Order details confirmed. Please complete secure card payment now.' : 'Cart request received. A single SumUp payment link for the total will be sent after validation.',
         tracking_note: 'Tracking details will be shared as soon as supplier shipping details are available.',
-        supplier_validation_note: isSingleUnit ? 'The order starts after payment confirmation and supplier validation.' : 'Compatibility, availability and final supplier validation are checked before the grouped SumUp payment link is sent.'
+        supplier_validation_note: isSingleUnit ? 'The order starts after payment confirmation.' : 'The grouped order starts after the SumUp payment is confirmed.'
       });
 
       try {

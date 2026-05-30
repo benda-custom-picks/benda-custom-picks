@@ -377,7 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
     data.payment_provider = 'SumUp';
     data.order_status_message = 'Order details confirmed. Please complete secure card payment now.';
     data.tracking_note = 'Tracking details will be shared as soon as the supplier provides them after shipment.';
-    data.supplier_validation_note = 'The order starts after payment confirmation and supplier validation.';
+    data.supplier_validation_note = 'The order starts after payment confirmation.';
 
     try {
       submitBtn.disabled = true;
