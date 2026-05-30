@@ -740,6 +740,60 @@ footer {
 #order-selected-parts .featured-card.product-copy-card .featured-body{gap:13px!important;}
 @media (min-width:981px){#order-selected-parts .featured-card.product-copy-card{min-height:520px!important;}}
 
+
+/* BENDAGO — autoplay showcase video after featured products */
+#order-selected-parts .shop-showcase-video {
+  margin-top: 28px;
+  padding: 22px;
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025));
+  border: 1px solid rgba(255,255,255,.13);
+  box-shadow: 0 24px 70px rgba(0,0,0,.28);
+}
+#order-selected-parts .shop-showcase-video-head {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+#order-selected-parts .shop-showcase-video-head h3 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+  line-height: 1.05;
+  color: #f5f8fb;
+}
+#order-selected-parts .shop-showcase-video-head p {
+  margin: 0;
+  max-width: 720px;
+  color: #aebdca;
+  line-height: 1.55;
+}
+#order-selected-parts .shop-showcase-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: #05080f;
+  aspect-ratio: 16 / 9;
+}
+#order-selected-parts .shop-showcase-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #05080f;
+}
+@media (max-width: 680px) {
+  #order-selected-parts .shop-showcase-video {
+    margin-top: 22px;
+    padding: 14px;
+    border-radius: 22px;
+  }
+  #order-selected-parts .shop-showcase-frame {
+    border-radius: 18px;
+  }
+}
+
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
 <link href="./cart-flow.css" rel="stylesheet"/>
@@ -834,7 +888,8 @@ input, textarea, select, button, a {
 }
 </style>
 </head>
-<!-- BENDAGO INDEX: unified product-card catalog; product cards open product detail pages and cart-first order flow. -->
+<!-- BENDAGO HOTFIX: 3 premium product cards restored to product pages, not direct PayPal. -->
+<!-- BENDAGO INDEX: unified product-card catalog; 3 premium cards open product detail pages; remaining cards keep PayPal until pages exist. -->
 <body>
 <!-- Google Tag Manager (noscript) -->
 <noscript><iframe height="0" src="https://www.googletagmanager.com/ns.html?id=GTM-MQHMSX8X" style="display:none;visibility:hidden" width="0"></iframe></noscript>
@@ -1311,6 +1366,20 @@ Your browser cannot play this MP4.
 <a class="btn order-btn" data-order-product="Black Ribbed Clutch Cover" href="./order-black-striped-clutch-cover.html">View details</a>
 </div>
 </article></div>
+<div class="shop-showcase-video" aria-label="Benda Napoleon 125/250 custom showcase video">
+<div class="shop-showcase-video-head">
+<span class="order-eyebrow">Benda Napoleon 125/250</span>
+<h3>Custom look in motion</h3>
+<p>See the riding mood and custom attitude before choosing your parts.</p>
+</div>
+<div class="shop-showcase-frame">
+<video autoplay="" muted="" loop="" playsinline="" controls="" preload="metadata" poster="./bendago-shop-featured-showcase-poster.jpg" aria-label="Benda Napoleon custom parts showcase video">
+<source src="./bendago-shop-featured-showcase.mp4" type="video/mp4"/>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+
 </section>
 <!-- BENDAGO V15 ORDER FLOW — safe homepage block, no popup, no live checkout -->
 <nav class="quick-nav wrap">
