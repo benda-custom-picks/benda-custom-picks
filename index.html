@@ -840,6 +840,69 @@ footer {
   }
 }
 
+
+/* BENDAGO PATCH V7 — live traffic ticker */
+.live-traffic-ticker {
+  width: 100vw;
+  max-width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  overflow: hidden;
+  white-space: nowrap;
+  color: #f6c431;
+  background: transparent;
+  border: 0;
+  padding: 8px 0 7px;
+  font-size: 13px;
+  line-height: 1;
+  font-weight: 850;
+  letter-spacing: .02em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.live-traffic-ticker-track {
+  display: inline-flex;
+  width: max-content;
+  min-width: 200%;
+  will-change: transform;
+  animation: bendagoLiveTicker 42s linear infinite;
+}
+
+.live-traffic-ticker-item {
+  flex: 0 0 auto;
+  padding-right: 3rem;
+}
+
+@keyframes bendagoLiveTicker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 640px) {
+  .live-traffic-ticker {
+    font-size: 12px;
+    padding: 7px 0 6px;
+    letter-spacing: .01em;
+  }
+
+  .live-traffic-ticker-track {
+    animation-duration: 34s;
+  }
+
+  .live-traffic-ticker-item {
+    padding-right: 2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .live-traffic-ticker-track {
+    animation: none;
+    transform: none;
+  }
+}
+/* END BENDAGO PATCH V7 */
+
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
 <link href="./cart-flow.css" rel="stylesheet"/>
@@ -951,6 +1014,16 @@ input, textarea, select, button, a {
 </div>
 </nav>
 </header>
+
+<!-- BENDAGO PATCH V7 — live traffic ticker -->
+<div class="live-traffic-ticker" aria-label="Live traffic update">
+  <div class="live-traffic-ticker-track">
+    <span class="live-traffic-ticker-item" data-live-ticker-text>Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
+    <span class="live-traffic-ticker-item" data-live-ticker-text aria-hidden="true">Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
+  </div>
+</div>
+<!-- END BENDAGO PATCH V7 -->
+
 <main>
 <section class="hero wrap">
 <div class="hero-grid">
@@ -1591,5 +1664,52 @@ buildVideo.play().catch(() => {});
 <script src="./order-flow.js"></script>
 <script src="./cart-flow.js"></script>
 <script defer="" src="./anti-copy.js"></script>
+
+<script>
+/* BENDAGO PATCH V7 — live traffic ticker */
+(function () {
+  const minUsers = 54;
+  const maxUsers = 200;
+  const productClicksToday = 211;
+
+  function stableHourlyUsers(now) {
+    const key = [
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate(),
+      now.getHours()
+    ].join('-');
+
+    let hash = 0;
+    for (let i = 0; i < key.length; i += 1) {
+      hash = ((hash << 5) - hash) + key.charCodeAt(i);
+      hash |= 0;
+    }
+
+    const range = maxUsers - minUsers + 1;
+    return minUsers + (Math.abs(hash) % range);
+  }
+
+  function pad(value) {
+    return String(value).padStart(2, '0');
+  }
+
+  function updateTicker() {
+    const now = new Date();
+    const users = stableHourlyUsers(now);
+    const time = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+    const message = `Live Now • ${users} Active Users • ${productClicksToday} Product Clicks Today • Updated ${time} • Germany, France, Spain & Poland Active •`;
+
+    document.querySelectorAll('[data-live-ticker-text]').forEach((node) => {
+      node.textContent = message;
+    });
+  }
+
+  updateTicker();
+  window.setInterval(updateTicker, 60000);
+}());
+/* END BENDAGO PATCH V7 */
+</script>
+
 </body>
 </html>
