@@ -96,6 +96,27 @@
     .info-card { position:static; }
     .thumb-row { grid-template-columns:repeat(2,minmax(0,1fr)); }
   }
+
+/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
+video,
+.main-product-video,
+.media-card video,
+.video-preview video {
+  pointer-events: auto !important;
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+  -webkit-touch-callout: default !important;
+}
+
+.product-thumb.video-thumb {
+  pointer-events: auto !important;
+}
+
+.product-thumb.video-thumb img {
+  pointer-events: none;
+}
+/* END BENDAGO PATCH V9 */
+
 </style>
 </head>
 <body class="order-body">
@@ -118,7 +139,7 @@
 <div class="media-card">
 <div class="media-stage">
 <img alt="Right engine filter-style cover Napoleon 125/250 hero visual" class="main-product-img" id="mainProductImage" src="./right-engine-filter-04.png"/>
-<video class="main-product-video" controls="" id="mainProductVideo" playsinline="" poster="./right-engine-filter-04.png">
+<video class="main-product-video" controls="" id="mainProductVideo" playsinline="" poster="./right-engine-filter-04.png" autoplay="" muted="" loop="" webkit-playsinline="" preload="metadata">
 <source src="./right-engine-filter-gallery.mp4" type="video/mp4"/>
 </video>
 </div>
@@ -195,11 +216,14 @@
   function showVideo(src, btn) {
     mainImg.style.display = 'none';
     mainVideo.style.display = 'block';
+    mainVideo.muted = true;
+    mainVideo.setAttribute('muted', '');
     if (mainVideo.querySelector('source').getAttribute('src') !== src) {
       mainVideo.querySelector('source').setAttribute('src', src);
       mainVideo.load();
     }
     setActiveThumb(btn);
+    mainVideo.play().catch(function() {});
   }
 
   thumbs.forEach(btn => {
@@ -217,6 +241,59 @@
 
 <script src="./order-flow.js"></script>
 <script src="./cart-flow.js"></script>
+
+<script>
+/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
+(function () {
+  function isVisible(video) {
+    return !video.hidden && window.getComputedStyle(video).display !== 'none' && window.getComputedStyle(video).visibility !== 'hidden';
+  }
+
+  function playIfVisible(video) {
+    if (!isVisible(video)) return;
+    var playPromise = video.play && video.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(function () {});
+    }
+  }
+
+  function prepareVideo(video) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('loop', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('preload', 'metadata');
+
+    video.addEventListener('loadedmetadata', function () { playIfVisible(video); }, { once: true });
+    video.addEventListener('canplay', function () { playIfVisible(video); }, { once: true });
+    window.setTimeout(function () { playIfVisible(video); }, 400);
+  }
+
+  function setupVideos() {
+    document.querySelectorAll('video').forEach(prepareVideo);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupVideos);
+  } else {
+    setupVideos();
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) {
+      document.querySelectorAll('video').forEach(playIfVisible);
+    }
+  });
+}());
+/* END BENDAGO PATCH V9 */
+</script>
+
 <script defer="" src="./anti-copy.js"></script>
 </body>
 </html>

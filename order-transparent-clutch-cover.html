@@ -24,7 +24,28 @@
     .video-shell video { width:100%; height:100%; object-fit:cover; display:block; background:#05070b; }
     .video-fallback { margin:10px 0 0; font-size:14px; }
     @media (max-width: 900px) { .product-layout { grid-template-columns:1fr; } .info-card { position:static; } .thumb-row { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-  </style>
+  
+/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
+video,
+.main-product-video,
+.media-card video,
+.video-preview video {
+  pointer-events: auto !important;
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+  -webkit-touch-callout: default !important;
+}
+
+.product-thumb.video-thumb {
+  pointer-events: auto !important;
+}
+
+.product-thumb.video-thumb img {
+  pointer-events: none;
+}
+/* END BENDAGO PATCH V9 */
+
+</style>
 </head>
 <body class="order-body">
 <header class="order-header">
@@ -54,7 +75,7 @@
 <div class="video-preview">
 <h3>Watch the product video</h3>
 <div class="video-shell">
-<video controls="" playsinline="" poster="./transparent-clutch-cover-retouched-1.webp" preload="metadata">
+<video controls="" playsinline="" poster="./transparent-clutch-cover-retouched-1.webp" autoplay="" muted="" loop="" webkit-playsinline="" preload="metadata">
 <source src="./transparent-clutch-cover.mp4" type="video/mp4"/>
               Your browser cannot play this MP4.
             </video>
@@ -88,6 +109,59 @@
 
 <script src="./order-flow.js"></script>
 <script src="./cart-flow.js"></script>
+
+<script>
+/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
+(function () {
+  function isVisible(video) {
+    return !video.hidden && window.getComputedStyle(video).display !== 'none' && window.getComputedStyle(video).visibility !== 'hidden';
+  }
+
+  function playIfVisible(video) {
+    if (!isVisible(video)) return;
+    var playPromise = video.play && video.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(function () {});
+    }
+  }
+
+  function prepareVideo(video) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('loop', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('preload', 'metadata');
+
+    video.addEventListener('loadedmetadata', function () { playIfVisible(video); }, { once: true });
+    video.addEventListener('canplay', function () { playIfVisible(video); }, { once: true });
+    window.setTimeout(function () { playIfVisible(video); }, 400);
+  }
+
+  function setupVideos() {
+    document.querySelectorAll('video').forEach(prepareVideo);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupVideos);
+  } else {
+    setupVideos();
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) {
+      document.querySelectorAll('video').forEach(playIfVisible);
+    }
+  });
+}());
+/* END BENDAGO PATCH V9 */
+</script>
+
 <script defer="" src="./anti-copy.js"></script>
 </body>
 </html>

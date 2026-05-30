@@ -24,6 +24,27 @@
     .price-line strong { color:#4df7a8; font-size:26px; }
     .check-list div::before { content:"✓ "; color:#43ff96; font-weight:900; }
     @media (max-width: 900px) { .product-layout{grid-template-columns:1fr;} .info-card{position:static;} .thumb-row{grid-template-columns:repeat(2,minmax(0,1fr));} }
+
+/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
+video,
+.main-product-video,
+.media-card video,
+.video-preview video {
+  pointer-events: auto !important;
+  -webkit-user-select: auto !important;
+  user-select: auto !important;
+  -webkit-touch-callout: default !important;
+}
+
+.product-thumb.video-thumb {
+  pointer-events: auto !important;
+}
+
+.product-thumb.video-thumb img {
+  pointer-events: none;
+}
+/* END BENDAGO PATCH V9 */
+
 </style>
 </head>
 <body class="order-body">
@@ -51,7 +72,7 @@
 <button class="product-thumb" data-src="./product-bumper-4.webp" type="button"><img alt="Fat Bob bumper Napoleon 125/250 view 4" src="./product-bumper-4.webp"/></button></div>
 <div class="video-preview">
 <h3>Watch the product video</h3>
-<video controls="" playsinline="" poster="./product-bumper-1.webp" preload="metadata">
+<video controls="" playsinline="" poster="./product-bumper-1.webp" autoplay="" muted="" loop="" webkit-playsinline="" preload="metadata">
 <source src="./bendago_bumper_16s_nozoom.mp4" type="video/mp4"/>
     Your browser cannot play this MP4.
   </video>
@@ -100,5 +121,58 @@ document.querySelectorAll('.product-thumb').forEach(function(btn) {
 
 <script src="./order-flow.js"></script>
 <script src="./cart-flow.js"></script>
+
+<script>
+/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
+(function () {
+  function isVisible(video) {
+    return !video.hidden && window.getComputedStyle(video).display !== 'none' && window.getComputedStyle(video).visibility !== 'hidden';
+  }
+
+  function playIfVisible(video) {
+    if (!isVisible(video)) return;
+    var playPromise = video.play && video.play();
+    if (playPromise && playPromise.catch) {
+      playPromise.catch(function () {});
+    }
+  }
+
+  function prepareVideo(video) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.loop = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('loop', '');
+    video.setAttribute('autoplay', '');
+    video.setAttribute('playsinline', '');
+    video.setAttribute('webkit-playsinline', '');
+    video.setAttribute('preload', 'metadata');
+
+    video.addEventListener('loadedmetadata', function () { playIfVisible(video); }, { once: true });
+    video.addEventListener('canplay', function () { playIfVisible(video); }, { once: true });
+    window.setTimeout(function () { playIfVisible(video); }, 400);
+  }
+
+  function setupVideos() {
+    document.querySelectorAll('video').forEach(prepareVideo);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupVideos);
+  } else {
+    setupVideos();
+  }
+
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) {
+      document.querySelectorAll('video').forEach(playIfVisible);
+    }
+  });
+}());
+/* END BENDAGO PATCH V9 */
+</script>
+
 <script defer="" src="./anti-copy.js"></script>
 </body></html>
