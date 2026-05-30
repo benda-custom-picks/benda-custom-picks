@@ -304,8 +304,11 @@ document.addEventListener('DOMContentLoaded', () => {
         product_name: link.getAttribute('data-product-name') || document.title,
         product_url: window.location.href
       });
-      if (added) window.location.href = './cart-request.html';
-      else window.location.href = link.getAttribute('href') || './cart-request.html';
+      if (added && window.BendagoCart && typeof window.BendagoCart.open === 'function') {
+        window.BendagoCart.open();
+      } else if (!added) {
+        window.location.href = link.getAttribute('href') || './cart-request.html';
+      }
     });
   });
 

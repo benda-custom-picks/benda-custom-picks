@@ -1,4 +1,4 @@
-/* BENDAGO CART CHECKOUT FLOW V1 — cart preserved, SumUp product links preserved */
+/* BENDAGO CART FLOW V1.2 — visible cart restored, multi-part cart preserved */
 (function () {
   const CART_KEY = 'bendago_cart_v1';
 
@@ -18,6 +18,7 @@
 
   function saveCart(cart) {
     localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new CustomEvent('bendago:cart-updated'));
   }
 
   function euroToNumber(value) {
@@ -29,15 +30,171 @@
     return Math.round(value) + ' € TTC';
   }
 
+  function products() {
+    return window.BENDAGO_PRODUCTS || {};
+  }
+
   function getLines() {
-    const products = window.BENDAGO_PRODUCTS || {};
+    const map = products();
     return readCart().map(item => {
-      const product = products[item.code];
+      const product = map[item.code];
       if (!product) return null;
       const qty = Math.max(1, Number(item.qty) || 1);
       const unit = euroToNumber(product.price);
       return { ...product, code: item.code, qty, line_total: unit * qty };
     }).filter(Boolean);
+  }
+
+  function cartCount() {
+    return readCart().reduce((sum, item) => sum + (Number(item.qty) || 0), 0);
+  }
+
+  function setQty(code, qty) {
+    const next = readCart().map(item => item.code === code ? { ...item, qty: Number(qty) } : item)
+      .filter(item => item.qty > 0);
+    saveCart(next);
+  }
+
+  function removeItem(code) {
+    saveCart(readCart().filter(item => item.code !== code));
+  }
+
+  function clearCart() {
+    saveCart([]);
+  }
+
+  function addToCart(code, qty = 1) {
+    const map = products();
+    if (!code || !map[code]) return false;
+    const cart = readCart();
+    const existing = cart.find(item => item.code === code);
+    if (existing) existing.qty += qty;
+    else cart.push({ code, qty });
+    saveCart(cart);
+    push('add_to_cart', {
+      product_code: code,
+      product_name: map[code].product_name,
+      price: map[code].price,
+      cart_count: cartCount()
+    });
+    return true;
+  }
+
+  function ensureCartUi() {
+    if (document.getElementById('bendagoCartButton')) return;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.id = 'bendagoCartButton';
+    btn.className = 'cart-floating-btn';
+    btn.innerHTML = 'Cart <span class="cart-count-badge" data-cart-count>0</span>';
+    btn.setAttribute('aria-label', 'Open cart');
+
+    const overlay = document.createElement('div');
+    overlay.id = 'bendagoCartOverlay';
+    overlay.className = 'cart-overlay';
+
+    const drawer = document.createElement('aside');
+    drawer.id = 'bendagoCartDrawer';
+    drawer.className = 'cart-drawer';
+    drawer.setAttribute('aria-label', 'Benda Custom Picks cart');
+    drawer.innerHTML = [
+      '<div class="cart-head">',
+      '<div><h2>Your cart</h2><p>Select one or several Benda Napoleon parts.</p></div>',
+      '<button type="button" class="cart-close" data-cart-close aria-label="Close cart">×</button>',
+      '</div>',
+      '<div class="cart-body" data-cart-body></div>',
+      '<div class="cart-footer">',
+      '<div class="cart-total-row"><span>Total</span><strong data-cart-total>0 € TTC</strong></div>',
+      '<div class="cart-note">Secure checkout. Order confirmation by email. Delivery after payment: 10–15 days.</div>',
+      '<a class="cart-checkout-btn disabled" data-cart-checkout href="./cart-request.html">Checkout cart</a>',
+      '<button type="button" class="cart-clear-btn" data-cart-clear>Clear cart</button>',
+      '</div>'
+    ].join('');
+
+    document.body.appendChild(btn);
+    document.body.appendChild(overlay);
+    document.body.appendChild(drawer);
+
+    btn.addEventListener('click', openCart);
+    overlay.addEventListener('click', closeCart);
+    drawer.querySelector('[data-cart-close]').addEventListener('click', closeCart);
+    drawer.querySelector('[data-cart-clear]').addEventListener('click', () => {
+      clearCart();
+      renderCartDrawer();
+    });
+
+    drawer.addEventListener('click', (event) => {
+      const dec = event.target.closest('[data-cart-dec]');
+      const inc = event.target.closest('[data-cart-inc]');
+      const rem = event.target.closest('[data-cart-remove]');
+      if (dec) {
+        const code = dec.getAttribute('data-cart-dec');
+        const item = readCart().find(x => x.code === code);
+        if (item) setQty(code, (Number(item.qty) || 1) - 1);
+      }
+      if (inc) {
+        const code = inc.getAttribute('data-cart-inc');
+        const item = readCart().find(x => x.code === code);
+        if (item) setQty(code, (Number(item.qty) || 1) + 1);
+      }
+      if (rem) removeItem(rem.getAttribute('data-cart-remove'));
+      if (dec || inc || rem) renderCartDrawer();
+    });
+
+    renderCartDrawer();
+  }
+
+  function openCart() {
+    ensureCartUi();
+    renderCartDrawer();
+    document.getElementById('bendagoCartOverlay')?.classList.add('active');
+    document.getElementById('bendagoCartDrawer')?.classList.add('active');
+  }
+
+  function closeCart() {
+    document.getElementById('bendagoCartOverlay')?.classList.remove('active');
+    document.getElementById('bendagoCartDrawer')?.classList.remove('active');
+  }
+
+  function renderCartDrawer() {
+    const lines = getLines();
+    const countEls = document.querySelectorAll('[data-cart-count]');
+    countEls.forEach(el => { el.textContent = String(cartCount()); });
+    const body = document.querySelector('[data-cart-body]');
+    const totalEl = document.querySelector('[data-cart-total]');
+    const checkout = document.querySelector('[data-cart-checkout]');
+    if (!body || !totalEl || !checkout) return;
+
+    if (!lines.length) {
+      body.innerHTML = '<div class="cart-empty">Your cart is empty. Open a product page and add one or several parts.</div>';
+      totalEl.textContent = '0 € TTC';
+      checkout.classList.add('disabled');
+      return;
+    }
+
+    const total = lines.reduce((sum, line) => sum + line.line_total, 0);
+    body.innerHTML = lines.map(line => [
+      '<div class="cart-line">',
+      '<img src="' + (line.image || './standby-product-visual.png') + '" alt="' + escapeHtml(line.product_name) + '">',
+      '<div>',
+      '<div class="cart-line-title">' + escapeHtml(line.product_name) + '</div>',
+      '<div class="cart-line-price">' + escapeHtml(line.price) + '</div>',
+      '<div class="cart-line-actions">',
+      '<button class="cart-qty-btn" type="button" data-cart-dec="' + escapeHtml(line.code) + '">−</button>',
+      '<strong>' + line.qty + '</strong>',
+      '<button class="cart-qty-btn" type="button" data-cart-inc="' + escapeHtml(line.code) + '">+</button>',
+      '<button class="cart-remove-btn" type="button" data-cart-remove="' + escapeHtml(line.code) + '">Remove</button>',
+      '</div>',
+      '</div>',
+      '</div>'
+    ].join('')).join('');
+    totalEl.textContent = formatEuro(total);
+    checkout.classList.remove('disabled');
+  }
+
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   }
 
   function renderCartSummary() {
@@ -50,11 +207,11 @@
     }
     const total = lines.reduce((sum, line) => sum + line.line_total, 0);
     box.innerHTML = '<h2>Selected parts</h2>' + lines.map(line =>
-      '<div class="cart-summary-row"><span>' + line.product_name + ' × ' + line.qty + '</span><strong>' + formatEuro(line.line_total) + '</strong></div>'
+      '<div class="cart-summary-row"><span>' + escapeHtml(line.product_name) + ' × ' + line.qty + '</span><strong>' + formatEuro(line.line_total) + '</strong></div>'
     ).join('') + '<div class="cart-summary-total"><span>Total</span><strong>' + formatEuro(total) + '</strong></div>';
   }
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function bindCartForm() {
     const form = document.getElementById('cartRequestForm');
     if (!form) return;
 
@@ -115,8 +272,10 @@
       };
 
       try {
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Continuing checkout…';
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Continuing checkout…';
+        }
         showStatus('ok', 'Preparing secure checkout…');
 
         if (window.emailjs && emailjs.init) emailjs.init({ publicKey: cfg.publicKey });
@@ -156,9 +315,25 @@
       } catch (err) {
         console.error(err);
         showStatus('err', 'Checkout details could not be sent. Check EmailJS keys/templates, then try again.');
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Continue checkout';
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Continue checkout';
+        }
       }
     });
+  }
+
+  window.BendagoCart = {
+    read: readCart,
+    add: addToCart,
+    open: openCart,
+    render: renderCartDrawer,
+    clear: clearCart
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    ensureCartUi();
+    bindCartForm();
   });
+  window.addEventListener('bendago:cart-updated', renderCartDrawer);
 })();
