@@ -167,6 +167,21 @@
   color:#b8fff7; background:rgba(22,213,199,.09); border:1px solid rgba(22,213,199,.18);
   border-radius:16px; padding:13px; line-height:1.45; margin:18px 0;
 }
+
+.product-detail-panel {
+  display:grid;
+  gap:13px;
+  margin:18px 0;
+  padding:16px;
+  border-radius:18px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.11);
+}
+.product-detail-panel h3 { margin:0; font-size:1rem; letter-spacing:.04em; text-transform:uppercase; color:#8ff4ed; }
+.product-detail-row { display:grid; gap:5px; }
+.product-detail-row strong { color:#f5f7fb; font-size:.94rem; }
+.product-detail-row p { margin:0; color:#dbe7f5; line-height:1.5; font-size:.94rem; }
+
 .price-line { border-top:1px solid var(--order-line); padding-top:16px; margin-top:14px; }
 .price-line strong { color:var(--order-green); font-size:1.45rem; }
 .request-btn,.yellow-btn {
