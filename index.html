@@ -843,7 +843,9 @@ footer {
 
 
 
-/* BENDAGO PATCH V8 — clean live traffic ticker */
+
+
+/* BENDAGO PATCH V10 — pc ticker scroll fix */
 .live-traffic-ticker {
   width: 100%;
   max-width: 100%;
@@ -862,25 +864,40 @@ footer {
   position: relative;
   z-index: 2;
   box-sizing: border-box;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 22px, #000 calc(100% - 22px), transparent 100%);
 }
 
 .live-traffic-ticker-track {
-  display: inline-flex;
+  display: flex;
   width: max-content;
+  min-width: 260%;
   will-change: transform;
-  animation: bendagoLiveTickerV8 48s linear infinite;
+  animation-name: bendagoLiveTickerV10;
+  animation-duration: 24s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 .live-traffic-ticker-item {
   flex: 0 0 auto;
-  padding-right: 4rem;
+  display: inline-block;
+  padding-right: 3rem;
 }
 
-@keyframes bendagoLiveTickerV8 {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+@keyframes bendagoLiveTickerV10 {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-33.333%, 0, 0); }
+}
+
+@media (min-width: 900px) {
+  .live-traffic-ticker {
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 7px;
+  }
+
+  .live-traffic-ticker-track {
+    animation-duration: 20s;
+  }
 }
 
 @media (max-width: 640px) {
@@ -888,26 +905,24 @@ footer {
     font-size: 12px;
     padding: 6px 0 5px;
     letter-spacing: .01em;
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
-    mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
   }
 
   .live-traffic-ticker-track {
-    animation-duration: 38s;
+    min-width: 320%;
+    animation-duration: 22s;
   }
 
   .live-traffic-ticker-item {
-    padding-right: 2.5rem;
+    padding-right: 2rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .live-traffic-ticker-track {
-    animation: none;
-    transform: none;
+    animation-duration: 20s !important;
   }
 }
-/* END BENDAGO PATCH V8 */
+/* END BENDAGO PATCH V10 */
 
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
@@ -1021,7 +1036,7 @@ input, textarea, select, button, a {
 </nav>
 </header>
 
-<!-- BENDAGO PATCH V8 — clean live traffic ticker -->
+<!-- BENDAGO PATCH V10 — pc ticker scroll fix -->
 <div class="live-traffic-ticker" aria-label="Live traffic update">
   <div class="live-traffic-ticker-track">
     <span class="live-traffic-ticker-item" data-live-ticker-text>• Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
@@ -1029,7 +1044,9 @@ input, textarea, select, button, a {
     <span class="live-traffic-ticker-item" data-live-ticker-text aria-hidden="true">• Live Now • 128 Active Users • 211 Product Clicks Today • Updated 22:00 • Germany, France, Spain &amp; Poland Active •</span>
   </div>
 </div>
-<!-- END BENDAGO PATCH V8 -->
+<!-- END BENDAGO PATCH V10 -->
+
+
 
 
 
@@ -1679,7 +1696,11 @@ buildVideo.play().catch(() => {});
 
 
 <script>
-/* BENDAGO PATCH V8 — clean live traffic ticker */
+</script>
+
+
+<script>
+/* BENDAGO PATCH V10 — pc ticker scroll fix */
 (function () {
   const minUsers = 54;
   const maxUsers = 200;
@@ -1721,7 +1742,7 @@ buildVideo.play().catch(() => {});
   updateTicker();
   window.setInterval(updateTicker, 60000);
 }());
-/* END BENDAGO PATCH V8 */
+/* END BENDAGO PATCH V10 */
 </script>
 
 </body>
