@@ -1,7 +1,9 @@
-/* BENDAGO v17 — minimal gallery zoom fix
+/* BENDAGO — global anti-copy friction + gallery fixes
    Scope:
-   - Gold Clutch Inner Accent / Gold clutch flywheel: make the added yellow disc thumbnail zoom into main image.
-   - Black striped clutch cover: remove the wrong yellow disc thumbnail if present.
+   - Reduce casual image/video saving on homepage, hero, product cards and galleries.
+   - Preserve forms, buttons, links and video controls.
+   - Keep existing Gold/Black clutch gallery repair logic.
+   Note: this is friction, not DRM.
 */
 (function () {
   function norm(v) {
@@ -56,6 +58,7 @@
     var img = thumb ? thumb.querySelector('img') : null;
     return (
       thumb.getAttribute('data-img') ||
+      thumb.getAttribute('data-src') ||
       thumb.getAttribute('href') ||
       (img ? img.getAttribute('src') : '') ||
       ''
@@ -66,6 +69,7 @@
     var img = thumb ? thumb.querySelector('img') : null;
     return norm([
       thumb ? thumb.getAttribute('data-img') : '',
+      thumb ? thumb.getAttribute('data-src') : '',
       thumb ? thumb.getAttribute('href') : '',
       thumb ? thumb.getAttribute('aria-label') : '',
       img ? img.getAttribute('src') : '',
@@ -185,26 +189,98 @@
     });
   }
 
+  var MEDIA_SELECTOR = [
+    'img',
+    'video',
+    'picture',
+    '.hero',
+    '.hero-card',
+    '.hero-photo',
+    '.hero-visual',
+    '.build-showcase-video',
+    '.build-card',
+    '.featured-media',
+    '.featured-thumb',
+    '.media-card',
+    '.media-stage',
+    '.preview-placeholder',
+    '.main-product-img',
+    '.main-product-video',
+    '.product-thumb',
+    '.product-thumb img',
+    '.gallery',
+    '.video-preview',
+    '.video-shell'
+  ].join(',');
+
+  function isMediaTarget(target) {
+    return !!(target && target.closest && target.closest(MEDIA_SELECTOR));
+  }
+
+  function isFormTarget(target) {
+    return !!(target && target.closest && target.closest('input, textarea, select, option, button, a, [contenteditable="true"]'));
+  }
+
   function antiCopyFriction() {
-    document.querySelectorAll('img, .featured-thumb, .featured-media, .main-product-img, .product-thumb img, .build-card img').forEach(function (el) {
+    document.querySelectorAll(MEDIA_SELECTOR).forEach(function (el) {
       el.setAttribute('draggable', 'false');
+      el.setAttribute('ondragstart', 'return false');
       el.style.webkitUserDrag = 'none';
       el.style.userDrag = 'none';
       el.style.webkitTouchCallout = 'none';
+      el.style.webkitUserSelect = 'none';
+      el.style.userSelect = 'none';
     });
+  }
+
+  function bindAntiCopyEvents() {
+    if (document.documentElement.getAttribute('data-bendago-anti-copy-bound') === '1') return;
+    document.documentElement.setAttribute('data-bendago-anti-copy-bound', '1');
+
+    document.addEventListener('contextmenu', function (event) {
+      if (isMediaTarget(event.target)) {
+        event.preventDefault();
+        return false;
+      }
+    }, true);
+
+    document.addEventListener('dragstart', function (event) {
+      if (isMediaTarget(event.target)) {
+        event.preventDefault();
+        return false;
+      }
+    }, true);
+
+    document.addEventListener('selectstart', function (event) {
+      if (!isFormTarget(event.target) && isMediaTarget(event.target)) {
+        event.preventDefault();
+        return false;
+      }
+    }, true);
+
+    document.addEventListener('keydown', function (event) {
+      var key = norm(event.key);
+      if ((event.ctrlKey || event.metaKey) && ['s', 'u'].includes(key)) {
+        event.preventDefault();
+        return false;
+      }
+    }, true);
   }
 
   function run() {
     antiCopyFriction();
+    bindAntiCopyEvents();
     addGoldDiscThumbIfMissing();
     bindGalleryZoom();
     removeYellowDiscFromBlackClutch();
     setTimeout(function () {
+      antiCopyFriction();
       addGoldDiscThumbIfMissing();
       bindGalleryZoom();
       removeYellowDiscFromBlackClutch();
     }, 300);
     setTimeout(function () {
+      antiCopyFriction();
       addGoldDiscThumbIfMissing();
       bindGalleryZoom();
       removeYellowDiscFromBlackClutch();

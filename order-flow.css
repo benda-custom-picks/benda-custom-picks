@@ -356,3 +356,69 @@ input, textarea, select, button, a {
   -webkit-user-select: auto !important;
   user-select: auto !important;
 }
+
+
+/* BENDAGO V24 — global anti-copy + clean 16:9 product video display */
+.media-card,
+.media-stage,
+.video-preview,
+.video-shell,
+.preview-placeholder,
+.featured-media,
+.featured-thumb,
+.product-thumb,
+.product-thumb img,
+.main-product-img,
+.main-product-video,
+.build-showcase-video,
+.build-showcase-video video {
+  -webkit-touch-callout: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
+}
+
+.media-card img,
+.media-card video,
+.media-stage img,
+.media-stage video,
+.video-preview video,
+.video-shell video,
+.preview-placeholder img,
+.featured-media img,
+.featured-thumb,
+.product-thumb img,
+.main-product-img,
+.main-product-video {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+}
+
+/* Product videos: keep controls usable but force a clean 16:9 display box. */
+.video-preview video,
+.video-shell video,
+.main-product-video {
+  width: 100% !important;
+  max-width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  background: #05070b !important;
+  border-radius: 18px !important;
+}
+
+.video-shell {
+  aspect-ratio: 16 / 9 !important;
+  overflow: hidden !important;
+  background: #05070b !important;
+}
+
+/* Do not block functional controls. */
+.product-thumb,
+button,
+a,
+input,
+textarea,
+select,
+video[controls] {
+  pointer-events: auto !important;
+}
