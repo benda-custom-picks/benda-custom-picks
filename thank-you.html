@@ -35,7 +35,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="thanks-card">
 <h1>Secure checkout ready.</h1>
 <p>Your checkout details have been received. For one item, complete secure SumUp card payment using the button below. For several selected parts, one grouped secure payment checkout follows for the cart total.</p>
-<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay now securely by card →</a>
+<div class="summary-box" id="requestSummary">Your checkout summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay now securely by card →</a>
 <a class="request-btn" href="./index.html#order-selected-parts">Back to parts</a>
 </section>
 </main>
@@ -51,10 +51,10 @@ try {
 
   if (lastCart.request_id && summary) {
     summary.innerHTML =
-      '<strong>Grouped cart request:</strong><br>' + (lastCart.cart_summary || '') +
+      '<strong>Grouped cart checkout:</strong><br>' + (lastCart.cart_summary || '') +
       '<br><br><strong>Cart total:</strong> ' + (lastCart.cart_total || '') +
       '<br><strong>Email:</strong> ' + (lastCart.email || '') +
-      '<br><strong>Request ID:</strong> ' + (lastCart.request_id || '') +
+      '<br><strong>Checkout ID:</strong> ' + (lastCart.request_id || '') +
       '<br><br><strong>Next step:</strong> one secure payment checkout follows for the grouped cart total.';
     if (payBtn) payBtn.style.display = 'none';
   } else {
@@ -64,7 +64,7 @@ try {
         '<strong>Product:</strong> ' + last.product_name +
         '<br><strong>Price:</strong> ' + (last.price || '') +
         '<br><strong>Colour / option:</strong> ' + (last.color_option || 'To confirm / not applicable') + '<br><strong>Email:</strong> ' + (last.email || '') +
-        '<br><strong>Request ID:</strong> ' + (last.request_id || '');
+        '<br><strong>Checkout ID:</strong> ' + (last.request_id || '');
     }
     if (last.sumup_url && payBtn) {
       payBtn.href = last.sumup_url;
