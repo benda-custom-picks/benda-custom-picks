@@ -4,9 +4,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "black-striped-clutch-cover",
     product_name: 'Black Ribbed Clutch Cover',
     product_short: 'Black ribbed clutch cover Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '119 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './black-striped-clutch-cover-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/Q9VN0MTA'
   },
@@ -14,9 +14,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "gold-clutch-flywheel",
     product_name: 'Gold Clutch Inner Accent',
     product_short: 'Gold inner clutch accent Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '168 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './gold-clutch-flywheel-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QG91N8HI'
   },
@@ -24,9 +24,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "transparent-clutch-cover",
     product_name: 'Clear Clutch Window Cover',
     product_short: 'Transparent clutch window cover Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '184 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './transparent-clutch-cover-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QCIGV1GF'
   },
@@ -34,9 +34,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "future-led-light",
     product_name: 'Future Front Light Upgrade',
     product_short: 'Future front light upgrade Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '182 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './future-led-light-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QKDUHQ6J'
   },
@@ -44,9 +44,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "tank-cover-support-volume",
     product_name: 'Tank Volume Cover',
     product_short: 'Tank cover / support volume Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '187 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './tank-cover-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QDQRVQ8D'
   ,
@@ -57,9 +57,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "closed-metal-hubcap-benda-samurai",
     product_name: 'Samurai Wheel Cover',
     product_short: 'Closed metal hubcap / Samurai wheel cover',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '199 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './closed-metal-hubcap-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/Q12U5SQL'
   },
@@ -67,9 +67,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "rear-arch-luggage-rack",
     product_name: 'Rear Arch Support Rack',
     product_short: 'Rear arch support rack Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '191 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './rear-arch-luggage-rack-retouched-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QSWPEIYS'
   },
@@ -77,9 +77,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "metal-foot-controls",
     product_name: 'Bronze Foot Control Kit',
     product_short: 'Metal gear/brake foot controls Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '306 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './metal-foot-controls-hero.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QDY4J3FB'
   },
@@ -87,9 +87,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "double-seat-foot-peg-kit",
     product_name: 'Comfort Seat & Foot Peg Kit',
     product_short: 'Comfort seat and foot peg kit Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '590 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './premium-double-seat-hero-v3.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QA9QRRRN'
   },
@@ -97,9 +97,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "premium-double-seat",
     product_name: 'Premium Comfort Double Seat',
     product_short: 'Premium comfort double seat Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '641 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './premium-double-seat-hero-v3.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QCXN26NP'
   },
@@ -107,9 +107,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "gps-carplay",
     product_name: 'GPS / CarPlay screen for Benda Napoleon 125/250',
     product_short: 'GPS / CarPlay screen Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '105 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './carplay-benda.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QAJUVD3U'
   },
@@ -117,9 +117,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "chrome-engine-cover",
     product_name: 'Chrome Air Side Cover',
     product_short: 'Chrome left-side air filter cover Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '261 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './air_filter_cover_chrome_left_01_detail.png',
     sumup_url: 'https://pay.sumup.com/b2c/QNTNCVJW'
   },
@@ -127,9 +127,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "rear-fender",
     product_name: 'Rear Clean Fender Kit',
     product_short: 'Rear clean fender kit Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '283 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './rear_fender_05_side_profile.png',
     sumup_url: 'https://pay.sumup.com/b2c/Q5N50MJX'
   },
@@ -137,9 +137,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "left-side-bag-support",
     product_name: 'Left Side Travel Bag Kit',
     product_short: 'Left side travel bag and support Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '221 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './left_side_bag_00_mount_bar_detail.png',
     sumup_url: 'https://pay.sumup.com/b2c/QJH4CGUO'
   },
@@ -147,9 +147,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "left-premium-engine-cover",
     product_name: 'Premium Left Engine Cover',
     product_short: 'Premium left engine cover Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '479 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './left-engine-cover-2-closeup.png',
     sumup_url: 'https://pay.sumup.com/b2c/Q1REVF13'
   },
@@ -157,9 +157,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "dual-exhaust",
     product_name: 'Dual Exhaust Custom Kit',
     product_short: 'Dual exhaust custom kit Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '512 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './dual-exhaust-card-hero.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QPDLYF56'
   },
@@ -167,9 +167,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "right-engine-filter-cover",
     product_name: 'Right Engine Side Cover',
     product_short: 'Right engine filter-style cover Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '136 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './standby-product-visual.png',
     sumup_url: 'https://pay.sumup.com/b2c/QMQRL3QK'
   },
@@ -177,9 +177,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "handlebar-riser",
     product_name: 'Comfort Handlebar Riser Kit',
     product_short: 'Comfort handlebar riser kit Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '261 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './standby-product-visual.png',
     sumup_url: 'https://pay.sumup.com/b2c/QNI21W2Q'
   },
@@ -187,9 +187,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "fat-bob-bumper",
     product_name: 'Fat Bob Front Bumper Kit',
     product_short: 'Fat Bob front bumper kit Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '637 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './product-bumper-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QQGTWXCO'
   },
@@ -197,9 +197,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "chassis-protection",
     product_name: 'Lower Chassis Protection Plate',
     product_short: 'Lower chassis protection plate Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '454 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './product-chassis-1.webp',
     sumup_url: 'https://pay.sumup.com/b2c/QOGSM0WX'
   },
@@ -207,9 +207,9 @@ const BENDAGO_PRODUCTS = {
     product_code: "headlight-fairing",
     product_name: 'Front Fairing Style Kit',
     product_short: 'Front fairing style kit Napoleon 125/250',
-    fitment: 'Benda Napoleon 125/250',
+    fitment: 'Benda Napoleon 125 / 250',
     price: '169 € TTC',
-    delivery_estimate: '10 to 20 days',
+    delivery_estimate: '10 to 15 days',
     image: './fairing-hero.png',
     sumup_url: 'https://pay.sumup.com/b2c/Q05YR41S'
   }
@@ -375,14 +375,16 @@ document.addEventListener('DOMContentLoaded', () => {
     data.sumup_url = product.sumup_url;
     data.payment_url = product.sumup_url;
     data.payment_provider = 'SumUp';
-    data.order_status_message = 'Order details confirmed. Please complete secure card payment now.';
-    data.tracking_note = 'Tracking details will be shared as soon as the supplier provides them after shipment.';
-    data.supplier_validation_note = 'The order starts after payment confirmation.';
+    data.cart_total = data.price || '';
+    data.cart_summary = (data.product_name || '') + ' x ' + (data.quantity || '1');
+    data.order_status_message = 'Order request received. Secure SumUp payment after confirmation.';
+    data.tracking_note = 'Delivery tracking is shared as soon as it is available after shipping.';
+    data.processing_note = 'Order processed after secure SumUp payment confirmation.';
 
     try {
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Confirming order…';
-      showStatus('ok', 'Sending order details…');
+      submitBtn.textContent = 'Sending request…';
+      showStatus('ok', 'Sending order request…');
 
       if (window.emailjs && emailjs.init) emailjs.init({ publicKey: cfg.publicKey });
 
@@ -412,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(err);
       showStatus('err', 'The order details could not be sent. Check EmailJS keys/templates, then try again.');
       submitBtn.disabled = false;
-      submitBtn.textContent = 'Confirm order details';
+      submitBtn.textContent = 'Send order request';
     }
   });
 });

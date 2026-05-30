@@ -10,8 +10,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Finalize cart – Bendago</title>
-<meta content="Finalize one or several Bendago parts through the cart-first order flow." name="description"/>
+<title>Cart order request – Bendago</title>
+<meta content="Send one Benda Napoleon cart order request and complete secure SumUp payment after confirmation." name="description"/>
 <link href="./order-flow.css" rel="stylesheet"/>
 <link href="./cart-flow.css" rel="stylesheet"/>
 </head>
@@ -35,8 +35,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="request-card">
 <div class="request-top">
 <div>
-<h1 class="product-title">Finalize your Bendago cart</h1>
-<p>Check your selected parts and fill out your contact, Benda Napoleon model and delivery details once. One item continues to its product SumUp payment link; several items are grouped into one total request.</p>
+<h1 class="product-title">Complete your cart order request</h1>
+<p>Check your selected parts and enter your contact and delivery details once. A secure SumUp payment link is used after confirmation, and the order is processed after payment.</p>
 </div>
 </div>
 <div class="cart-summary-card" id="cartSummary"></div>
@@ -44,16 +44,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <div class="form-grid">
 <div class="field"><label>Full name *</label><input name="customer_name" placeholder="e.g. John Doe" required=""/></div>
 <div class="field"><label>Email *</label><input name="email" placeholder="e.g. john@example.com" required="" type="email"/></div>
-<div class="field"><label>Phone *</label><input name="phone" placeholder="e.g. +33 6 12 34 56 78" required=""/></div>
+<div class="field"><label>Phone</label><input name="phone" placeholder="e.g. +33 6 12 34 56 78"/></div>
 <div class="field"><label>Country *</label><input name="country" placeholder="e.g. France" required=""/></div>
-<div class="field"><label>Motorcycle model *</label><input name="motorcycle_model" placeholder="e.g. Benda Napoleon 125" required=""/></div>
-<div class="field"><label>Year / version *</label><input name="year_version" placeholder="e.g. 2024" required=""/></div>
+<div class="field"><label>Benda Napoleon model</label><input name="motorcycle_model" placeholder="Benda Napoleon 125 / 250"/></div>
+<div class="field"><label>Year / version</label><input name="year_version" placeholder="e.g. 2024 / not sure"/></div>
 <div class="field"><label>Colour / option</label><input name="color_option" placeholder="e.g. black parts / green Benda Napoleon / to confirm"/></div>
 <div class="field"><label>Delivery city / country *</label><input name="delivery_city_country" placeholder="e.g. Paris, France" required=""/></div>
 <div class="field full"><label>Delivery address</label><textarea name="delivery_address" placeholder="Street, postcode, city, country"></textarea></div>
 <div class="field full"><label>Message / notes</label><textarea name="message" placeholder="Anything we should know about your Benda Napoleon, colour, build or order?"></textarea></div>
 </div>
-<div class="form-note">The cart total is calculated automatically. One item continues to its product SumUp payment link. Several items are grouped into one total request, then paid with one secure SumUp payment link.</div>
+<div class="form-note">The cart total is calculated automatically. Secure SumUp payment after confirmation. Order processed after payment. Delivery: 10–15 days.</div>
 <button class="yellow-btn" type="submit">Send my order request</button>
 <div class="status-box" id="cartFormStatus"></div>
 </form>
@@ -61,7 +61,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <section class="next-card">
 <h2>What happens next?</h2>
 <div class="next-grid next-grid-two">
-<div class="next-step"><strong>1. Cart details received</strong><p>Your selected parts, cart total, Benda Napoleon model and delivery information are saved with your order request.</p></div>
+<div class="next-step"><strong>1. Cart details received</strong><p>Your selected parts, cart total and delivery details are received with your order request.</p></div>
 <div class="next-step"><strong>2. Delivery after payment</strong><p>After secure SumUp payment confirmation, your products are prepared and delivered within 10 to 15 days.</p></div>
 </div>
 </section>
