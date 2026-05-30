@@ -535,6 +535,52 @@ footer {
   .thumb { height: 250px; }
 }
 
+
+
+/* Cash trigger: top clicked parts visible before inspiration media on mobile */
+.top-clicked-inline {
+  margin-top: 18px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 18px;
+  background: rgba(0,0,0,.18);
+}
+.top-clicked-inline-title {
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+.top-clicked-inline-note {
+  color: var(--muted);
+  font-size: .92rem;
+  margin: 0 0 10px;
+}
+.top-clicked-inline-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.top-clicked-inline-grid a {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 14px;
+  padding: 10px 11px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+.top-clicked-inline-grid a span {
+  display: block;
+  color: #43f0b6;
+  font-size: .88rem;
+  margin-top: 4px;
+}
+@media (max-width: 640px) {
+  .top-clicked-inline-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 640px) {
   .wrap { width: min(100% - 20px, 1160px); }
   .hero { padding: 26px 0 16px; }
@@ -914,7 +960,19 @@ input, textarea, select, button, a {
 <p class="lead">
         Custom parts for Benda Napoleon 125/250: front fairing, engine covers, side bags, rear rack, bumper parts and more. Choose one part or add several parts to the cart, then continue to secure checkout.
       </p>
-<a class="btn facebook" href="https://www.facebook.com/BendaCustomPicks" rel="noopener noreferrer" target="_blank">Shop the parts list</a>
+<a class="btn" href="#top-clicked-parts">Choose parts & checkout ↓</a>
+
+<div class="top-clicked-inline" id="top-clicked-parts">
+  <div class="top-clicked-inline-title">Most clicked parts right now 🔥</div>
+  <p class="top-clicked-inline-note">Pick a top part, add to cart, then continue to secure checkout.</p>
+  <div class="top-clicked-inline-grid">
+    <a href="./order-right-engine-filter-cover.html">Right Engine Side Cover<span>136 € TTC</span></a>
+    <a href="./order-headlight-fairing.html">Front Fairing Style Kit<span>169 € TTC</span></a>
+    <a href="./order-rear-arch-luggage-rack.html">Rear Arch Support Rack<span>191 € TTC</span></a>
+    <a href="./order-closed-metal-hubcap-benda-samurai.html">Samurai Wheel Cover<span>199 € TTC</span></a>
+    <a href="./order-tank-cover-support-volume.html">Tank Volume Cover<span>187 € TTC</span></a>
+  </div>
+</div>
 </div>
 <div class="hero-aside" style="display:block; min-height:420px;">
 <div aria-label="Benda Napoleon custom" class="hero-photo" style="background-image:url('./hro-benda.png'); display:block; width:100%; height:100%; min-height:420px; background-size:cover; background-position:center; background-repeat:no-repeat; border-radius:28px;"></div>
