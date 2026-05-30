@@ -33,9 +33,9 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </header>
 <main class="order-wrap">
 <section class="thanks-card">
-<h1>Checkout details received.</h1>
-<p>Your checkout details have been sent. For one item, complete secure SumUp card payment using the button below. For several selected parts, one grouped secure payment checkout follows for the cart total.</p>
-<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay securely by card →</a>
+<h1>Secure checkout ready.</h1>
+<p>Your checkout details have been received. For one item, complete secure SumUp card payment using the button below. For several selected parts, one grouped secure payment checkout follows for the cart total.</p>
+<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay now securely by card →</a>
 <a class="request-btn" href="./index.html#order-selected-parts">Back to parts</a>
 </section>
 </main>
@@ -69,6 +69,7 @@ try {
     if (last.sumup_url && payBtn) {
       payBtn.href = last.sumup_url;
       payBtn.style.display = 'inline-flex';
+      payBtn.addEventListener('click', function(){ window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'sumup_payment_click', product_name: last.product_name || '', price: last.price || '', request_id: last.request_id || '' }); });
     } else if (payBtn) {
       payBtn.style.display = 'none';
     }

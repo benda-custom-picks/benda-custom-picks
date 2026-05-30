@@ -293,8 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.querySelectorAll('.js-request-link').forEach(link => {
-    link.textContent = 'Add to cart →';
-    link.setAttribute('aria-label', 'Add this part to cart');
+    link.textContent = 'Add to cart & pay securely →';
+    link.setAttribute('aria-label', 'Add to cart and continue to secure checkout');
     link.addEventListener('click', (event) => {
       event.preventDefault();
       const code = bendagoProductCodeFromLink(link);

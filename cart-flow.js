@@ -106,8 +106,8 @@
       '<div class="cart-body" data-cart-body></div>',
       '<div class="cart-footer">',
       '<div class="cart-total-row"><span>Total</span><strong data-cart-total>0 € TTC</strong></div>',
-      '<div class="cart-note">Secure checkout. Order confirmation by email. Delivery after payment: 10–15 days.</div>',
-      '<a class="cart-checkout-btn disabled" data-cart-checkout href="./cart-request.html">Checkout cart</a>',
+      '<div class="cart-note"><strong>Ready to checkout.</strong><br>1 item: secure card payment. Several parts: grouped checkout total. Delivery after payment: 10–15 days.</div>',
+      '<a class="cart-checkout-btn disabled" data-cart-checkout href="./cart-request.html">Continue to secure checkout</a>',
       '<button type="button" class="cart-clear-btn" data-cart-clear>Clear cart</button>',
       '</div>'
     ].join('');
@@ -122,6 +122,10 @@
     drawer.querySelector('[data-cart-clear]').addEventListener('click', () => {
       clearCart();
       renderCartDrawer();
+    });
+
+    drawer.querySelector('[data-cart-checkout]').addEventListener('click', () => {
+      push('cart_checkout_click', { cart_count: cartCount() });
     });
 
     drawer.addEventListener('click', (event) => {
