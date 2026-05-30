@@ -56,6 +56,34 @@ video,
 }
 /* END BENDAGO PATCH V9 */
 
+
+/* BENDAGO PATCH V14 — dual exhaust sound video */
+.dual-exhaust-sound-video {
+  display: none;
+  width: 100%;
+  max-height: 560px;
+  border-radius: 24px;
+  background: #000;
+  object-fit: contain;
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.sound-video-note {
+  margin-top: 10px;
+  color: rgba(226,232,240,.76);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.product-thumb.sound-video-thumb {
+  border-color: rgba(246,196,49,.42);
+}
+
+.product-thumb.sound-video-thumb img {
+  pointer-events: none;
+}
+/* END BENDAGO PATCH V14 */
+
 </style>
 </head>
 <body class="order-body">
@@ -81,12 +109,22 @@ video,
 <source src="./dual-exhaust-product-video.mp4" type="video/mp4"/>
 Your browser cannot play this MP4.
 </video>
+
+<video class="dual-exhaust-sound-video" controls id="dualExhaustSoundVideo" preload="metadata" playsinline>
+<source src="./complete-dual-exhaust-gallery.mp4" type="video/mp4"/>
+Your browser cannot play this MP4.
+</video>
+<p class="sound-video-note" id="dualExhaustSoundNote" style="display:none;">Sound enabled: tap play to hear the complete dual exhaust preview.</p>
+
 <div aria-label="Dual Exhaust Custom Kit gallery" class="thumb-row gallery dual-exhaust-gallery">
 <button class="product-thumb active" data-alt="Dual Exhaust Custom Kit installed chrome side view" data-src="./dual-exhaust-gallery-01.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit installed chrome side view" loading="lazy" src="./dual-exhaust-gallery-01.webp"/></button>
 <button class="product-thumb" data-alt="Dual Exhaust Custom Kit before and after modification view" data-src="./dual-exhaust-gallery-02.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit before and after modification view" loading="lazy" src="./dual-exhaust-gallery-02.webp"/></button>
 <button class="product-thumb" data-alt="Dual Exhaust Custom Kit standalone chrome pipes product view" data-src="./dual-exhaust-gallery-03.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit standalone chrome pipes product view" loading="lazy" src="./dual-exhaust-gallery-03.webp"/></button>
 <button class="product-thumb" data-alt="Dual Exhaust Custom Kit installed Benda Napoleon side detail view" data-src="./dual-exhaust-gallery-04.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit installed Benda Napoleon side detail view" loading="lazy" src="./dual-exhaust-gallery-04.webp"/></button>
 <button class="product-thumb video-thumb" data-alt="Dual Exhaust Custom Kit product video" data-type="video" data-video="./dual-exhaust-product-video.mp4" type="button"><img alt="Dual Exhaust Custom Kit product video" loading="lazy" src="./dual-exhaust-video-poster.webp"/><span class="video-badge">▶ Video</span></button>
+
+<button aria-label="Show complete dual exhaust MP4 with sound" class="product-thumb video-thumb sound-video-thumb" data-src="./complete-dual-exhaust-gallery.mp4" data-type="sound-video" type="button"><img alt="Complete dual exhaust MP4 with sound" loading="lazy" src="./dual-exhaust-video-poster.webp"/><span class="video-badge">▶ Sound</span></button>
+
 </div>
 </div>
 </section>
@@ -216,6 +254,78 @@ document.getElementById('year').textContent = new Date().getFullYear();
   });
 }());
 /* END BENDAGO PATCH V9 */
+</script>
+
+
+<script>
+/* BENDAGO PATCH V14 — dual exhaust sound video */
+(function () {
+  function setupDualExhaustSoundVideo() {
+    const soundVideo = document.getElementById('dualExhaustSoundVideo');
+    const soundNote = document.getElementById('dualExhaustSoundNote');
+    const mainImage = document.getElementById('mainProductImage');
+    const mainVideo = document.getElementById('mainProductVideo');
+    const videoSource = soundVideo ? soundVideo.querySelector('source') : null;
+
+    if (!soundVideo || !videoSource) return;
+
+    document.querySelectorAll('[data-type="sound-video"][data-src]').forEach((btn) => {
+      btn.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        const src = btn.getAttribute('data-src') || './complete-dual-exhaust-gallery.mp4';
+
+        if (mainImage) {
+          mainImage.hidden = true;
+          mainImage.style.display = 'none';
+        }
+
+        if (mainVideo) {
+          try { mainVideo.pause(); } catch (e) {}
+          mainVideo.hidden = true;
+          mainVideo.style.display = 'none';
+        }
+
+        if (videoSource.getAttribute('src') !== src) {
+          videoSource.setAttribute('src', src);
+          soundVideo.load();
+        }
+
+        soundVideo.muted = false;
+        soundVideo.removeAttribute('muted');
+        soundVideo.controls = true;
+        soundVideo.setAttribute('controls', '');
+        soundVideo.setAttribute('playsinline', '');
+        soundVideo.hidden = false;
+        soundVideo.style.display = 'block';
+        if (soundNote) soundNote.style.display = 'block';
+
+        document.querySelectorAll('.product-thumb').forEach((thumb) => thumb.classList.remove('active', 'is-active'));
+        btn.classList.add('active');
+
+        soundVideo.play().catch(function () {
+          // Some mobile browsers require a second tap for sound; controls remain visible.
+        });
+      });
+    });
+
+    document.querySelectorAll('.product-thumb:not([data-type="sound-video"])').forEach((btn) => {
+      btn.addEventListener('click', function () {
+        try { soundVideo.pause(); } catch (e) {}
+        soundVideo.hidden = true;
+        soundVideo.style.display = 'none';
+        if (soundNote) soundNote.style.display = 'none';
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupDualExhaustSoundVideo);
+  } else {
+    setupDualExhaustSoundVideo();
+  }
+}());
+/* END BENDAGO PATCH V14 */
 </script>
 
 <script defer="" src="./anti-copy.js"></script>
