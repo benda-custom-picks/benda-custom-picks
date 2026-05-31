@@ -949,6 +949,8 @@ footer {
 
 
 /* BENDAGO PATCH V17 — dynamic live ticker clicks */
+/* BENDAGO PATCH V18 — ticker country rotation */
+/* BENDAGO PATCH V19 — ticker extended country rotation */
 .live-traffic-ticker {
   width: 100%;
   max-width: 100%;
@@ -1896,7 +1898,26 @@ buildVideo.play().catch(() => {});
     const users = stableHourlyUsers(now);
     const productClicks = stableDailyProductClicks(now);
     const time = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-    const message = `• Live Now • ${users} Active Users • ${productClicks} Product Clicks Today • Updated ${time} • Germany, France, Spain & Poland Active •`;
+    const countrySets = [
+      'Germany, France, Spain & Poland Active',
+      'France, Germany, Spain & Belgium Active',
+      'Spain, France, Netherlands & Germany Active',
+      'Poland, Germany, France & Switzerland Active',
+      'Belgium, Netherlands, France & Germany Active',
+      'Switzerland, France, Germany & Spain Active',
+      'Netherlands, Belgium, Germany & France Active',
+      'Germany, Spain, Belgium & Poland Active',
+      'France, Switzerland, Netherlands & Spain Active',
+      'Spain, Poland, Belgium & Germany Active'
+    ];
+    const countryIndex = hashString([
+      now.getFullYear(),
+      now.getMonth() + 1,
+      now.getDate(),
+      now.getHours()
+    ].join('-countries-')) % countrySets.length;
+    const activeCountries = countrySets[countryIndex];
+    const message = `• Live Now • ${users} Active Users • ${productClicks} Product Clicks Today • Updated ${time} • ${activeCountries} •`;
 
     document.querySelectorAll('[data-live-ticker-text]').forEach((node) => {
       node.textContent = message;
@@ -1906,6 +1927,8 @@ buildVideo.play().catch(() => {});
   updateTicker();
   window.setInterval(updateTicker, 60000);
 }());
+/* END BENDAGO PATCH V19 */
+/* END BENDAGO PATCH V18 */
 /* END BENDAGO PATCH V17 */
 </script>
 
