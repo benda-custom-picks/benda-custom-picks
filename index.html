@@ -1913,9 +1913,10 @@ Your browser does not support the video tag.
 <h2>Need help choosing the right parts?</h2>
 <p class="hook">Choose your custom pack, upload your Benda photos and send your details. After secure payment confirmation, we prepare a clean custom direction with the right parts and buying priorities.</p>
 
-<form action="https://usebasin.com/f/0cfad5f7dae1" class="pack-choice-form" id="customPackForm" method="POST" enctype="multipart/form-data">
+<form action="https://usebasin.com/f/0cfad5f7dae1" class="pack-choice-form" id="customPackForm" method="POST" enctype="multipart/form-data" data-basin-endpoint="https://usebasin.com/f/0cfad5f7dae1">
 <input name="_subject" type="hidden" value="NEW CUSTOM PACK REQUEST - Benda Custom Picks"/>
 <input name="_captcha" type="hidden" value="false"/>
+<input name="_redirect" type="hidden" value="https://pay.sumup.com/b2c/QG7KE3MV"/>
 <input name="_template" type="hidden" value="box"/>
 <input name="request_type" type="hidden" value="Custom Pack Request"/>
 <input name="product_code" type="hidden" value="custom-pack"/>
@@ -2232,6 +2233,7 @@ buildVideo.play().catch(() => {});
       payment_url: paymentUrl,
       sumup_url: paymentUrl,
       pack_payment_url: paymentUrl,
+      _redirect: paymentUrl,
       payment_status: 'Pending SumUp confirmation',
       request_page: window.location.href,
       referrer: document.referrer || 'direct',
@@ -2318,7 +2320,8 @@ buildVideo.play().catch(() => {});
         body: formData,
         headers: {
           'Accept': 'application/json'
-        }
+        },
+        mode: 'cors'
       });
 
       if (!response.ok) {
@@ -2462,6 +2465,38 @@ buildVideo.play().catch(() => {});
 /* END BENDAGO PATCH V19 */
 /* END BENDAGO PATCH V18 */
 /* END BENDAGO PATCH V17 */
+</script>
+
+
+<script>
+/* BENDAGO PATCH V30 — Basin SumUp redirect safety net */
+(function () {
+  const form = document.getElementById('customPackForm');
+  if (!form) return;
+
+  function updatePackRedirect() {
+    const pack = form.querySelector('input[name="pack_choice"]:checked');
+    const paymentUrl = pack ? (pack.getAttribute('data-payment-url') || '') : '';
+    const redirect = form.querySelector('input[name="_redirect"]');
+    const payment = form.querySelector('input[name="payment_url"]');
+    const sumup = form.querySelector('input[name="sumup_url"]');
+    const packPayment = form.querySelector('input[name="pack_payment_url"]');
+
+    if (paymentUrl) {
+      if (redirect) redirect.value = paymentUrl;
+      if (payment) payment.value = paymentUrl;
+      if (sumup) sumup.value = paymentUrl;
+      if (packPayment) packPayment.value = paymentUrl;
+    }
+  }
+
+  form.querySelectorAll('input[name="pack_choice"]').forEach(function (input) {
+    input.addEventListener('change', updatePackRedirect);
+  });
+
+  form.addEventListener('submit', updatePackRedirect, true);
+}());
+/* END BENDAGO PATCH V30 */
 </script>
 
 </body>
