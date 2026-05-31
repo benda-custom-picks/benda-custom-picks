@@ -1286,6 +1286,578 @@ footer {
 }
 /* END BENDAGO PATCH V17 */
 
+
+/* BENDAGO PATCH V33 — premium category pills */
+.category-row,
+.filter-row,
+.tags-row,
+.quick-filter-row,
+.chip-row,
+.pill-row,
+.product-tags,
+.top-clicked-inline,
+.top-clicked-inline-grid,
+.build-tabs,
+.anchor-chips {
+  scrollbar-width: none;
+}
+
+.category-row::-webkit-scrollbar,
+.filter-row::-webkit-scrollbar,
+.tags-row::-webkit-scrollbar,
+.quick-filter-row::-webkit-scrollbar,
+.chip-row::-webkit-scrollbar,
+.pill-row::-webkit-scrollbar,
+.product-tags::-webkit-scrollbar,
+.top-clicked-inline::-webkit-scrollbar,
+.top-clicked-inline-grid::-webkit-scrollbar,
+.build-tabs::-webkit-scrollbar,
+.anchor-chips::-webkit-scrollbar {
+  display: none;
+}
+
+.category-row a,
+.category-row button,
+.filter-row a,
+.filter-row button,
+.tags-row a,
+.tags-row button,
+.quick-filter-row a,
+.quick-filter-row button,
+.chip-row a,
+.chip-row button,
+.pill-row a,
+.pill-row button,
+.product-tags a,
+.product-tags button,
+.top-clicked-inline a,
+.top-clicked-inline button,
+.top-clicked-inline-grid a,
+.top-clicked-inline-grid button,
+.build-tabs a,
+.build-tabs button,
+.anchor-chips a,
+.anchor-chips button,
+.pill,
+.chip,
+.tag,
+.category-pill,
+.filter-pill,
+.quick-chip {
+  position: relative;
+  isolation: isolate;
+  min-height: 44px;
+  padding: 10px 19px;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, .24);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.035)),
+    rgba(10, 14, 22, .74);
+  color: rgba(248,250,252,.92);
+  font-weight: 820;
+  font-size: clamp(.88rem, 2.85vw, 1.02rem);
+  line-height: 1;
+  letter-spacing: -.015em;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 -1px 0 rgba(0,0,0,.22),
+    0 10px 22px rgba(0,0,0,.24);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition:
+    transform .18s ease,
+    border-color .18s ease,
+    box-shadow .18s ease,
+    background .18s ease,
+    color .18s ease;
+}
+
+.category-row a::before,
+.category-row button::before,
+.filter-row a::before,
+.filter-row button::before,
+.tags-row a::before,
+.tags-row button::before,
+.quick-filter-row a::before,
+.quick-filter-row button::before,
+.chip-row a::before,
+.chip-row button::before,
+.pill-row a::before,
+.pill-row button::before,
+.product-tags a::before,
+.product-tags button::before,
+.top-clicked-inline a::before,
+.top-clicked-inline button::before,
+.top-clicked-inline-grid a::before,
+.top-clicked-inline-grid button::before,
+.build-tabs a::before,
+.build-tabs button::before,
+.anchor-chips a::before,
+.anchor-chips button::before,
+.pill::before,
+.chip::before,
+.tag::before,
+.category-pill::before,
+.filter-pill::before,
+.quick-chip::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(43,240,208,.10), rgba(246,196,49,.055), rgba(255,255,255,0));
+  opacity: .72;
+}
+
+.category-row a:hover,
+.category-row button:hover,
+.filter-row a:hover,
+.filter-row button:hover,
+.tags-row a:hover,
+.tags-row button:hover,
+.quick-filter-row a:hover,
+.quick-filter-row button:hover,
+.chip-row a:hover,
+.chip-row button:hover,
+.pill-row a:hover,
+.pill-row button:hover,
+.product-tags a:hover,
+.product-tags button:hover,
+.top-clicked-inline a:hover,
+.top-clicked-inline button:hover,
+.top-clicked-inline-grid a:hover,
+.top-clicked-inline-grid button:hover,
+.build-tabs a:hover,
+.build-tabs button:hover,
+.anchor-chips a:hover,
+.anchor-chips button:hover,
+.pill:hover,
+.chip:hover,
+.tag:hover,
+.category-pill:hover,
+.filter-pill:hover,
+.quick-chip:hover {
+  transform: translateY(-1px);
+  border-color: rgba(43,240,208,.48);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    0 12px 26px rgba(0,0,0,.30),
+    0 0 0 1px rgba(43,240,208,.10);
+}
+
+.category-row a:active,
+.category-row button:active,
+.filter-row a:active,
+.filter-row button:active,
+.tags-row a:active,
+.tags-row button:active,
+.quick-filter-row a:active,
+.quick-filter-row button:active,
+.chip-row a:active,
+.chip-row button:active,
+.pill-row a:active,
+.pill-row button:active,
+.product-tags a:active,
+.product-tags button:active,
+.top-clicked-inline a:active,
+.top-clicked-inline button:active,
+.top-clicked-inline-grid a:active,
+.top-clicked-inline-grid button:active,
+.build-tabs a:active,
+.build-tabs button:active,
+.anchor-chips a:active,
+.anchor-chips button:active,
+.pill:active,
+.chip:active,
+.tag:active,
+.category-pill:active,
+.filter-pill:active,
+.quick-chip:active {
+  transform: translateY(0);
+}
+
+.category-row a.active,
+.category-row button.active,
+.filter-row a.active,
+.filter-row button.active,
+.tags-row a.active,
+.tags-row button.active,
+.quick-filter-row a.active,
+.quick-filter-row button.active,
+.chip-row a.active,
+.chip-row button.active,
+.pill-row a.active,
+.pill-row button.active,
+.product-tags a.active,
+.product-tags button.active,
+.top-clicked-inline a.active,
+.top-clicked-inline button.active,
+.top-clicked-inline-grid a.active,
+.top-clicked-inline-grid button.active,
+.build-tabs a.active,
+.build-tabs button.active,
+.anchor-chips a.active,
+.anchor-chips button.active,
+.pill.active,
+.chip.active,
+.tag.active,
+.category-pill.active,
+.filter-pill.active,
+.quick-chip.active,
+[aria-current="true"],
+[aria-selected="true"] {
+  color: #04130f;
+  border-color: rgba(43,240,208,.88);
+  background:
+    linear-gradient(135deg, #2bf0d0, #72f6a5 58%, #f6c431);
+  box-shadow:
+    0 14px 30px rgba(0,0,0,.30),
+    0 0 0 1px rgba(43,240,208,.26),
+    0 0 22px rgba(43,240,208,.18);
+}
+
+@media (max-width: 560px) {
+  .category-row,
+  .filter-row,
+  .tags-row,
+  .quick-filter-row,
+  .chip-row,
+  .pill-row,
+  .product-tags,
+  .top-clicked-inline,
+  .top-clicked-inline-grid,
+  .build-tabs,
+  .anchor-chips {
+    gap: 9px;
+    padding-bottom: 4px;
+  }
+
+  .category-row a,
+  .category-row button,
+  .filter-row a,
+  .filter-row button,
+  .tags-row a,
+  .tags-row button,
+  .quick-filter-row a,
+  .quick-filter-row button,
+  .chip-row a,
+  .chip-row button,
+  .pill-row a,
+  .pill-row button,
+  .product-tags a,
+  .product-tags button,
+  .top-clicked-inline a,
+  .top-clicked-inline button,
+  .top-clicked-inline-grid a,
+  .top-clicked-inline-grid button,
+  .build-tabs a,
+  .build-tabs button,
+  .anchor-chips a,
+  .anchor-chips button,
+  .pill,
+  .chip,
+  .tag,
+  .category-pill,
+  .filter-pill,
+  .quick-chip {
+    min-height: 40px;
+    padding: 9px 15px;
+    font-size: .92rem;
+  }
+}
+/* END BENDAGO PATCH V33 */
+
+
+/* BENDAGO PATCH V34 — premium quick nav + pack accordion */
+.quick-nav.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 20px 18px 24px;
+  margin: 18px auto 24px;
+  scrollbar-width: none;
+}
+
+.quick-nav.wrap::-webkit-scrollbar {
+  display: none;
+}
+
+.quick-nav.wrap a {
+  flex: 0 0 auto;
+  min-width: 118px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 24px;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,.28);
+  background:
+    radial-gradient(circle at 35% 0%, rgba(43,240,208,.14), transparent 38%),
+    linear-gradient(180deg, rgba(255,255,255,.115), rgba(255,255,255,.035)),
+    rgba(12,17,26,.88);
+  color: rgba(248,250,252,.96);
+  text-decoration: none;
+  font-size: .98rem;
+  font-weight: 850;
+  letter-spacing: -.012em;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.16),
+    inset 0 -1px 0 rgba(0,0,0,.24),
+    0 14px 28px rgba(0,0,0,.27);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, color .18s ease, background .18s ease;
+}
+
+.quick-nav.wrap a:hover,
+.quick-nav.wrap a:focus-visible {
+  transform: translateY(-2px);
+  color: #ffffff;
+  border-color: rgba(43,240,208,.62);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 16px 34px rgba(0,0,0,.34),
+    0 0 0 1px rgba(43,240,208,.14),
+    0 0 22px rgba(43,240,208,.13);
+  outline: none;
+}
+
+.quick-nav.wrap a[href="#pack"] {
+  border-color: rgba(43,240,208,.42);
+}
+
+.custom-pack .hook {
+  max-width: 760px;
+}
+
+.pack-selector-fieldset {
+  margin-top: 22px;
+}
+
+.pack-selector-fieldset legend {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 13px;
+  border-radius: 999px;
+  background: rgba(43,240,208,.10);
+  border: 1px solid rgba(43,240,208,.20);
+  color: rgba(232,255,250,.96);
+  font-size: .92rem;
+  letter-spacing: .015em;
+}
+
+.pack-choice-grid {
+  gap: 18px;
+}
+
+.pack-choice-card.pack-choice-card-visual {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 24px;
+  border: 1px solid rgba(148,163,184,.22);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.095), rgba(255,255,255,.035)),
+    rgba(6,12,20,.86);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.13),
+    0 18px 42px rgba(0,0,0,.32);
+  transform: translateY(0);
+}
+
+.pack-choice-card.pack-choice-card-visual input {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 22px;
+  height: 22px;
+  z-index: 3;
+  accent-color: #2bf0d0;
+}
+
+.pack-choice-card.pack-choice-card-visual img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  border-radius: 22px 22px 0 0;
+  border: 0;
+  margin: 0;
+  filter: saturate(1.05) contrast(1.04);
+}
+
+.pack-choice-card.pack-choice-card-visual .pack-choice-title,
+.pack-choice-card.pack-choice-card-visual .pack-choice-copy {
+  display: block;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+.pack-choice-card.pack-choice-card-visual .pack-choice-title {
+  padding-top: 17px;
+  color: #ffffff;
+  font-size: clamp(1.05rem, 3vw, 1.22rem);
+  letter-spacing: -.025em;
+}
+
+.pack-choice-card.pack-choice-card-visual .pack-choice-copy {
+  padding-top: 8px;
+  padding-bottom: 18px;
+  color: rgba(226,232,240,.78);
+  font-size: .95rem;
+  line-height: 1.42;
+}
+
+.pack-choice-card.pack-choice-card-visual::after {
+  content: "Select";
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 2;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(2,6,23,.68);
+  border: 1px solid rgba(255,255,255,.16);
+  color: rgba(255,255,255,.88);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .02em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.pack-choice-card.pack-choice-card-visual:hover {
+  transform: translateY(-2px);
+  border-color: rgba(43,240,208,.45);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.15),
+    0 22px 50px rgba(0,0,0,.38),
+    0 0 0 1px rgba(43,240,208,.10);
+}
+
+.pack-choice-card.pack-choice-card-visual.is-selected,
+.pack-choice-card.pack-choice-card-visual:has(input:checked) {
+  border-color: rgba(43,240,208,.92);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    0 24px 54px rgba(0,0,0,.42),
+    0 0 0 2px rgba(43,240,208,.26),
+    0 0 28px rgba(43,240,208,.16);
+}
+
+.pack-choice-card.pack-choice-card-visual.is-selected::after,
+.pack-choice-card.pack-choice-card-visual:has(input:checked)::after {
+  content: "Selected";
+  background: linear-gradient(135deg, #2bf0d0, #72f6a5 68%, #f6c431);
+  color: #04130f;
+  border-color: rgba(43,240,208,.72);
+}
+
+.pack-unlock-note {
+  margin: 14px 0 0;
+  color: rgba(226,232,240,.70);
+  font-size: .92rem;
+  font-weight: 750;
+  text-align: center;
+}
+
+.pack-selected-summary {
+  margin-top: 18px;
+  padding: 15px 17px;
+  border-radius: 18px;
+  border: 1px solid rgba(43,240,208,.26);
+  background:
+    linear-gradient(135deg, rgba(43,240,208,.12), rgba(246,196,49,.065)),
+    rgba(5,12,20,.74);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.pack-selected-summary[hidden] {
+  display: none;
+}
+
+.pack-selected-summary .pack-selected-kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: rgba(43,240,208,.90);
+  font-size: .78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
+.pack-selected-summary strong {
+  display: block;
+  color: #ffffff;
+  font-size: clamp(1.05rem, 3vw, 1.25rem);
+  line-height: 1.2;
+}
+
+.pack-selected-summary small {
+  display: block;
+  margin-top: 6px;
+  color: rgba(226,232,240,.72);
+  line-height: 1.38;
+}
+
+.pack-request-panel {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: max-height .42s ease, opacity .25s ease, transform .25s ease, margin-top .25s ease, padding .25s ease, border-color .25s ease;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  background: transparent;
+}
+
+.pack-request-panel.is-open {
+  max-height: 2600px;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  margin-top: 16px;
+  padding: 18px;
+  border-color: rgba(43,240,208,.18);
+  background:
+    radial-gradient(circle at 15% 0%, rgba(43,240,208,.10), transparent 36%),
+    rgba(3,10,18,.34);
+}
+
+@media (max-width: 760px) {
+  .quick-nav.wrap {
+    justify-content: flex-start;
+    gap: 11px;
+    padding: 16px 16px 20px;
+    margin: 12px auto 20px;
+  }
+
+  .quick-nav.wrap a {
+    min-width: 122px;
+    min-height: 46px;
+    padding: 0 18px;
+    font-size: .95rem;
+  }
+
+  .pack-choice-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .pack-request-panel.is-open {
+    padding: 14px;
+  }
+}
+/* END BENDAGO PATCH V34 */
+
 </style>
 <link href="./order-flow.css" rel="stylesheet"/>
 <link href="./cart-flow.css" rel="stylesheet"/>
@@ -1907,11 +2479,11 @@ Your browser does not support the video tag.
 <a href="#order-selected-parts">Seat</a>
 <a href="#order-selected-parts">Protection</a>
 <a href="#order-selected-parts">Bag support</a>
-<a href="#pack">Custom help</a>
+<a href="#pack">Custom Help</a>
 </nav>
 <section class="custom-pack wrap" id="pack">
 <h2>Need help choosing the right parts?</h2>
-<p class="hook">Choose your custom pack, upload your Benda photos and send your details. After secure payment confirmation, we prepare a clean custom direction with the right parts and buying priorities.</p>
+<p class="hook">Choose a pack below. The secure request form opens only after you select Garage Pack or Custom Plus Pack.</p>
 
 <form action="https://usebasin.com/f/0cfad5f7dae1" class="pack-choice-form" id="customPackForm" method="POST" enctype="multipart/form-data" target="basinPackFrame" data-basin-endpoint="https://usebasin.com/f/0cfad5f7dae1">
 <input name="_subject" type="hidden" value="NEW CUSTOM PACK REQUEST - Benda Custom Picks"/>
@@ -1939,8 +2511,8 @@ Your browser does not support the video tag.
 <input name="photo_file_names" type="hidden" value=""/>
 <input name="message" type="hidden" value=""/>
 
-<fieldset class="pack-fieldset">
-<legend>1. Choose your pack</legend>
+<fieldset class="pack-fieldset pack-selector-fieldset">
+<legend>Choose your custom pack</legend>
 <div class="pack-choice-grid">
 <label class="pack-choice-card pack-choice-card-visual">
 <input name="pack_choice" required type="radio" value="Garage Pack" data-pack-price="29 €" data-payment-url="https://pay.sumup.com/b2c/QG7KE3MV"/>
@@ -1955,8 +2527,16 @@ Your browser does not support the video tag.
 <span class="pack-choice-copy">More complete custom direction with stronger part selection and build logic.</span>
 </label>
 </div>
+<p class="pack-unlock-note">Tap a pack card to unlock the request form.</p>
 </fieldset>
 
+<div class="pack-selected-summary" id="packSelectedSummary" aria-live="polite" hidden>
+  <span class="pack-selected-kicker">Selected pack</span>
+  <strong id="packSelectedTitle">Choose a pack</strong>
+  <small id="packSelectedText">The request form will open after selection.</small>
+</div>
+
+<div class="pack-request-panel" id="packRequestPanel" aria-hidden="true">
 <div class="pack-form-grid">
 <div class="field"><label>Full name *</label><input name="customer_name" placeholder="e.g. John Doe" required/></div>
 <div class="field"><label>Email *</label><input name="email" placeholder="e.g. john@example.com" required type="email"/></div>
@@ -1989,7 +2569,7 @@ Your browser does not support the video tag.
 <div class="photo-upload-field"><span>Side view *</span><input accept="image/*" name="photo_side" required type="file"/></div>
 <div class="photo-upload-field"><span>Rear / detail view</span><input accept="image/*" name="photo_rear" type="file"/></div>
 </div>
-<small>Upload clear photos directly here. We use them to prepare your custom pack selection before sending the SumUp payment confirmation flow.</small>
+<small>Upload clear photos directly here. Front and side photos are required to prepare the custom selection.</small>
 </div>
 </div>
 
@@ -2004,6 +2584,7 @@ Your browser does not support the video tag.
 
 <button class="btn pack-submit-btn" type="submit">Pay Securely & Send Pack Request</button>
 <div class="status-box pack-status" id="customPackStatus"></div>
+</div>
 </form>
 <iframe aria-hidden="true" id="basinPackFrame" name="basinPackFrame" title="Basin submission frame" style="display:none;width:0;height:0;border:0;"></iframe>
 </section>
@@ -2167,6 +2748,99 @@ buildVideo.play().catch(() => {});
   });
 </script>
 
+
+
+<script>
+/* BENDAGO PATCH V34 — pack accordion selection */
+(function () {
+  const form = document.getElementById('customPackForm');
+  const panel = document.getElementById('packRequestPanel');
+  const summary = document.getElementById('packSelectedSummary');
+  const title = document.getElementById('packSelectedTitle');
+  const text = document.getElementById('packSelectedText');
+  const submitButton = form ? form.querySelector('.pack-submit-btn') : null;
+
+  if (!form || !panel || !summary) return;
+
+  const packInputs = Array.from(form.querySelectorAll('input[name="pack_choice"]'));
+  const cards = Array.from(form.querySelectorAll('.pack-choice-card-visual'));
+
+  function updateHiddenPaymentFields(input) {
+    if (!input) return;
+
+    const paymentUrl = input.getAttribute('data-payment-url') || '';
+    const price = input.getAttribute('data-pack-price') || '';
+    const packName = input.value || 'Custom Pack';
+
+    const values = {
+      product_name: 'Custom Pack Request — ' + packName,
+      product_short: packName,
+      price: price,
+      payment_url: paymentUrl,
+      sumup_url: paymentUrl,
+      pack_payment_url: paymentUrl,
+      _redirect: paymentUrl,
+      payment_status: 'Pending SumUp confirmation'
+    };
+
+    Object.keys(values).forEach(function (name) {
+      const field = form.querySelector('[name="' + name + '"]');
+      if (field) field.value = values[name];
+    });
+  }
+
+  function openPackPanel(input, shouldScroll) {
+    if (!input) return;
+
+    cards.forEach(function (card) {
+      const cardInput = card.querySelector('input[name="pack_choice"]');
+      card.classList.toggle('is-selected', cardInput === input);
+    });
+
+    const price = input.getAttribute('data-pack-price') || '';
+    const packName = input.value || 'Custom Pack';
+
+    updateHiddenPaymentFields(input);
+
+    if (title) title.textContent = packName + ' selected';
+    if (text) text.textContent = price + ' · Complete the request details, upload your photos, then continue to secure SumUp payment.';
+
+    summary.hidden = false;
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+
+    if (submitButton) {
+      submitButton.textContent = 'Pay Securely & Continue with ' + packName;
+    }
+
+    if (shouldScroll) {
+      window.setTimeout(function () {
+        summary.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
+    }
+  }
+
+  packInputs.forEach(function (input) {
+    input.addEventListener('change', function () {
+      openPackPanel(input, true);
+    });
+  });
+
+  cards.forEach(function (card) {
+    card.addEventListener('click', function () {
+      const input = card.querySelector('input[name="pack_choice"]');
+      if (!input) return;
+      window.setTimeout(function () {
+        if (input.checked) openPackPanel(input, true);
+      }, 0);
+    });
+  });
+
+  const checked = packInputs.find(function (input) { return input.checked; });
+  if (checked) openPackPanel(checked, false);
+}());
+/* END BENDAGO PATCH V34 */
+</script>
 
 <script>
 /* BENDAGO PATCH V32 — robust Basin iframe submit then SumUp redirect */
