@@ -405,6 +405,43 @@ p {
   accent-color: #29f0d0;
 }
 
+.pack-choice-card-visual img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.13);
+  margin-bottom: 4px;
+}
+
+.pack-confirm {
+  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 13px 14px;
+  border-radius: 15px;
+  border: 1px solid rgba(246,196,49,.38);
+  background: rgba(246,196,49,.09);
+  color: var(--text);
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.pack-confirm input {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+  accent-color: #f6c431;
+}
+
+.pack-payment-note {
+  margin-top: 10px;
+  font-size: .9rem;
+  color: #fde68a;
+  font-weight: 850;
+}
+
 .pack-choice-card:has(input:checked) {
   border-color: rgba(43,240,208,.95);
   box-shadow: 0 0 0 2px rgba(43,240,208,.25), 0 18px 34px rgba(0,0,0,.22);
@@ -1847,7 +1884,7 @@ Your browser does not support the video tag.
 </nav>
 <section class="custom-pack wrap" id="pack">
 <h2>Need help choosing the right parts?</h2>
-<p class="hook">Choose your custom pack, upload your Benda photos and send your details. We prepare a clean custom direction with the right parts and buying priorities.</p>
+<p class="hook">Choose your custom pack, upload your Benda photos and send your details. After secure payment confirmation, we prepare a clean custom direction with the right parts and buying priorities.</p>
 
 <form class="pack-choice-form" id="customPackForm" enctype="multipart/form-data">
 <input name="request_type" type="hidden" value="Custom Pack Request"/>
@@ -1860,6 +1897,8 @@ Your browser does not support the video tag.
 <input name="payment_provider" type="hidden" value="Pack service"/>
 <input name="payment_url" type="hidden" value=""/>
 <input name="sumup_url" type="hidden" value=""/>
+<input name="pack_payment_url" type="hidden" value=""/>
+<input name="payment_status" type="hidden" value="Pending SumUp confirmation"/>
 <input name="request_page" type="hidden" value=""/>
 <input name="referrer" type="hidden" value=""/>
 <input name="request_id" type="hidden" value=""/>
@@ -1872,14 +1911,16 @@ Your browser does not support the video tag.
 <fieldset class="pack-fieldset">
 <legend>1. Choose your pack</legend>
 <div class="pack-choice-grid">
-<label class="pack-choice-card">
-<input name="pack_choice" required type="radio" value="Pack Garage" data-pack-price="29 €"/>
-<span class="pack-choice-title">29 € — Pack Garage</span>
+<label class="pack-choice-card pack-choice-card-visual">
+<input name="pack_choice" required type="radio" value="Garage Pack" data-pack-price="29 €" data-payment-url="https://pay.sumup.com/b2c/QG7KE3MV"/>
+<img alt="Garage Pack custom direction for Benda Napoleon" src="./custom-pack-garage.webp"/>
+<span class="pack-choice-title">29 € — Garage Pack</span>
 <span class="pack-choice-copy">Quick custom direction with buying priorities for a clean first upgrade.</span>
 </label>
-<label class="pack-choice-card">
-<input name="pack_choice" required type="radio" value="Custom Plus" data-pack-price="49 €"/>
-<span class="pack-choice-title">49 € — Custom Plus</span>
+<label class="pack-choice-card pack-choice-card-visual">
+<input name="pack_choice" required type="radio" value="Custom Plus Pack" data-pack-price="49 €" data-payment-url="https://pay.sumup.com/b2c/QAZN2Q5G"/>
+<img alt="Custom Plus Pack premium custom direction for Benda Napoleon" src="./custom-pack-plus.webp"/>
+<span class="pack-choice-title">49 € — Custom Plus Pack</span>
 <span class="pack-choice-copy">More complete custom direction with stronger part selection and build logic.</span>
 </label>
 </div>
@@ -1913,10 +1954,16 @@ Your browser does not support the video tag.
 <div class="field full"><label>Upload your Benda photos *</label><input accept="image/*" multiple name="benda_photos" required type="file"/><small>Upload up to 5 photos. Clear side, front and rear photos help us select the right parts.</small></div>
 </div>
 
+<label class="pack-confirm">
+<input name="payment_confirmation_ack" required type="checkbox" value="Confirmed"/>
+<span>We start the custom selection after secure SumUp payment confirmation.</span>
+</label>
+
 <div class="guarantee">Satisfaction guarantee: if the selection does not fit your style, we rework it for free.</div>
 <p class="pack-note">Selection based on the information provided: photos, desired style, budget and product details.</p>
+<p class="pack-payment-note">After sending the request, you will be redirected to the secure SumUp payment page for the selected pack.</p>
 
-<button class="btn pack-submit-btn" type="submit">Send Your Pack Choice</button>
+<button class="btn pack-submit-btn" type="submit">Pay Securely & Send Pack Request</button>
 <div class="status-box pack-status" id="customPackStatus"></div>
 </form>
 </section>
@@ -2103,6 +2150,11 @@ buildVideo.play().catch(() => {});
     return form.querySelector('input[name="pack_choice"]:checked');
   }
 
+  function selectedPaymentUrl() {
+    const pack = selectedPack();
+    return pack ? (pack.getAttribute('data-payment-url') || '') : '';
+  }
+
   function fileSummary(files) {
     return Array.from(files || []).map(file => file.name).join(', ');
   }
@@ -2130,11 +2182,16 @@ buildVideo.play().catch(() => {});
     const pack = selectedPack();
     const price = pack ? (pack.getAttribute('data-pack-price') || '') : '';
     const packName = pack ? pack.value : '';
+    const paymentUrl = selectedPaymentUrl();
 
     const values = {
       product_name: packName ? 'Custom Pack Request — ' + packName : 'Custom Pack Request',
       product_short: packName || 'Custom Pack',
       price: price,
+      payment_url: paymentUrl,
+      sumup_url: paymentUrl,
+      pack_payment_url: paymentUrl,
+      payment_status: 'Pending SumUp confirmation',
       request_page: window.location.href,
       referrer: document.referrer || 'direct',
       request_id: 'BENDAGO-PACK-' + Date.now(),
@@ -2162,6 +2219,8 @@ buildVideo.play().catch(() => {});
       '',
       'Pack: ' + (packName || 'Not selected'),
       'Price: ' + (price || 'To confirm'),
+      'Payment status: Pending SumUp confirmation',
+      'Payment URL: ' + (paymentUrl || 'Missing payment URL'),
       '',
       'Customer name: ' + customerName,
       'Email: ' + email,
@@ -2204,7 +2263,7 @@ buildVideo.play().catch(() => {});
     try {
       if (btn) {
         btn.disabled = true;
-        btn.textContent = 'Sending pack choice…';
+        btn.textContent = 'Sending request…';
       }
 
       showStatus('ok', 'Sending your pack choice…');
@@ -2213,23 +2272,33 @@ buildVideo.play().catch(() => {});
 
       await emailjs.sendForm(cfg.serviceId, cfg.packTemplateId || cfg.adminTemplateId, form);
 
+      const paymentUrl = selectedPaymentUrl();
+
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'custom_pack_choice_sent',
         pack_choice: selectedPack().value,
         customer_email: form.email ? form.email.value : '',
-        request_id: form.querySelector('[name="request_id"]') ? form.querySelector('[name="request_id"]').value : ''
+        request_id: form.querySelector('[name="request_id"]') ? form.querySelector('[name="request_id"]').value : '',
+        payment_url: paymentUrl
       });
 
-      showStatus('ok', 'Pack choice sent. We will review your photos and reply by email.');
-      form.reset();
+      showStatus('ok', 'Pack request sent. Redirecting to secure SumUp payment…');
+
+      if (paymentUrl) {
+        window.setTimeout(function () {
+          window.location.href = paymentUrl;
+        }, 900);
+      } else {
+        showStatus('err', 'Pack request sent, but payment link is missing. Please contact us on Instagram/Facebook.');
+      }
     } catch (err) {
       console.error(err);
       showStatus('err', 'Pack choice could not be sent. Please try again or contact us on Instagram/Facebook.');
     } finally {
       if (btn) {
         btn.disabled = false;
-        btn.textContent = 'Send Your Pack Choice';
+        btn.textContent = 'Pay Securely & Send Pack Request';
       }
     }
   });
