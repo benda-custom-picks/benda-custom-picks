@@ -1913,7 +1913,10 @@ Your browser does not support the video tag.
 <h2>Need help choosing the right parts?</h2>
 <p class="hook">Choose your custom pack, upload your Benda photos and send your details. After secure payment confirmation, we prepare a clean custom direction with the right parts and buying priorities.</p>
 
-<form class="pack-choice-form" id="customPackForm" enctype="multipart/form-data">
+<form action="https://usebasin.com/f/57f47ff28200" class="pack-choice-form" id="customPackForm" method="POST" enctype="multipart/form-data">
+<input name="_subject" type="hidden" value="NEW CUSTOM PACK REQUEST - Benda Custom Picks"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input name="_template" type="hidden" value="box"/>
 <input name="request_type" type="hidden" value="Custom Pack Request"/>
 <input name="product_code" type="hidden" value="custom-pack"/>
 <input name="product_name" type="hidden" value="Custom Pack Request"/>
@@ -1996,7 +1999,7 @@ Your browser does not support the video tag.
 
 <div class="guarantee">Satisfaction guarantee: if the selection does not fit your style, we rework it for free.</div>
 <p class="pack-note">Selection based on the information provided: photos, desired style, budget and product details.</p>
-<p class="pack-payment-note">After the request is sent, you will be redirected to the secure SumUp payment page for the selected pack.</p>
+<p class="pack-payment-note">After the request and photos are sent, you will be redirected to the secure SumUp payment page for the selected pack.</p>
 
 <button class="btn pack-submit-btn" type="submit">Pay Securely & Send Pack Request</button>
 <div class="status-box pack-status" id="customPackStatus"></div>
@@ -2161,11 +2164,9 @@ buildVideo.play().catch(() => {});
     }
   });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="./emailjs-config.js"></script>
 
 <script>
-/* BENDAGO PATCH V23 — custom pack choice form */
+/* BENDAGO PATCH V28 — Basin custom pack paid request form */
 (function () {
   const form = document.getElementById('customPackForm');
   if (!form) return;
@@ -2173,6 +2174,7 @@ buildVideo.play().catch(() => {});
   const status = document.getElementById('customPackStatus');
   const photoInputs = Array.from(form.querySelectorAll('input[type="file"]'));
   const maxTotalMb = 15;
+  const basinEndpoint = 'https://usebasin.com/f/57f47ff28200';
 
   function showStatus(type, message) {
     if (!status) return;
@@ -2249,7 +2251,8 @@ buildVideo.play().catch(() => {});
     const phone = form.phone ? form.phone.value : '';
     const address = form.delivery_address ? form.delivery_address.value : '';
     const model = form.motorcycle_model ? form.motorcycle_model.value : '';
-    const budget = form.budget ? form.budget.value : '';
+    const budgetInput = form.querySelector('input[name="budget"]:checked');
+    const budget = budgetInput ? budgetInput.value : '';
     const desiredStyle = form.desired_style ? form.desired_style.value : '';
     const photoNames = values.photo_file_names || 'No photo name captured';
 
@@ -2272,8 +2275,9 @@ buildVideo.play().catch(() => {});
       '',
       'Uploaded photo file names: ' + photoNames,
       '',
-      'Admin email: custom125picks@gmail.com'
-    ].join('\n');
+      'Basin endpoint: https://usebasin.com/f/57f47ff28200'
+    ].join('
+');
 
     const messageInput = form.querySelector('[name="message"]');
     if (messageInput) messageInput.value = message;
@@ -2282,18 +2286,19 @@ buildVideo.play().catch(() => {});
   form.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const cfg = window.BENDAGO_EMAILJS_CONFIG || {};
     const btn = form.querySelector('[type="submit"]');
+    const pack = selectedPack();
 
-    if (!selectedPack()) {
-      showStatus('err', 'Please choose Pack Garage or Custom Plus.');
+    if (!pack) {
+      showStatus('err', 'Please choose Garage Pack or Custom Plus Pack.');
       return;
     }
 
     if (!validateFiles()) return;
 
-    if (!cfg.publicKey || cfg.publicKey.includes('PASTE_') || !cfg.serviceId || cfg.serviceId.includes('PASTE_') || !cfg.adminTemplateId || cfg.adminTemplateId.includes('PASTE_')) {
-      showStatus('err', 'EmailJS is not configured yet. Check emailjs-config.js.');
+    const paymentUrl = selectedPaymentUrl();
+    if (!paymentUrl) {
+      showStatus('err', 'Payment link is missing. Please contact us on Instagram/Facebook.');
       return;
     }
 
@@ -2305,35 +2310,39 @@ buildVideo.play().catch(() => {});
         btn.textContent = 'Sending request…';
       }
 
-      showStatus('ok', 'Sending your pack choice…');
+      showStatus('ok', 'Sending your custom pack request…');
 
-      if (window.emailjs && emailjs.init) emailjs.init({ publicKey: cfg.publicKey });
+      const formData = new FormData(form);
+      const response = await fetch(basinEndpoint, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
 
-      await emailjs.sendForm(cfg.serviceId, cfg.packTemplateId || cfg.adminTemplateId, form);
-
-      const paymentUrl = selectedPaymentUrl();
+      if (!response.ok) {
+        throw new Error('Basin submission failed: ' + response.status);
+      }
 
       window.dataLayer = window.dataLayer || [];
       window.dataLayer.push({
         event: 'custom_pack_choice_sent',
-        pack_choice: selectedPack().value,
+        pack_choice: pack.value,
         customer_email: form.email ? form.email.value : '',
         request_id: form.querySelector('[name="request_id"]') ? form.querySelector('[name="request_id"]').value : '',
-        payment_url: paymentUrl
+        payment_url: paymentUrl,
+        form_backend: 'basin'
       });
 
-      showStatus('ok', 'Pack request sent. Redirecting to secure SumUp payment…');
+      showStatus('ok', 'Request sent. Redirecting to secure SumUp payment…');
 
-      if (paymentUrl) {
-        window.setTimeout(function () {
-          window.location.href = paymentUrl;
-        }, 900);
-      } else {
-        showStatus('err', 'Pack request sent, but payment link is missing. Please contact us on Instagram/Facebook.');
-      }
+      window.setTimeout(function () {
+        window.location.href = paymentUrl;
+      }, 900);
     } catch (err) {
       console.error(err);
-      showStatus('err', 'Pack request could not be sent. Please check the form fields and try again.');
+      showStatus('err', 'Request could not be sent. Please check the photos and fields, then try again.');
     } finally {
       if (btn) {
         btn.disabled = false;
@@ -2342,7 +2351,7 @@ buildVideo.play().catch(() => {});
     }
   });
 }());
-/* END BENDAGO PATCH V23 */
+/* END BENDAGO PATCH V28 */
 </script>
 
 <script src="./order-flow.js"></script>
