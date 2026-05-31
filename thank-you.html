@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Checkout details received – Benda Custom Picks</title>
+<title>Request received – Benda Custom Picks</title>
 <link href="./order-flow.css" rel="stylesheet"/>
 </head>
 <body class="order-body">
@@ -27,16 +27,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <a href="./order-chassis-protection.html">Chassis Protection</a>
 <a href="./index.html#products">Parts</a>
 <a href="./index.html#pack">Custom Pack</a>
-<a class="send-moto" href="./index.html#pack">Send my Moto</a>
+<a class="send-moto" href="./index.html#pack">Custom Help</a>
 </div>
 </nav>
 </header>
 <main class="order-wrap">
 <section class="thanks-card">
-<h1>Secure checkout ready.</h1>
-<p>Your checkout details have been received. For one item, complete secure SumUp card payment using the button below. For several selected parts, one grouped secure payment checkout follows for the cart total.</p>
-<div class="summary-box" id="requestSummary">Your checkout summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay now securely by card →</a>
-<a class="request-btn" href="./index.html#order-selected-parts">Back to parts</a>
+<h1>Order details confirmed.</h1>
+<p>Your order details have been sent. If your order contains one item, complete the secure SumUp card payment using the button below. If your cart contains several items, Benda Custom Picks will send one SumUp payment link for the grouped total.</p>
+<div class="summary-box" id="requestSummary">Your order summary will appear here.</div><p id="trackingNote">Delivery tracking will be sent as soon as it is available after shipping.</p><a class="request-btn" href="#" id="sumupPayButton" rel="noopener" target="_blank">Pay securely by card →</a>
+<a class="request-btn" href="./index.html#order-selected-parts">Back to parts list</a>
 </section>
 </main>
 <footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
@@ -51,11 +51,11 @@ try {
 
   if (lastCart.request_id && summary) {
     summary.innerHTML =
-      '<strong>Grouped cart checkout:</strong><br>' + (lastCart.cart_summary || '') +
+      '<strong>Grouped cart request:</strong><br>' + (lastCart.cart_summary || '') +
       '<br><br><strong>Cart total:</strong> ' + (lastCart.cart_total || '') +
       '<br><strong>Email:</strong> ' + (lastCart.email || '') +
-      '<br><strong>Checkout ID:</strong> ' + (lastCart.request_id || '') +
-      '<br><br><strong>Next step:</strong> one secure payment checkout follows for the grouped cart total.';
+      '<br><strong>Request ID:</strong> ' + (lastCart.request_id || '') +
+      '<br><br><strong>Next step:</strong> you will receive one SumUp payment link for the grouped total.';
     if (payBtn) payBtn.style.display = 'none';
   } else {
     const last = JSON.parse(sessionStorage.getItem('bendago_last_request') || '{}');
@@ -64,12 +64,11 @@ try {
         '<strong>Product:</strong> ' + last.product_name +
         '<br><strong>Price:</strong> ' + (last.price || '') +
         '<br><strong>Colour / option:</strong> ' + (last.color_option || 'To confirm / not applicable') + '<br><strong>Email:</strong> ' + (last.email || '') +
-        '<br><strong>Checkout ID:</strong> ' + (last.request_id || '');
+        '<br><strong>Request ID:</strong> ' + (last.request_id || '');
     }
     if (last.sumup_url && payBtn) {
       payBtn.href = last.sumup_url;
       payBtn.style.display = 'inline-flex';
-      payBtn.addEventListener('click', function(){ window.dataLayer = window.dataLayer || []; window.dataLayer.push({ event: 'sumup_payment_click', product_name: last.product_name || '', price: last.price || '', request_id: last.request_id || '' }); });
     } else if (payBtn) {
       payBtn.style.display = 'none';
     }

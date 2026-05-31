@@ -9,7 +9,6 @@
 <title>Black striped clutch cover – Benda Custom Picks</title>
 <meta content="A clean black ribbed clutch cover that gives the engine side a stronger, more muscular and refined custom finish." name="description"/>
 <link href="./order-flow.css" rel="stylesheet"/>
-<link href="./cart-flow.css" rel="stylesheet"/>
 <style>
 :root{--bg:#080d13;--panel:#151b22;--line:rgba(255,255,255,.13);--text:#f2f6fb;--muted:#c7d0da;--accent:#38efb2;--cyan:#29c9d5}
 *{box-sizing:border-box}html,body{max-width:100%;overflow-x:hidden}
@@ -39,27 +38,6 @@ h2{font-size:31px;line-height:1.06;margin:0 0 18px}.desc{font-size:17px;line-hei
 .video-fallback{font-size:13px;line-height:1.4;color:#dbe4ed;margin:10px 2px 0}
 .video-fallback a{text-decoration:underline}
 @media(max-width:900px){.grid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(3,1fr)}.info-card{padding:22px}}
-
-/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
-video,
-.main-product-video,
-.media-card video,
-.video-preview video {
-  pointer-events: auto !important;
-  -webkit-user-select: auto !important;
-  user-select: auto !important;
-  -webkit-touch-callout: default !important;
-}
-
-.product-thumb.video-thumb {
-  pointer-events: auto !important;
-}
-
-.product-thumb.video-thumb img {
-  pointer-events: none;
-}
-/* END BENDAGO PATCH V9 */
-
 </style>
 </head>
 <body data-product="Black striped clutch cover">
@@ -75,7 +53,7 @@ video,
 <div class="video-title">Watch the product video</div>
 <div class="video-preview">
 <div class="video-shell">
-<video controls="" playsinline="" poster="./black-striped-clutch-cover-retouched-1.webp" autoplay="" muted="" loop="" webkit-playsinline="" preload="metadata">
+<video controls="" playsinline="" poster="./black-striped-clutch-cover-retouched-1.webp" preload="metadata">
 <source src="./black-striped-clutch-cover.mp4" type="video/mp4"/>
 Your browser cannot play this MP4.
 </video>
@@ -99,9 +77,9 @@ Your browser cannot play this MP4.
 <div class="divider"></div>
 <div class="price-label">Price</div>
 <div class="price">119 € TTC</div>
-<p class="note">Add to cart, then continue to secure SumUp card checkout. Delivery after payment: 10–15 days.</p>
-<a class="btn order-btn js-request-link" data-product-price="119 € TTC" data-order-price="119" data-product-name="Black striped clutch cover" data-order-product="Black striped clutch cover" href="./request-part.html?part=black-striped-clutch-cover">Add to cart &amp; pay securely →</a>
-<a class="btn secondary" href="./index.html#order-selected-parts">Need another product?</a>
+<p class="note">Confirm your order details first. You will pay securely by card after confirmation.</p>
+<a class="btn order-btn" data-order-price="119" data-order-product="Black striped clutch cover" href="./request-part.html?product=Black%20Striped%20Clutch%20Cover&amp;price=119">Order this part →</a>
+<a class="btn secondary" href="./index.html#pack">Need a full custom pack?</a>
 <p class="note">✓ Metal / stainless-steel clutch cover</p>
 <p class="note">✓ High-temperature ribbed black finish</p>
 <p class="note">✓ Stronger dark engine-side profile</p>
@@ -131,62 +109,7 @@ Your browser cannot play this MP4.
   });
 })();
 </script>
-
 <script src="./order-flow.js"></script>
-<script src="./cart-flow.js"></script>
-
-<script>
-/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
-(function () {
-  function isVisible(video) {
-    return !video.hidden && window.getComputedStyle(video).display !== 'none' && window.getComputedStyle(video).visibility !== 'hidden';
-  }
-
-  function playIfVisible(video) {
-    if (!isVisible(video)) return;
-    var playPromise = video.play && video.play();
-    if (playPromise && playPromise.catch) {
-      playPromise.catch(function () {});
-    }
-  }
-
-  function prepareVideo(video) {
-    video.muted = true;
-    video.defaultMuted = true;
-    video.loop = true;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.setAttribute('muted', '');
-    video.setAttribute('loop', '');
-    video.setAttribute('autoplay', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-    video.setAttribute('preload', 'metadata');
-
-    video.addEventListener('loadedmetadata', function () { playIfVisible(video); }, { once: true });
-    video.addEventListener('canplay', function () { playIfVisible(video); }, { once: true });
-    window.setTimeout(function () { playIfVisible(video); }, 400);
-  }
-
-  function setupVideos() {
-    document.querySelectorAll('video').forEach(prepareVideo);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupVideos);
-  } else {
-    setupVideos();
-  }
-
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) {
-      document.querySelectorAll('video').forEach(playIfVisible);
-    }
-  });
-}());
-/* END BENDAGO PATCH V9 */
-</script>
-
 <script defer="" src="./anti-copy.js"></script>
 </body>
 </html>

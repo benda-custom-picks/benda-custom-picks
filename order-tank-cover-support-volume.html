@@ -4,10 +4,9 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Tank cover / support volume – Bendago</title>
-<meta content="A custom tank top cover that adds visual volume and a more premium handcrafted feel to the center line of the bike." name="description"/>
+<title>Tank cover / support volume – Benda Custom Picks</title>
+<meta content="A custom tank top cover that adds visual volume and a more premium handcrafted feel to the center line of the Benda Napoleon." name="description"/>
 <link href="./order-flow.css" rel="stylesheet"/>
-<link href="./cart-flow.css" rel="stylesheet"/>
 <style>
     .thumb-row { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
     .product-thumb { padding:0; border:1px solid rgba(255,255,255,.16); border-radius:14px; overflow:hidden; background:rgba(255,255,255,.04); cursor:pointer; }
@@ -28,7 +27,7 @@
 <a href="./index.html#shop-builds">Builds</a>
 <a href="./index.html#order-selected-parts">Parts</a>
 <a href="./index.html#pack">Custom Pack</a>
-<a class="send-moto" href="./index.html#pack">Send my Moto</a>
+<a class="send-moto" href="./index.html#pack">Custom Help</a>
 </div>
 </nav>
 </header>
@@ -61,16 +60,16 @@
 <div>More sculpted and premium tank profile</div>
 </div>
 <div id="tankColorChoiceBlock" style="margin:18px 0 16px;padding:14px;border:1px solid rgba(77,247,168,.35);border-radius:16px;background:rgba(77,247,168,.07);">
-<div style="font-weight:900;color:#8fffe0;margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem;">Choose colour for checkout</div>
+<div style="font-weight:900;color:#8fffe0;margin-bottom:10px;letter-spacing:.04em;text-transform:uppercase;font-size:.82rem;">Choose colour before payment</div>
 <div style="display:flex;gap:8px;flex-wrap:wrap;">
 <button class="tank-color-option is-selected" data-colour="Black" style="display:inline-flex;align-items:center;justify-content:center;min-width:74px;padding:9px 12px;border-radius:999px;background:#050607;color:#ffffff;border:2px solid rgba(77,247,168,.95);font-weight:800;font-size:.9rem;cursor:pointer;" type="button">Black</button>
 <button class="tank-color-option" data-colour="Green" style="display:inline-flex;align-items:center;justify-content:center;min-width:74px;padding:9px 12px;border-radius:999px;background:#0f3d2c;color:#d9fff1;border:1px solid rgba(77,247,168,.35);font-weight:800;font-size:.9rem;cursor:pointer;" type="button">Green</button>
 <button class="tank-color-option" data-colour="Grey" style="display:inline-flex;align-items:center;justify-content:center;min-width:74px;padding:9px 12px;border-radius:999px;background:#8b929c;color:#0b1018;border:1px solid rgba(255,255,255,.25);font-weight:800;font-size:.9rem;cursor:pointer;" type="button">Grey</button>
 </div>
-<p id="selectedTankColourText" style="margin:10px 0 0;color:#cbd5e1;font-size:.92rem;line-height:1.45;">Selected colour: <strong style="color:#8fffe0;">Black</strong>. The selected colour is used for checkout.</p>
-</div><div class="price-line"><span>Price</span><br/><strong>187 € TTC</strong><p>Add to cart, then continue to secure SumUp card checkout. Delivery after payment: 10–15 days.</p></div>
-<a aria-label="Add to cart and continue to secure checkout" class="buy-btn js-request-link" data-product-name="Tank Volume Cover" data-product-price="187 € TTC" href="./request-part.html?part=tank-cover-support-volume" target="_self">Add to cart &amp; pay securely →</a>
-<a class="secondary-btn" href="./index.html#order-selected-parts">Need another product?</a>
+<p id="selectedTankColourText" style="margin:10px 0 0;color:#cbd5e1;font-size:.92rem;line-height:1.45;">Selected colour: <strong style="color:#8fffe0;">Black</strong>. The selected colour is confirmed in the order form before payment.</p>
+</div><div class="price-line"><span>Price</span><br/><strong>187 € TTC</strong><p>Confirm your order details first. You will pay securely by card after confirmation.</p></div>
+<a aria-label="Confirm order details for Tank Volume Cover" class="buy-btn js-request-link" data-product-name="Tank Volume Cover" data-product-price="187 € TTC" href="./request-part.html?part=tank-cover-support-volume" target="_self">Order this part →</a>
+<a class="secondary-btn" href="./index.html#pack">Need a full custom pack?</a>
 <div class="trust-list"><div>✓ Tank volume cover for Napoleon 125/250</div><div>✓ Black / Green / Grey finishes shown</div><div>✓ More sculpted and premium tank profile</div></div>
 </aside>
 </div>
@@ -100,7 +99,7 @@ document.querySelectorAll('.product-thumb').forEach(function(btn) {
     });
 
     if (selectedText) {
-      selectedText.innerHTML = 'Selected colour: <strong style="color:#8fffe0;">' + colour + '</strong>. The selected colour is used for checkout.';
+      selectedText.innerHTML = 'Selected colour: <strong style="color:#8fffe0;">' + colour + '</strong>. The selected colour is confirmed in the order form before payment.';
     }
 
     if (orderLink) {
@@ -120,9 +119,6 @@ document.querySelectorAll('.product-thumb').forEach(function(btn) {
   setColour('Black');
 })();
 </script>
-
-<script src="./order-flow.js"></script>
-<script src="./cart-flow.js"></script>
 <script defer="" src="./anti-copy.js"></script>
 </body>
 </html>
