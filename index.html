@@ -361,6 +361,161 @@ p {
   color: var(--muted);
 }
 
+.pack-choice-form {
+  margin-top: 18px;
+}
+
+.pack-fieldset {
+  border: 0;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.pack-fieldset legend {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-weight: 900;
+}
+
+.pack-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.pack-choice-card {
+  display: grid;
+  gap: 8px;
+  padding: 15px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.075);
+  border: 1px solid rgba(255,255,255,.15);
+  cursor: pointer;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.pack-choice-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(43,240,208,.55);
+}
+
+.pack-choice-card input {
+  width: 18px;
+  height: 18px;
+  accent-color: #29f0d0;
+}
+
+.pack-choice-card:has(input:checked) {
+  border-color: rgba(43,240,208,.95);
+  box-shadow: 0 0 0 2px rgba(43,240,208,.25), 0 18px 34px rgba(0,0,0,.22);
+}
+
+.pack-choice-title {
+  color: var(--text);
+  font-weight: 950;
+  font-size: 1rem;
+}
+
+.pack-choice-copy {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.4;
+}
+
+.pack-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.pack-form-grid .field {
+  display: grid;
+  gap: 7px;
+}
+
+.pack-form-grid .field.full {
+  grid-column: 1 / -1;
+}
+
+.pack-form-grid label {
+  color: var(--text);
+  font-weight: 900;
+  font-size: .92rem;
+}
+
+.pack-form-grid input,
+.pack-form-grid textarea {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(2,6,23,.54);
+  color: var(--text);
+  border-radius: 14px;
+  padding: 12px 13px;
+  font: inherit;
+  outline: none;
+}
+
+.pack-form-grid textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.pack-form-grid input:focus,
+.pack-form-grid textarea:focus {
+  border-color: rgba(43,240,208,.75);
+  box-shadow: 0 0 0 3px rgba(43,240,208,.16);
+}
+
+.pack-form-grid small {
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.pack-submit-btn {
+  border: 0;
+  width: 100%;
+  margin-top: 16px;
+  cursor: pointer;
+}
+
+.pack-submit-btn[disabled] {
+  opacity: .65;
+  cursor: wait;
+}
+
+.pack-status {
+  display: none;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-weight: 850;
+  line-height: 1.4;
+}
+
+.pack-status.show {
+  display: block;
+}
+
+.pack-status.ok {
+  background: rgba(34,197,94,.13);
+  border: 1px solid rgba(34,197,94,.38);
+  color: #bbf7d0;
+}
+
+.pack-status.err {
+  background: rgba(239,68,68,.12);
+  border: 1px solid rgba(239,68,68,.38);
+  color: #fecaca;
+}
+
+@media (max-width: 720px) {
+  .pack-choice-grid,
+  .pack-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 .quick-nav {
   display: flex;
   gap: 8px;
@@ -1654,14 +1809,61 @@ Your browser does not support the video tag.
 </nav>
 <section class="custom-pack wrap" id="pack">
 <h2>Need help choosing the right parts?</h2>
-<p class="hook">Send photos of your Benda, your budget and the style you want. We prepare a clean custom direction with the right parts and buying priorities.</p>
-<div class="pack-pills">
-<span>29 € — Pack Garage</span>
-<span>49 € — Custom Plus</span>
+<p class="hook">Choose your custom pack, upload your Benda photos and send your details. We prepare a clean custom direction with the right parts and buying priorities.</p>
+
+<form class="pack-choice-form" id="customPackForm" enctype="multipart/form-data">
+<input name="request_type" type="hidden" value="Custom Pack Request"/>
+<input name="product_code" type="hidden" value="custom-pack"/>
+<input name="product_name" type="hidden" value="Custom Pack Request"/>
+<input name="product_short" type="hidden" value="Custom Pack"/>
+<input name="price" type="hidden" value=""/>
+<input name="fitment" type="hidden" value="Benda Napoleon 125 / 250"/>
+<input name="delivery_estimate" type="hidden" value="Custom selection sent by email"/>
+<input name="payment_provider" type="hidden" value="Pack service"/>
+<input name="payment_url" type="hidden" value=""/>
+<input name="sumup_url" type="hidden" value=""/>
+<input name="request_page" type="hidden" value=""/>
+<input name="referrer" type="hidden" value=""/>
+<input name="request_id" type="hidden" value=""/>
+<input name="request_date" type="hidden" value=""/>
+<input name="customer_email" type="hidden" value=""/>
+<input name="admin_email" type="hidden" value="custom125picks@gmail.com"/>
+<input name="photo_file_names" type="hidden" value=""/>
+<input name="message" type="hidden" value=""/>
+
+<fieldset class="pack-fieldset">
+<legend>1. Choose your pack</legend>
+<div class="pack-choice-grid">
+<label class="pack-choice-card">
+<input name="pack_choice" required type="radio" value="Pack Garage" data-pack-price="29 €"/>
+<span class="pack-choice-title">29 € — Pack Garage</span>
+<span class="pack-choice-copy">Quick custom direction with buying priorities for a clean first upgrade.</span>
+</label>
+<label class="pack-choice-card">
+<input name="pack_choice" required type="radio" value="Custom Plus" data-pack-price="49 €"/>
+<span class="pack-choice-title">49 € — Custom Plus</span>
+<span class="pack-choice-copy">More complete custom direction with stronger part selection and build logic.</span>
+</label>
 </div>
-<a class="btn" href="https://www.facebook.com/BendaCustomPicks" rel="noopener noreferrer" target="_blank">Send Your Benda Photos</a>
+</fieldset>
+
+<div class="pack-form-grid">
+<div class="field"><label>Full name *</label><input name="customer_name" placeholder="e.g. John Doe" required/></div>
+<div class="field"><label>Email *</label><input name="email" placeholder="e.g. john@example.com" required type="email"/></div>
+<div class="field"><label>Phone *</label><input name="phone" placeholder="e.g. +33 6 12 34 56 78" required/></div>
+<div class="field"><label>Address / country *</label><input name="delivery_address" placeholder="Street, postcode, city, country" required/></div>
+<div class="field"><label>Benda model</label><input name="motorcycle_model" placeholder="e.g. Benda Napoleon 125"/></div>
+<div class="field"><label>Budget</label><input name="budget" placeholder="e.g. 300 € / 700 € / to confirm"/></div>
+<div class="field full"><label>Desired style *</label><textarea name="desired_style" placeholder="Tell us the look you want: front look, comfort, black bobber, rear rack, side bag, premium style..." required></textarea></div>
+<div class="field full"><label>Upload your Benda photos *</label><input accept="image/*" multiple name="benda_photos" required type="file"/><small>Upload up to 5 photos. Clear side, front and rear photos help us select the right parts.</small></div>
+</div>
+
 <div class="guarantee">Satisfaction guarantee: if the selection does not fit your style, we rework it for free.</div>
-<p class="pack-note">Selection based on the information provided: photos, desired style and product details.</p>
+<p class="pack-note">Selection based on the information provided: photos, desired style, budget and product details.</p>
+
+<button class="btn pack-submit-btn" type="submit">Send Your Pack Choice</button>
+<div class="status-box pack-status" id="customPackStatus"></div>
+</form>
 </section>
 <section class="wrap section">
 <div class="note"><strong>Benda Custom Picks selection:</strong> the most visible parts to transform your Benda Napoleon without starting a full custom project. Front end, seat, engine look, rear fender and side bag: choose your style, open the product page and order securely when available.</div>
@@ -1822,6 +2024,164 @@ buildVideo.play().catch(() => {});
     }
   });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="./emailjs-config.js"></script>
+
+<script>
+/* BENDAGO PATCH V23 — custom pack choice form */
+(function () {
+  const form = document.getElementById('customPackForm');
+  if (!form) return;
+
+  const status = document.getElementById('customPackStatus');
+  const fileInput = form.querySelector('input[name="benda_photos"]');
+  const maxFiles = 5;
+  const maxTotalMb = 15;
+
+  function showStatus(type, message) {
+    if (!status) return;
+    status.className = 'status-box pack-status show ' + type;
+    status.textContent = message;
+  }
+
+  function selectedPack() {
+    return form.querySelector('input[name="pack_choice"]:checked');
+  }
+
+  function fileSummary(files) {
+    return Array.from(files || []).map(file => file.name).join(', ');
+  }
+
+  function validateFiles() {
+    if (!fileInput) return true;
+    const files = Array.from(fileInput.files || []);
+    if (!files.length) {
+      showStatus('err', 'Please upload at least one clear Benda photo.');
+      return false;
+    }
+    if (files.length > maxFiles) {
+      showStatus('err', 'Please upload maximum 5 photos.');
+      return false;
+    }
+    const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+    if (totalBytes > maxTotalMb * 1024 * 1024) {
+      showStatus('err', 'Photos are too heavy. Please keep the total under 15 MB.');
+      return false;
+    }
+    return true;
+  }
+
+  function fillHiddenFields() {
+    const pack = selectedPack();
+    const price = pack ? (pack.getAttribute('data-pack-price') || '') : '';
+    const packName = pack ? pack.value : '';
+
+    const values = {
+      product_name: packName ? 'Custom Pack Request — ' + packName : 'Custom Pack Request',
+      product_short: packName || 'Custom Pack',
+      price: price,
+      request_page: window.location.href,
+      referrer: document.referrer || 'direct',
+      request_id: 'BENDAGO-PACK-' + Date.now(),
+      request_date: new Date().toLocaleString(),
+      customer_email: form.email ? form.email.value : '',
+      photo_file_names: fileInput ? fileSummary(fileInput.files) : ''
+    };
+
+    Object.keys(values).forEach(name => {
+      const input = form.querySelector('[name="' + name + '"]');
+      if (input) input.value = values[name];
+    });
+
+    const customerName = form.customer_name ? form.customer_name.value : '';
+    const email = form.email ? form.email.value : '';
+    const phone = form.phone ? form.phone.value : '';
+    const address = form.delivery_address ? form.delivery_address.value : '';
+    const model = form.motorcycle_model ? form.motorcycle_model.value : '';
+    const budget = form.budget ? form.budget.value : '';
+    const desiredStyle = form.desired_style ? form.desired_style.value : '';
+    const photoNames = values.photo_file_names || 'No photo name captured';
+
+    const message = [
+      'CUSTOM PACK REQUEST',
+      '',
+      'Pack: ' + (packName || 'Not selected'),
+      'Price: ' + (price || 'To confirm'),
+      '',
+      'Customer name: ' + customerName,
+      'Email: ' + email,
+      'Phone: ' + phone,
+      'Address / country: ' + address,
+      '',
+      'Benda model: ' + (model || 'To confirm'),
+      'Budget: ' + (budget || 'To confirm'),
+      'Desired style: ' + desiredStyle,
+      '',
+      'Uploaded photo file names: ' + photoNames,
+      '',
+      'Admin email: custom125picks@gmail.com'
+    ].join('\n');
+
+    const messageInput = form.querySelector('[name="message"]');
+    if (messageInput) messageInput.value = message;
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    const cfg = window.BENDAGO_EMAILJS_CONFIG || {};
+    const btn = form.querySelector('[type="submit"]');
+
+    if (!selectedPack()) {
+      showStatus('err', 'Please choose Pack Garage or Custom Plus.');
+      return;
+    }
+
+    if (!validateFiles()) return;
+
+    if (!cfg.publicKey || cfg.publicKey.includes('PASTE_') || !cfg.serviceId || cfg.serviceId.includes('PASTE_') || !cfg.adminTemplateId || cfg.adminTemplateId.includes('PASTE_')) {
+      showStatus('err', 'EmailJS is not configured yet. Check emailjs-config.js.');
+      return;
+    }
+
+    fillHiddenFields();
+
+    try {
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = 'Sending pack choice…';
+      }
+
+      showStatus('ok', 'Sending your pack choice…');
+
+      if (window.emailjs && emailjs.init) emailjs.init({ publicKey: cfg.publicKey });
+
+      await emailjs.sendForm(cfg.serviceId, cfg.packTemplateId || cfg.adminTemplateId, form);
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'custom_pack_choice_sent',
+        pack_choice: selectedPack().value,
+        customer_email: form.email ? form.email.value : '',
+        request_id: form.querySelector('[name="request_id"]') ? form.querySelector('[name="request_id"]').value : ''
+      });
+
+      showStatus('ok', 'Pack choice sent. We will review your photos and reply by email.');
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      showStatus('err', 'Pack choice could not be sent. Please try again or contact us on Instagram/Facebook.');
+    } finally {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = 'Send Your Pack Choice';
+      }
+    }
+  });
+}());
+/* END BENDAGO PATCH V23 */
+</script>
+
 <script src="./order-flow.js"></script>
 <script src="./cart-flow.js"></script>
 <script defer="" src="./anti-copy.js"></script>
