@@ -546,6 +546,32 @@ p {
   line-height: 1.35;
 }
 
+.photo-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.photo-upload-field {
+  display: grid;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 15px;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.14);
+}
+
+.photo-upload-field span {
+  color: var(--text);
+  font-weight: 900;
+  font-size: .9rem;
+}
+
+.photo-upload-field input[type="file"] {
+  padding: 10px;
+  border-style: dashed;
+}
+
 .pack-submit-btn {
   border: 0;
   width: 100%;
@@ -586,7 +612,8 @@ p {
 @media (max-width: 720px) {
   .pack-choice-grid,
   .pack-form-grid,
-  .budget-choice-grid {
+  .budget-choice-grid,
+  .photo-upload-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1951,7 +1978,15 @@ Your browser does not support the video tag.
 <small>Select the budget range you want us to respect for the parts selection.</small>
 </div>
 <div class="field full"><label>Desired style *</label><textarea name="desired_style" placeholder="Tell us the look you want: front look, comfort, black bobber, rear rack, side bag, premium style..." required></textarea></div>
-<div class="field full"><label>Upload your Benda photos *</label><input accept="image/*" multiple name="benda_photos" required type="file"/><small>Upload up to 5 photos. Clear side, front and rear photos help us select the right parts.</small></div>
+<div class="field full">
+<label>Upload your Benda photos *</label>
+<div class="photo-upload-grid">
+<div class="photo-upload-field"><span>Front / 3⁄4 view *</span><input accept="image/*" name="photo_front" required type="file"/></div>
+<div class="photo-upload-field"><span>Side view *</span><input accept="image/*" name="photo_side" required type="file"/></div>
+<div class="photo-upload-field"><span>Rear / detail view</span><input accept="image/*" name="photo_rear" type="file"/></div>
+</div>
+<small>Upload clear photos directly here. We use them to prepare your custom pack selection before sending the SumUp payment confirmation flow.</small>
+</div>
 </div>
 
 <label class="pack-confirm">
@@ -1961,7 +1996,7 @@ Your browser does not support the video tag.
 
 <div class="guarantee">Satisfaction guarantee: if the selection does not fit your style, we rework it for free.</div>
 <p class="pack-note">Selection based on the information provided: photos, desired style, budget and product details.</p>
-<p class="pack-payment-note">After sending the request, you will be redirected to the secure SumUp payment page for the selected pack.</p>
+<p class="pack-payment-note">After the request is sent, you will be redirected to the secure SumUp payment page for the selected pack.</p>
 
 <button class="btn pack-submit-btn" type="submit">Pay Securely & Send Pack Request</button>
 <div class="status-box pack-status" id="customPackStatus"></div>
@@ -2136,8 +2171,7 @@ buildVideo.play().catch(() => {});
   if (!form) return;
 
   const status = document.getElementById('customPackStatus');
-  const fileInput = form.querySelector('input[name="benda_photos"]');
-  const maxFiles = 5;
+  const photoInputs = Array.from(form.querySelectorAll('input[type="file"]'));
   const maxTotalMb = 15;
 
   function showStatus(type, message) {
@@ -2155,21 +2189,26 @@ buildVideo.play().catch(() => {});
     return pack ? (pack.getAttribute('data-payment-url') || '') : '';
   }
 
-  function fileSummary(files) {
-    return Array.from(files || []).map(file => file.name).join(', ');
+  function fileSummary() {
+    return photoInputs.map(function (input) {
+      const file = input.files && input.files[0];
+      return file ? input.name + ': ' + file.name : input.name + ': not provided';
+    }).join(' | ');
   }
 
   function validateFiles() {
-    if (!fileInput) return true;
-    const files = Array.from(fileInput.files || []);
-    if (!files.length) {
-      showStatus('err', 'Please upload at least one clear Benda photo.');
+    const front = form.querySelector('input[name="photo_front"]');
+    const side = form.querySelector('input[name="photo_side"]');
+
+    if (!front || !front.files || !front.files.length || !side || !side.files || !side.files.length) {
+      showStatus('err', 'Please upload at least the front / 3⁄4 view and side view photos.');
       return false;
     }
-    if (files.length > maxFiles) {
-      showStatus('err', 'Please upload maximum 5 photos.');
-      return false;
-    }
+
+    const files = photoInputs.flatMap(function (input) {
+      return Array.from(input.files || []);
+    });
+
     const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
     if (totalBytes > maxTotalMb * 1024 * 1024) {
       showStatus('err', 'Photos are too heavy. Please keep the total under 15 MB.');
@@ -2197,7 +2236,7 @@ buildVideo.play().catch(() => {});
       request_id: 'BENDAGO-PACK-' + Date.now(),
       request_date: new Date().toLocaleString(),
       customer_email: form.email ? form.email.value : '',
-      photo_file_names: fileInput ? fileSummary(fileInput.files) : ''
+      photo_file_names: fileSummary()
     };
 
     Object.keys(values).forEach(name => {
@@ -2294,7 +2333,7 @@ buildVideo.play().catch(() => {});
       }
     } catch (err) {
       console.error(err);
-      showStatus('err', 'Pack choice could not be sent. Please try again or contact us on Instagram/Facebook.');
+      showStatus('err', 'Pack request could not be sent. Please check the form fields and try again.');
     } finally {
       if (btn) {
         btn.disabled = false;
