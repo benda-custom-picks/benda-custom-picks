@@ -1913,7 +1913,7 @@ Your browser does not support the video tag.
 <h2>Need help choosing the right parts?</h2>
 <p class="hook">Choose your custom pack, upload your Benda photos and send your details. After secure payment confirmation, we prepare a clean custom direction with the right parts and buying priorities.</p>
 
-<form action="https://usebasin.com/f/0cfad5f7dae1" class="pack-choice-form" id="customPackForm" method="POST" enctype="multipart/form-data" data-basin-endpoint="https://usebasin.com/f/0cfad5f7dae1">
+<form action="https://usebasin.com/f/0cfad5f7dae1" class="pack-choice-form" id="customPackForm" method="POST" enctype="multipart/form-data" target="basinPackFrame" data-basin-endpoint="https://usebasin.com/f/0cfad5f7dae1">
 <input name="_subject" type="hidden" value="NEW CUSTOM PACK REQUEST - Benda Custom Picks"/>
 <input name="_captcha" type="hidden" value="false"/>
 <input name="_redirect" type="hidden" value="https://pay.sumup.com/b2c/QG7KE3MV"/>
@@ -2005,6 +2005,7 @@ Your browser does not support the video tag.
 <button class="btn pack-submit-btn" type="submit">Pay Securely & Send Pack Request</button>
 <div class="status-box pack-status" id="customPackStatus"></div>
 </form>
+<iframe aria-hidden="true" id="basinPackFrame" name="basinPackFrame" title="Basin submission frame" style="display:none;width:0;height:0;border:0;"></iframe>
 </section>
 <section class="wrap section">
 <div class="note"><strong>Benda Custom Picks selection:</strong> the most visible parts to transform your Benda Napoleon without starting a full custom project. Front end, seat, engine look, rear fender and side bag: choose your style, open the product page and order securely when available.</div>
@@ -2166,16 +2167,20 @@ buildVideo.play().catch(() => {});
   });
 </script>
 
+
 <script>
-/* BENDAGO PATCH V28 — Basin custom pack paid request form */
+/* BENDAGO PATCH V32 — robust Basin iframe submit then SumUp redirect */
 (function () {
   const form = document.getElementById('customPackForm');
-  if (!form) return;
+  const frame = document.getElementById('basinPackFrame');
+  if (!form || !frame) return;
 
+  const basinEndpoint = 'https://usebasin.com/f/0cfad5f7dae1';
   const status = document.getElementById('customPackStatus');
   const photoInputs = Array.from(form.querySelectorAll('input[type="file"]'));
   const maxTotalMb = 15;
-  const basinEndpoint = 'https://usebasin.com/f/0cfad5f7dae1';
+  let isSubmitting = false;
+  let redirectTimer = null;
 
   function showStatus(type, message) {
     if (!status) return;
@@ -2212,12 +2217,21 @@ buildVideo.play().catch(() => {});
       return Array.from(input.files || []);
     });
 
-    const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+    const totalBytes = files.reduce(function (sum, file) {
+      return sum + file.size;
+    }, 0);
+
     if (totalBytes > maxTotalMb * 1024 * 1024) {
       showStatus('err', 'Photos are too heavy. Please keep the total under 15 MB.');
       return false;
     }
+
     return true;
+  }
+
+  function setField(name, value) {
+    const input = form.querySelector('[name="' + name + '"]');
+    if (input) input.value = value;
   }
 
   function fillHiddenFields() {
@@ -2225,38 +2239,32 @@ buildVideo.play().catch(() => {});
     const price = pack ? (pack.getAttribute('data-pack-price') || '') : '';
     const packName = pack ? pack.value : '';
     const paymentUrl = selectedPaymentUrl();
+    const requestId = 'BENDAGO-PACK-' + Date.now();
 
-    const values = {
-      product_name: packName ? 'Custom Pack Request — ' + packName : 'Custom Pack Request',
-      product_short: packName || 'Custom Pack',
-      price: price,
-      payment_url: paymentUrl,
-      sumup_url: paymentUrl,
-      pack_payment_url: paymentUrl,
-      _redirect: paymentUrl,
-      payment_status: 'Pending SumUp confirmation',
-      request_page: window.location.href,
-      referrer: document.referrer || 'direct',
-      request_id: 'BENDAGO-PACK-' + Date.now(),
-      request_date: new Date().toLocaleString(),
-      customer_email: form.email ? form.email.value : '',
-      photo_file_names: fileSummary()
-    };
-
-    Object.keys(values).forEach(name => {
-      const input = form.querySelector('[name="' + name + '"]');
-      if (input) input.value = values[name];
-    });
-
+    const budgetInput = form.querySelector('input[name="budget"]:checked');
+    const budget = budgetInput ? budgetInput.value : '';
     const customerName = form.customer_name ? form.customer_name.value : '';
     const email = form.email ? form.email.value : '';
     const phone = form.phone ? form.phone.value : '';
     const address = form.delivery_address ? form.delivery_address.value : '';
     const model = form.motorcycle_model ? form.motorcycle_model.value : '';
-    const budgetInput = form.querySelector('input[name="budget"]:checked');
-    const budget = budgetInput ? budgetInput.value : '';
     const desiredStyle = form.desired_style ? form.desired_style.value : '';
-    const photoNames = values.photo_file_names || 'No photo name captured';
+    const photoNames = fileSummary();
+
+    setField('product_name', packName ? 'Custom Pack Request — ' + packName : 'Custom Pack Request');
+    setField('product_short', packName || 'Custom Pack');
+    setField('price', price);
+    setField('payment_url', paymentUrl);
+    setField('sumup_url', paymentUrl);
+    setField('pack_payment_url', paymentUrl);
+    setField('_redirect', paymentUrl);
+    setField('payment_status', 'Pending SumUp confirmation');
+    setField('request_page', window.location.href);
+    setField('referrer', document.referrer || 'direct');
+    setField('request_id', requestId);
+    setField('request_date', new Date().toLocaleString());
+    setField('customer_email', email);
+    setField('photo_file_names', photoNames);
 
     const message = [
       'CUSTOM PACK REQUEST',
@@ -2278,83 +2286,102 @@ buildVideo.play().catch(() => {});
       'Uploaded photo file names: ' + photoNames,
       '',
       'Basin endpoint: https://usebasin.com/f/0cfad5f7dae1'
-    ].join('
-');
+    ].join('\n');
 
-    const messageInput = form.querySelector('[name="message"]');
-    if (messageInput) messageInput.value = message;
+    setField('message', message);
+
+    return {
+      packName: packName,
+      paymentUrl: paymentUrl,
+      requestId: requestId,
+      email: email
+    };
   }
 
-  form.addEventListener('submit', async function (event) {
-    event.preventDefault();
+  function redirectToPayment(paymentUrl) {
+    if (!paymentUrl) return;
+    window.location.href = paymentUrl;
+  }
 
-    const btn = form.querySelector('[type="submit"]');
+  function submitToBasinIframe(event) {
+    if (event) event.preventDefault();
+    if (isSubmitting) return false;
+
     const pack = selectedPack();
-
     if (!pack) {
       showStatus('err', 'Please choose Garage Pack or Custom Plus Pack.');
-      return;
+      return false;
     }
 
-    if (!validateFiles()) return;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return false;
+    }
+
+    if (!validateFiles()) return false;
 
     const paymentUrl = selectedPaymentUrl();
     if (!paymentUrl) {
       showStatus('err', 'Payment link is missing. Please contact us on Instagram/Facebook.');
-      return;
+      return false;
     }
 
-    fillHiddenFields();
+    const payload = fillHiddenFields();
 
-    try {
-      if (btn) {
-        btn.disabled = true;
-        btn.textContent = 'Sending request…';
-      }
+    isSubmitting = true;
 
-      showStatus('ok', 'Sending your custom pack request…');
+    const btn = form.querySelector('[type="submit"]');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = 'Sending request…';
+    }
 
-      const formData = new FormData(form);
-      const response = await fetch(basinEndpoint, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        },
-        mode: 'cors'
-      });
+    showStatus('ok', 'Sending photos and request. Please wait…');
 
-      if (!response.ok) {
-        throw new Error('Basin submission failed: ' + response.status);
-      }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'custom_pack_choice_sent',
+      pack_choice: payload.packName,
+      customer_email: payload.email,
+      request_id: payload.requestId,
+      payment_url: payload.paymentUrl,
+      form_backend: 'basin_iframe'
+    });
 
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({
-        event: 'custom_pack_choice_sent',
-        pack_choice: pack.value,
-        customer_email: form.email ? form.email.value : '',
-        request_id: form.querySelector('[name="request_id"]') ? form.querySelector('[name="request_id"]').value : '',
-        payment_url: paymentUrl,
-        form_backend: 'basin'
-      });
+    let loadedOnce = false;
 
+    frame.onload = function () {
+      if (loadedOnce) return;
+      loadedOnce = true;
+
+      if (redirectTimer) window.clearTimeout(redirectTimer);
       showStatus('ok', 'Request sent. Redirecting to secure SumUp payment…');
 
       window.setTimeout(function () {
-        window.location.href = paymentUrl;
-      }, 900);
-    } catch (err) {
-      console.error(err);
-      showStatus('err', 'Request could not be sent. Please check the photos and fields, then try again.');
-    } finally {
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = 'Pay Securely & Send Pack Request';
-      }
-    }
-  });
+        redirectToPayment(paymentUrl);
+      }, 600);
+    };
+
+    redirectTimer = window.setTimeout(function () {
+      showStatus('ok', 'Request sent. Opening secure SumUp payment…');
+      redirectToPayment(paymentUrl);
+    }, 18000);
+
+    form.action = basinEndpoint;
+    form.method = 'POST';
+    form.enctype = 'multipart/form-data';
+    form.target = 'basinPackFrame';
+
+    HTMLFormElement.prototype.submit.call(form);
+
+    return false;
+  }
+
+  window.BENDAGO_PACK_SUBMIT = submitToBasinIframe;
+
+  form.addEventListener('submit', submitToBasinIframe, true);
 }());
-/* END BENDAGO PATCH V28 */
+/* END BENDAGO PATCH V32 */
 </script>
 
 <script src="./order-flow.js"></script>
@@ -2467,37 +2494,6 @@ buildVideo.play().catch(() => {});
 /* END BENDAGO PATCH V17 */
 </script>
 
-
-<script>
-/* BENDAGO PATCH V30 — Basin SumUp redirect safety net */
-(function () {
-  const form = document.getElementById('customPackForm');
-  if (!form) return;
-
-  function updatePackRedirect() {
-    const pack = form.querySelector('input[name="pack_choice"]:checked');
-    const paymentUrl = pack ? (pack.getAttribute('data-payment-url') || '') : '';
-    const redirect = form.querySelector('input[name="_redirect"]');
-    const payment = form.querySelector('input[name="payment_url"]');
-    const sumup = form.querySelector('input[name="sumup_url"]');
-    const packPayment = form.querySelector('input[name="pack_payment_url"]');
-
-    if (paymentUrl) {
-      if (redirect) redirect.value = paymentUrl;
-      if (payment) payment.value = paymentUrl;
-      if (sumup) sumup.value = paymentUrl;
-      if (packPayment) packPayment.value = paymentUrl;
-    }
-  }
-
-  form.querySelectorAll('input[name="pack_choice"]').forEach(function (input) {
-    input.addEventListener('change', updatePackRedirect);
-  });
-
-  form.addEventListener('submit', updatePackRedirect, true);
-}());
-/* END BENDAGO PATCH V30 */
-</script>
 
 </body>
 </html>
