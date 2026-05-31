@@ -84,6 +84,86 @@ video,
 }
 /* END BENDAGO PATCH V14 */
 
+
+/* BENDAGO PATCH V19 — dual exhaust video tile hard fix */
+.dual-exhaust-media {
+  position: relative;
+}
+
+.dual-exhaust-media .main-product-img,
+.dual-exhaust-media .main-product-video,
+.dual-exhaust-media .dual-exhaust-sound-video {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 190px;
+  display: block;
+  border-radius: 18px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #05070b;
+}
+
+.dual-exhaust-media .main-product-img[hidden],
+.dual-exhaust-media .main-product-video[hidden],
+.dual-exhaust-media .dual-exhaust-sound-video[hidden] {
+  display: none !important;
+}
+
+.dual-exhaust-media.is-video-mode .main-product-video,
+.dual-exhaust-media.is-sound-mode .dual-exhaust-sound-video {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.dual-exhaust-gallery .thumb-video {
+  width: 100%;
+  height: 86px;
+  display: block;
+  object-fit: cover;
+  background: #05070b;
+  pointer-events: none;
+}
+
+.dual-exhaust-gallery .product-thumb.video-thumb.active,
+.dual-exhaust-gallery .product-thumb.video-thumb:focus-visible {
+  border-color: #29f0d0 !important;
+  box-shadow: 0 0 0 2px rgba(41,240,208,.55), 0 0 24px rgba(41,240,208,.20) !important;
+}
+
+.dual-exhaust-gallery .product-thumb.sound-video-thumb.active,
+.dual-exhaust-gallery .product-thumb.sound-video-thumb:focus-visible {
+  border-color: #f6c431 !important;
+  box-shadow: 0 0 0 2px rgba(246,196,49,.55), 0 0 24px rgba(246,196,49,.20) !important;
+}
+
+.dual-exhaust-direct-link {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: rgba(226,232,240,.78);
+  line-height: 1.35;
+}
+
+.dual-exhaust-direct-link a {
+  color: #7fffe8;
+  text-decoration: underline;
+  font-weight: 800;
+}
+
+@media (max-width: 520px) {
+  .dual-exhaust-media .main-product-img,
+  .dual-exhaust-media .main-product-video,
+  .dual-exhaust-media .dual-exhaust-sound-video {
+    min-height: 178px;
+  }
+
+  .dual-exhaust-gallery .thumb-video {
+    height: 82px;
+  }
+}
+/* END BENDAGO PATCH V19 */
+
 </style>
 </head>
 <body class="order-body">
@@ -115,15 +195,15 @@ Your browser cannot play this MP4.
 Your browser cannot play this MP4.
 </video>
 <p class="sound-video-note" id="dualExhaustSoundNote" style="display:none;">Sound enabled: tap play to hear the complete dual exhaust preview.</p>
+<p class="dual-exhaust-direct-link" id="dualExhaustDirectLinks" style="display:none;">If the preview does not start, open the MP4 directly: <a href="./dual-exhaust-product-video.mp4" target="_blank" rel="noopener">Video</a> / <a href="./complete-dual-exhaust-gallery.mp4" target="_blank" rel="noopener">Sound</a></p>
 
 <div aria-label="Dual Exhaust Custom Kit gallery" class="thumb-row gallery dual-exhaust-gallery">
 <button class="product-thumb active" data-alt="Dual Exhaust Custom Kit installed chrome side view" data-src="./dual-exhaust-gallery-01.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit installed chrome side view" loading="lazy" src="./dual-exhaust-gallery-01.webp"/></button>
 <button class="product-thumb" data-alt="Dual Exhaust Custom Kit before and after modification view" data-src="./dual-exhaust-gallery-02.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit before and after modification view" loading="lazy" src="./dual-exhaust-gallery-02.webp"/></button>
 <button class="product-thumb" data-alt="Dual Exhaust Custom Kit standalone chrome pipes product view" data-src="./dual-exhaust-gallery-03.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit standalone chrome pipes product view" loading="lazy" src="./dual-exhaust-gallery-03.webp"/></button>
 <button class="product-thumb" data-alt="Dual Exhaust Custom Kit installed Benda Napoleon side detail view" data-src="./dual-exhaust-gallery-04.webp" data-type="image" type="button"><img alt="Dual Exhaust Custom Kit installed Benda Napoleon side detail view" loading="lazy" src="./dual-exhaust-gallery-04.webp"/></button>
-<button class="product-thumb video-thumb" data-alt="Dual Exhaust Custom Kit product video" data-type="video" data-video="./dual-exhaust-product-video.mp4" type="button"><img alt="Dual Exhaust Custom Kit product video" loading="lazy" src="./dual-exhaust-video-poster.webp"/><span class="video-badge">▶ Video</span></button>
-<button aria-label="Show complete dual exhaust MP4 with sound" class="product-thumb video-thumb sound-video-thumb" data-src="./complete-dual-exhaust-gallery.mp4" data-type="sound-video" type="button"><img alt="Complete dual exhaust MP4 with sound" loading="lazy" src="./dual-exhaust-video-poster.webp"/><span class="video-badge">▶ Sound</span></button>
-
+<button class="product-thumb video-thumb" data-alt="Dual Exhaust Custom Kit product video" data-type="video" data-video="./dual-exhaust-product-video.mp4" type="button"><video aria-hidden="true" autoplay muted loop playsinline webkit-playsinline preload="metadata" class="thumb-video"><source src="./dual-exhaust-product-video.mp4" type="video/mp4"/></video><span class="video-badge">▶ Video</span></button>
+<button aria-label="Show complete dual exhaust MP4 with sound" class="product-thumb video-thumb sound-video-thumb" data-src="./complete-dual-exhaust-gallery.mp4" data-type="sound-video" type="button"><video aria-hidden="true" autoplay muted loop playsinline webkit-playsinline preload="metadata" class="thumb-video"><source src="./complete-dual-exhaust-gallery.mp4" type="video/mp4"/></video><span class="video-badge">▶ Sound</span></button>
 </div>
 </div>
 </section>
@@ -156,176 +236,200 @@ Your browser cannot play this MP4.
 </div>
 </main>
 <footer class="order-footer"><div class="order-wrap">© <span id="year">2026</span> Benda Custom Picks — independent, not affiliated with the brands mentioned.</div></footer>
+
+
+
+
+
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
-
-(function() {
-  var mainImg = document.getElementById('mainProductImage');
-  var mainVideo = document.getElementById('mainProductVideo');
-  var videoSource = mainVideo ? mainVideo.querySelector('source') : null;
-
-  function setActive(button) {
-    document.querySelectorAll('.dual-exhaust-gallery .product-thumb').forEach(function(item) {
-      item.classList.remove('active');
-    });
-    button.classList.add('active');
+/* BENDAGO PATCH V19 — dual exhaust video tile hard fix */
+(function () {
+  function ready(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
   }
 
-  document.querySelectorAll('.dual-exhaust-gallery .product-thumb').forEach(function(button) {
-    button.addEventListener('click', function() {
-      setActive(button);
+  function safePlay(video) {
+    if (!video) return;
+    const promise = video.play && video.play();
+    if (promise && promise.catch) promise.catch(function () {});
+  }
 
-      if (button.getAttribute('data-type') === 'video') {
-        var src = button.getAttribute('data-video');
-        if (videoSource && src) {
-          videoSource.setAttribute('src', src);
-          mainVideo.load();
-        }
-        mainImg.hidden = true;
-        mainVideo.hidden = false;
-        mainVideo.play().catch(function() {});
-        return;
+  ready(function () {
+    const year = document.getElementById('year');
+    if (year) year.textContent = new Date().getFullYear();
+
+    const mediaCard = document.querySelector('.dual-exhaust-media');
+    const gallery = document.querySelector('.dual-exhaust-gallery');
+    const mainImage = document.getElementById('mainProductImage');
+    const mainVideo = document.getElementById('mainProductVideo');
+    const mainVideoSource = mainVideo ? mainVideo.querySelector('source') : null;
+    const soundVideo = document.getElementById('dualExhaustSoundVideo');
+    const soundVideoSource = soundVideo ? soundVideo.querySelector('source') : null;
+    const soundNote = document.getElementById('dualExhaustSoundNote');
+    const directLinks = document.getElementById('dualExhaustDirectLinks');
+
+    if (!gallery || !mediaCard) return;
+
+    function setActive(button) {
+      gallery.querySelectorAll('.product-thumb').forEach(function (item) {
+        item.classList.remove('active', 'is-active');
+        item.setAttribute('aria-pressed', 'false');
+      });
+      button.classList.add('active');
+      button.setAttribute('aria-pressed', 'true');
+    }
+
+    function hideAllMainMedia() {
+      mediaCard.classList.remove('is-image-mode', 'is-video-mode', 'is-sound-mode');
+
+      if (mainImage) {
+        mainImage.hidden = true;
+        mainImage.style.display = 'none';
       }
 
       if (mainVideo) {
-        mainVideo.pause();
-        mainVideo.currentTime = 0;
+        try { mainVideo.pause(); } catch (e) {}
         mainVideo.hidden = true;
+        mainVideo.setAttribute('hidden', '');
+        mainVideo.style.display = 'none';
       }
-      mainImg.src = button.getAttribute('data-src');
-      mainImg.alt = button.getAttribute('data-alt') || 'Dual Exhaust Custom Kit product view';
-      mainImg.hidden = false;
+
+      if (soundVideo) {
+        try { soundVideo.pause(); } catch (e) {}
+        soundVideo.hidden = true;
+        soundVideo.setAttribute('hidden', '');
+        soundVideo.style.display = 'none';
+      }
+
+      if (soundNote) soundNote.style.display = 'none';
+      if (directLinks) directLinks.style.display = 'none';
+    }
+
+    function showImage(button) {
+      hideAllMainMedia();
+
+      if (!mainImage) return;
+
+      mainImage.src = button.getAttribute('data-src') || mainImage.src;
+      mainImage.alt = button.getAttribute('data-alt') || 'Dual Exhaust Custom Kit product view';
+      mainImage.hidden = false;
+      mainImage.removeAttribute('hidden');
+      mainImage.style.display = 'block';
+      mediaCard.classList.add('is-image-mode');
+    }
+
+    function showVideo(button) {
+      hideAllMainMedia();
+
+      if (!mainVideo || !mainVideoSource) return;
+
+      const src = button.getAttribute('data-video') || './dual-exhaust-product-video.mp4';
+      if (mainVideoSource.getAttribute('src') !== src) {
+        mainVideoSource.setAttribute('src', src);
+        mainVideo.load();
+      }
+
+      mainVideo.muted = true;
+      mainVideo.defaultMuted = true;
+      mainVideo.setAttribute('muted', '');
+      mainVideo.controls = true;
+      mainVideo.setAttribute('controls', '');
+      mainVideo.loop = true;
+      mainVideo.setAttribute('loop', '');
+      mainVideo.autoplay = true;
+      mainVideo.setAttribute('autoplay', '');
+      mainVideo.setAttribute('playsinline', '');
+      mainVideo.setAttribute('webkit-playsinline', '');
+      mainVideo.hidden = false;
+      mainVideo.removeAttribute('hidden');
+      mainVideo.style.display = 'block';
+      mainVideo.style.visibility = 'visible';
+      mainVideo.style.opacity = '1';
+      mediaCard.classList.add('is-video-mode');
+
+      if (directLinks) directLinks.style.display = 'block';
+
+      mainVideo.load();
+      window.setTimeout(function () { safePlay(mainVideo); }, 80);
+    }
+
+    function showSoundVideo(button) {
+      hideAllMainMedia();
+
+      if (!soundVideo || !soundVideoSource) return;
+
+      const src = button.getAttribute('data-src') || './complete-dual-exhaust-gallery.mp4';
+      if (soundVideoSource.getAttribute('src') !== src) {
+        soundVideoSource.setAttribute('src', src);
+        soundVideo.load();
+      }
+
+      soundVideo.muted = false;
+      soundVideo.defaultMuted = false;
+      soundVideo.removeAttribute('muted');
+      soundVideo.controls = true;
+      soundVideo.setAttribute('controls', '');
+      soundVideo.loop = false;
+      soundVideo.removeAttribute('loop');
+      soundVideo.autoplay = false;
+      soundVideo.removeAttribute('autoplay');
+      soundVideo.setAttribute('playsinline', '');
+      soundVideo.setAttribute('webkit-playsinline', '');
+      soundVideo.hidden = false;
+      soundVideo.removeAttribute('hidden');
+      soundVideo.style.display = 'block';
+      soundVideo.style.visibility = 'visible';
+      soundVideo.style.opacity = '1';
+      mediaCard.classList.add('is-sound-mode');
+
+      if (soundNote) soundNote.style.display = 'block';
+      if (directLinks) directLinks.style.display = 'block';
+
+      soundVideo.load();
+      window.setTimeout(function () { safePlay(soundVideo); }, 80);
+    }
+
+    gallery.querySelectorAll('.product-thumb').forEach(function (button) {
+      button.addEventListener('click', function (event) {
+        event.preventDefault();
+        setActive(button);
+
+        const type = button.getAttribute('data-type');
+
+        if (type === 'video') {
+          showVideo(button);
+          return;
+        }
+
+        if (type === 'sound-video') {
+          showSoundVideo(button);
+          return;
+        }
+
+        showImage(button);
+      });
+    });
+
+    gallery.querySelectorAll('.thumb-video').forEach(function (video) {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      video.setAttribute('webkit-playsinline', '');
+      video.setAttribute('preload', 'metadata');
+      safePlay(video);
+      video.addEventListener('canplay', function () { safePlay(video); }, { once: true });
     });
   });
-})();
+}());
+/* END BENDAGO PATCH V19 */
 </script>
 
 <script src="./order-flow.js"></script>
 <script src="./cart-flow.js"></script>
 
-<script>
-/* BENDAGO PATCH V9 — gallery MP4 autoplay/video-safe */
-(function () {
-  function isVisible(video) {
-    return !video.hidden && window.getComputedStyle(video).display !== 'none' && window.getComputedStyle(video).visibility !== 'hidden';
-  }
-
-  function playIfVisible(video) {
-    if (!isVisible(video)) return;
-    var playPromise = video.play && video.play();
-    if (playPromise && playPromise.catch) {
-      playPromise.catch(function () {});
-    }
-  }
-
-  function prepareVideo(video) {
-    video.muted = true;
-    video.defaultMuted = true;
-    video.loop = true;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.setAttribute('muted', '');
-    video.setAttribute('loop', '');
-    video.setAttribute('autoplay', '');
-    video.setAttribute('playsinline', '');
-    video.setAttribute('webkit-playsinline', '');
-    video.setAttribute('preload', 'metadata');
-
-    video.addEventListener('loadedmetadata', function () { playIfVisible(video); }, { once: true });
-    video.addEventListener('canplay', function () { playIfVisible(video); }, { once: true });
-    window.setTimeout(function () { playIfVisible(video); }, 400);
-  }
-
-  function setupVideos() {
-    document.querySelectorAll('video').forEach(prepareVideo);
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupVideos);
-  } else {
-    setupVideos();
-  }
-
-  document.addEventListener('visibilitychange', function () {
-    if (!document.hidden) {
-      document.querySelectorAll('video').forEach(playIfVisible);
-    }
-  });
-}());
-/* END BENDAGO PATCH V9 */
-</script>
 
 
-<script>
-/* BENDAGO PATCH V14 — dual exhaust sound video */
-(function () {
-  function setupDualExhaustSoundVideo() {
-    const soundVideo = document.getElementById('dualExhaustSoundVideo');
-    const soundNote = document.getElementById('dualExhaustSoundNote');
-    const mainImage = document.getElementById('mainProductImage');
-    const mainVideo = document.getElementById('mainProductVideo');
-    const videoSource = soundVideo ? soundVideo.querySelector('source') : null;
 
-    if (!soundVideo || !videoSource) return;
-
-    document.querySelectorAll('[data-type="sound-video"][data-src]').forEach((btn) => {
-      btn.addEventListener('click', function (event) {
-        event.preventDefault();
-
-        const src = btn.getAttribute('data-src') || './complete-dual-exhaust-gallery.mp4';
-
-        if (mainImage) {
-          mainImage.hidden = true;
-          mainImage.style.display = 'none';
-        }
-
-        if (mainVideo) {
-          try { mainVideo.pause(); } catch (e) {}
-          mainVideo.hidden = true;
-          mainVideo.style.display = 'none';
-        }
-
-        if (videoSource.getAttribute('src') !== src) {
-          videoSource.setAttribute('src', src);
-          soundVideo.load();
-        }
-
-        soundVideo.muted = false;
-        soundVideo.removeAttribute('muted');
-        soundVideo.controls = true;
-        soundVideo.setAttribute('controls', '');
-        soundVideo.setAttribute('playsinline', '');
-        soundVideo.hidden = false;
-        soundVideo.style.display = 'block';
-        if (soundNote) soundNote.style.display = 'block';
-
-        document.querySelectorAll('.product-thumb').forEach((thumb) => thumb.classList.remove('active', 'is-active'));
-        btn.classList.add('active');
-
-        soundVideo.play().catch(function () {
-          // Some mobile browsers require a second tap for sound; controls remain visible.
-        });
-      });
-    });
-
-    document.querySelectorAll('.product-thumb:not([data-type="sound-video"])').forEach((btn) => {
-      btn.addEventListener('click', function () {
-        try { soundVideo.pause(); } catch (e) {}
-        soundVideo.hidden = true;
-        soundVideo.style.display = 'none';
-        if (soundNote) soundNote.style.display = 'none';
-      });
-    });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupDualExhaustSoundVideo);
-  } else {
-    setupDualExhaustSoundVideo();
-  }
-}());
-/* END BENDAGO PATCH V14 */
-</script>
-
-<script defer="" src="./anti-copy.js"></script>
 </body></html>
