@@ -410,6 +410,43 @@ p {
   box-shadow: 0 0 0 2px rgba(43,240,208,.25), 0 18px 34px rgba(0,0,0,.22);
 }
 
+.budget-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.budget-choice-card {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 13px;
+  border-radius: 15px;
+  background: rgba(255,255,255,.065);
+  border: 1px solid rgba(255,255,255,.14);
+  color: var(--text);
+  font-weight: 900;
+  cursor: pointer;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+.budget-choice-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(43,240,208,.55);
+}
+
+.budget-choice-card input {
+  width: 17px;
+  height: 17px;
+  accent-color: #29f0d0;
+}
+
+.budget-choice-card:has(input:checked) {
+  border-color: rgba(246,196,49,.9);
+  box-shadow: 0 0 0 2px rgba(246,196,49,.22), 0 16px 30px rgba(0,0,0,.18);
+}
+
 .pack-choice-title {
   color: var(--text);
   font-weight: 950;
@@ -511,7 +548,8 @@ p {
 
 @media (max-width: 720px) {
   .pack-choice-grid,
-  .pack-form-grid {
+  .pack-form-grid,
+  .budget-choice-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1853,7 +1891,24 @@ Your browser does not support the video tag.
 <div class="field"><label>Phone *</label><input name="phone" placeholder="e.g. +33 6 12 34 56 78" required/></div>
 <div class="field"><label>Address / country *</label><input name="delivery_address" placeholder="Street, postcode, city, country" required/></div>
 <div class="field"><label>Benda model</label><input name="motorcycle_model" placeholder="e.g. Benda Napoleon 125"/></div>
-<div class="field"><label>Budget</label><input name="budget" placeholder="e.g. 300 € / 700 € / to confirm"/></div>
+<div class="field full">
+<label>Parts budget *</label>
+<div class="budget-choice-grid" role="radiogroup" aria-label="Parts budget">
+<label class="budget-choice-card">
+<input name="budget" required type="radio" value="Up to 500 €"/>
+<span>Up to 500 €</span>
+</label>
+<label class="budget-choice-card">
+<input name="budget" required type="radio" value="500–1000 €"/>
+<span>500–1000 €</span>
+</label>
+<label class="budget-choice-card">
+<input name="budget" required type="radio" value="More than 1500 €"/>
+<span>More than 1500 €</span>
+</label>
+</div>
+<small>Select the budget range you want us to respect for the parts selection.</small>
+</div>
 <div class="field full"><label>Desired style *</label><textarea name="desired_style" placeholder="Tell us the look you want: front look, comfort, black bobber, rear rack, side bag, premium style..." required></textarea></div>
 <div class="field full"><label>Upload your Benda photos *</label><input accept="image/*" multiple name="benda_photos" required type="file"/><small>Upload up to 5 photos. Clear side, front and rear photos help us select the right parts.</small></div>
 </div>
